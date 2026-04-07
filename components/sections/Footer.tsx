@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="footer">
@@ -7,12 +9,12 @@ export default function Footer() {
           <p className="footer-tagline">Yaşatmak için, önce iyi öğren.</p>
         </div>
         <nav className="footer-links" aria-label="Alt navigasyon">
-          <a href="#">Kullanım Koşulları</a>
-          <a href="mailto:info@psefitone.com">İletişim</a>
+          <Link href="/kullanim-kosullari">Kullanım Koşulları</Link>
+          <Link href="/gizlilik-politikasi">Gizlilik Politikası</Link>
         </nav>
       </div>
       <p className="footer-legal">
-        [ŞİRKET ADI] · Vergi No: [VERGİ NO] · &copy; 2025 Psefitone. Tüm hakları saklıdır.
+        &copy; 2026 Psefitone. Tüm hakları saklıdır.
       </p>
     </footer>
   );

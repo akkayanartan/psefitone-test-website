@@ -33,7 +33,7 @@ export default function Nav() {
 
       <nav className={`nav${solid ? " nav--solid" : ""}`} id="mainNav">
         <div className="nav-inner">
-          <a href="#" className="nav-logo" aria-label="Psefitone - Ana Sayfa">
+          <a href="/" className="nav-logo" aria-label="Psefitone - Ana Sayfa">
             <Image
               src="/horizontal-logo.png"
               alt="Psefitone"

@@ -4,6 +4,7 @@ import VSL from "@/components/sections/VSL";
 import Marquee from "@/components/sections/Marquee";
 import ForWhom from "@/components/sections/ForWhom";
 import Features from "@/components/sections/Features";
+import Comparison from "@/components/sections/Comparison";
 import Outcomes from "@/components/sections/Outcomes";
 import Curriculum from "@/components/sections/Curriculum";
 import Instructor from "@/components/sections/Instructor";
@@ -22,6 +23,7 @@ export default function Home() {
         <Marquee />
         <ForWhom />
         <Features />
+        <Comparison />
         <Outcomes />
         <Curriculum />
         <Instructor />

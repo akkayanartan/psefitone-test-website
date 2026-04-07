@@ -37,13 +37,14 @@ export default function VSL() {
             transition={{ delay: 0.65, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <iframe
-              src="https://www.youtube.com/embed/oifnBjSKv7c?si=AtQYdDI0olf1Kp7q"
-              title="Psefitone Kickstarter — Tanıtım Videosu"
+              width="560"
+              height="315"
+              src="https://www.youtube-nocookie.com/embed/XuC7tGf2k0I?si=yPHZMMO1FwoQ54iy"
+              title="YouTube video player"
               frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               referrerPolicy="strict-origin-when-cross-origin"
               allowFullScreen
-              loading="lazy"
             />
           </motion.div>
 

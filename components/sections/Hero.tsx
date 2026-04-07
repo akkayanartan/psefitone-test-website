@@ -75,7 +75,7 @@ export default function Hero() {
           <a href="#basvur" className="btn btn-primary btn-lg">
             Başvuru Formunu Doldur
           </a>
-          <p className="hero-note">Sınırlı kontenjan · Mayıs 2025 başlangıcı</p>
+          <p className="hero-note">Sınırlı kontenjan · Mayıs 2026 başlangıcı</p>
         </div>
         <div className="seat-counter" id="h-counter">
           <span className="pulse-dot" aria-hidden="true" />

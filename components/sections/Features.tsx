@@ -178,7 +178,7 @@ export default function Features() {
           </div>
           <div className="soundslice-wrapper">
             <iframe
-              src="https://www.soundslice.com/slices/gjT1c/embed/"
+              src="https://www.soundslice.com/slices/nS11c/embed/"
               width="100%"
               height="500"
               frameBorder="0"

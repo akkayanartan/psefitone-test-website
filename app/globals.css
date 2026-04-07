@@ -45,10 +45,10 @@
   --color-brand-secondary: #8629ff;
   --color-brand-accent: #e3e0aa;
   --color-brand-dark: #0e0a1a;
-  --color-brand-dark2: #1e1530;
-  --color-brand-dark3: #28203c;
+  --color-brand-dark2: #1a1229;
+  --color-brand-dark3: #231b35;
   --color-brand-text: #f0ecf8;
-  --color-brand-muted: #b8aece;
+  --color-brand-muted: #9b91b0;
 }
 
 :root {
@@ -57,10 +57,10 @@
   --brand-secondary: #8629ff;
   --brand-accent:    #e3e0aa;
   --brand-dark:      #0e0a1a;
-  --brand-dark2:     #1e1530;
-  --brand-dark3:     #28203c;
+  --brand-dark2:     #1a1229;
+  --brand-dark3:     #231b35;
   --brand-text:      #f0ecf8;
-  --brand-muted:     #b8aece;
+  --brand-muted:     #9b91b0;
   --brand-border:    rgba(203,195,214,0.15);
 
   /* Legacy CSS variable names (used in vanilla styles) */
@@ -68,10 +68,10 @@
   --secondary:     #8629ff;
   --accent:        #e3e0aa;
   --dark:          #0e0a1a;
-  --dark2:         #1e1530;
-  --dark3:         #28203c;
+  --dark2:         #1a1229;
+  --dark3:         #231b35;
   --text:          #f0ecf8;
-  --text-muted:    #b8aece;
+  --text-muted:    #9b91b0;
   --border:        rgba(203,195,214,0.15);
 
   /* Tint palette */
@@ -106,22 +106,22 @@
   /* shadcn compat */
   --background: #0e0a1a;
   --foreground: #f0ecf8;
-  --card: #1e1530;
+  --card: #1a1229;
   --card-foreground: #f0ecf8;
-  --popover: #1e1530;
+  --popover: #1a1229;
   --popover-foreground: #f0ecf8;
-  --muted: #28203c;
-  --muted-foreground: #b8aece;
+  --muted: #231b35;
+  --muted-foreground: #9b91b0;
   --accent-foreground: #f0ecf8;
   --destructive: oklch(0.577 0.245 27.325);
   --input: rgba(203,195,214,0.15);
   --ring: #8629ff;
   --radius: 0.25rem;
-  --sidebar: #1e1530;
+  --sidebar: #1a1229;
   --sidebar-foreground: #f0ecf8;
   --sidebar-primary: #8629ff;
   --sidebar-primary-foreground: #f0ecf8;
-  --sidebar-accent: #28203c;
+  --sidebar-accent: #231b35;
   --sidebar-accent-foreground: #f0ecf8;
   --sidebar-border: rgba(203,195,214,0.15);
   --sidebar-ring: #8629ff;
@@ -600,7 +600,7 @@ ul { list-style: none; }
 .marquee-section {
   padding: 4rem 0;
   overflow: hidden;
-  background: rgba(40,32,60,0.82);
+  background: rgba(35,27,53,0.82);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -625,8 +625,8 @@ ul { list-style: none; }
   pointer-events: none;
 }
 
-.marquee-fade-left  { left:  0; background: linear-gradient(to right, rgba(40,32,60,0.82), transparent); }
-.marquee-fade-right { right: 0; background: linear-gradient(to left, rgba(40,32,60,0.82), transparent); }
+.marquee-fade-left  { left:  0; background: linear-gradient(to right, rgba(35,27,53,0.82), transparent); }
+.marquee-fade-right { right: 0; background: linear-gradient(to left, rgba(35,27,53,0.82), transparent); }
 
 .marquee-track {
   display: flex;
@@ -1371,7 +1371,7 @@ ul { list-style: none; }
 
 /* ─── CONTACT ───────────────────────────────────────────────────────────── */
 .contact-section {
-  background: rgba(40,32,60,0.82);
+  background: rgba(35,27,53,0.82);
 }
 
 .contact-card {
@@ -1610,152 +1610,5 @@ ul { list-style: none; }
   /* Tighten lesson list padding on mobile */
   .curriculum-lessons-list {
     padding: 8px 16px 20px !important;
-  }
-}
-
-/* ─── MOBILE UX: SPACING, TYPOGRAPHY, TOUCH ────────────────────────────── */
-@media (max-width: 640px) {
-
-  /* — B1: Section vertical padding — */
-  :root {
-    --section-pad-v: 3.5rem;
-  }
-
-  /* — B2: Section header margin — */
-  .section-header {
-    margin-bottom: 2rem;
-  }
-
-  /* — B3: Hero adjustments — */
-  .hero {
-    min-height: auto;
-    padding-bottom: 3.5rem;
-    padding-top: calc(var(--nav-height) + 2.5rem);
-  }
-  .hero-sub {
-    margin-bottom: 1.8rem;
-  }
-  .scroll-hint {
-    bottom: 1.5rem;
-  }
-
-  /* — B4: Card padding reductions — */
-  .who-card {
-    padding: 1.4rem 1.4rem 1.6rem;
-  }
-  .feature-card {
-    padding: 1.3rem;
-  }
-  .highlight-card {
-    padding: 1.6rem 1.4rem;
-  }
-  .marquee-card {
-    padding: 1.1rem 1.4rem;
-    min-width: 260px;
-  }
-
-  /* — B5: Grid gap tightening — */
-  .who-grid {
-    gap: 1rem;
-  }
-  .features-grid {
-    gap: 0.9rem;
-    margin-bottom: 2rem;
-  }
-  .outcomes-grid {
-    gap: 2rem;
-  }
-
-  /* — B6: Internal spacing reductions — */
-  .who-card-head {
-    margin-bottom: 1rem;
-  }
-  .cta-center {
-    margin-top: 1.8rem;
-  }
-  .seat-counter--center {
-    margin: 1rem 0 1.8rem;
-  }
-  .video-wrapper {
-    margin: 1.5rem 0;
-  }
-
-  /* — B7: Marquee section vertical padding — */
-  .marquee-section {
-    padding: 2.5rem 0;
-  }
-  .marquee-label {
-    margin-bottom: 1.2rem;
-  }
-
-  /* — B8: Soundslice block — */
-  .soundslice-block {
-    padding-top: 2rem;
-  }
-
-  /* — B9: Curriculum list top margin — */
-  .curric-list {
-    margin-top: 2rem;
-  }
-
-  /* — C1: Body line-height + weight — */
-  body {
-    line-height: 1.65;
-    font-weight: 500;
-  }
-
-  /* — C2: Small text size bumps — */
-  .section-tag {
-    font-size: 0.8rem;
-  }
-  .feature-card p,
-  .who-list li,
-  .checklist-item span:last-child {
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-  .hero-note {
-    font-size: 0.84rem;
-  }
-  .marquee-author {
-    font-size: 0.8rem;
-  }
-  .seat-counter {
-    font-size: 0.88rem;
-  }
-  .soundslice-tag,
-  .vsl-tag {
-    font-size: 0.82rem;
-  }
-  .faq-q {
-    font-size: 0.95rem;
-  }
-
-  /* — D1: Touch targets — */
-  .faq-q {
-    min-height: 48px;
-  }
-  .btn-primary,
-  .btn-whatsapp {
-    min-height: 48px;
-  }
-  .nav-cta {
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-  }
-
-  /* — D2: Overflow safety — */
-  .section-inner {
-    overflow-x: hidden;
-  }
-  .hero-headline {
-    word-break: break-word;
-  }
-
-  /* — D3: Marquee fade width — */
-  .marquee-fade-left,
-  .marquee-fade-right {
-    width: 60px;
   }
 }

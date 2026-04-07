@@ -132,7 +132,7 @@ export default function Comparison() {
           </p>
         </div>
 
-        {/* Column headers */}
+        {/* Column headers — hidden on mobile */}
         <div
           className="cmp-col-headers"
           style={{
@@ -190,6 +190,7 @@ export default function Comparison() {
             >
               {/* Label */}
               <div
+                className="cmp-cell-label"
                 style={{
                   padding: "1rem 1.25rem",
                   display: "flex",
@@ -208,6 +209,7 @@ export default function Comparison() {
 
               {/* Traditional */}
               <div
+                className="cmp-cell-trad"
                 style={{
                   padding: "1rem 1.25rem",
                   display: "flex",
@@ -241,6 +243,7 @@ export default function Comparison() {
 
               {/* Psefitone — glowing */}
               <div
+                className="cmp-cell-psef"
                 style={{
                   padding: "1rem 1.25rem",
                   display: "flex",

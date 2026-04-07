@@ -1470,3 +1470,145 @@ ul { list-style: none; }
   opacity: 0;
   transform: translateY(24px);
 }
+
+/* ─── MOBILE RESPONSIVE (≤ 640px) ──────────────────────────────────────── */
+
+/* Nav: show short label on small screens */
+.nav-cta-short { display: none; }
+@media (max-width: 500px) {
+  .nav-cta-full  { display: none; }
+  .nav-cta-short { display: inline; }
+}
+
+/* Soundslice iframe: reduce height on mobile */
+@media (max-width: 640px) {
+  .soundslice-iframe { height: 300px !important; }
+}
+
+/* ── Comparison: stack 3-col grid vertically on mobile ── */
+@media (max-width: 640px) {
+  /* Hide the desktop column header row */
+  .cmp-col-headers { display: none !important; }
+
+  /* Each row becomes a vertical flex card */
+  .cmp-row {
+    display: flex !important;
+    flex-direction: column;
+  }
+
+  /* Label spans full width, no right border */
+  .cmp-cell-label {
+    border-right: none !important;
+    border-bottom: 1px solid var(--brand-border);
+    padding: 0.75rem 1rem !important;
+  }
+
+  /* Traditional cell: add mini-label via pseudo, no right border */
+  .cmp-cell-trad {
+    border-right: none !important;
+    border-bottom: 1px solid var(--brand-border);
+    padding: 0.625rem 1rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.375rem !important;
+  }
+  .cmp-cell-trad::before {
+    content: "Geleneksel";
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0.7;
+  }
+
+  /* Psefitone cell: add mini-label via pseudo */
+  .cmp-cell-psef {
+    padding: 0.625rem 1rem !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.375rem !important;
+  }
+  .cmp-cell-psef::before {
+    content: "Psefitone";
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brand-secondary);
+  }
+
+  /* Keep the left accent bar hidden on mobile (absolute positioned, not useful stacked) */
+  .cmp-cell-psef > div[aria-hidden="true"] { display: none; }
+}
+
+/* ── Curriculum: horizontal tab sidebar + full-width panel on mobile ── */
+@media (max-width: 640px) {
+  /* Switch vessel from side-by-side grid to vertical stack */
+  .curriculum-vessel {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Sidebar becomes a horizontal scrollable tab strip */
+  .curriculum-sidebar {
+    border-right: none !important;
+    border-bottom: 1px solid var(--brand-border);
+    flex-direction: row !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* Hide scrollbar visually */
+    scrollbar-width: none;
+  }
+  .curriculum-sidebar::-webkit-scrollbar { display: none; }
+
+  /* The decorative progress track is vertical — hide on mobile */
+  .curriculum-sidebar > div[aria-hidden="true"] { display: none; }
+
+  /* Sidebar nav: horizontal flex row */
+  .curriculum-sidebar-nav {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    flex: unset !important;
+    width: max-content;
+  }
+
+  /* Each tab button: compact, auto-width */
+  .curriculum-sidebar-nav button {
+    padding: 10px 16px !important;
+    width: auto !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-shrink: 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.2s ease !important;
+  }
+
+  /* Hide the tagline/desc text inside each tab — keep only number + title */
+  .curriculum-sidebar-nav button > span > span:last-child {
+    display: none !important;
+  }
+
+  /* Hide the sidebar footer (lesson count) on mobile */
+  .curriculum-sidebar > div:last-child {
+    display: none !important;
+  }
+
+  /* Panel: full width, fixed viewport height instead of 620px */
+  .curriculum-panel {
+    height: 65vh !important;
+    max-height: 500px;
+  }
+
+  /* Tighten module banner padding on mobile */
+  .curriculum-module-banner {
+    padding: 14px 16px 12px !important;
+    gap: 10px !important;
+  }
+
+  /* Tighten lesson list padding on mobile */
+  .curriculum-lessons-list {
+    padding: 8px 16px 20px !important;
+  }
+}

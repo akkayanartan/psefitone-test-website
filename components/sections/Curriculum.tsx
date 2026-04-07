@@ -201,6 +201,7 @@ export default function Curriculum() {
 
         {/* Vessel */}
         <div
+          className="curriculum-vessel"
           style={{
             display: "grid",
             gridTemplateColumns: "240px 1fr",
@@ -214,6 +215,7 @@ export default function Curriculum() {
         >
           {/* ── LEFT SIDEBAR ── */}
           <div
+            className="curriculum-sidebar"
             style={{
               borderRight: "1px solid var(--brand-border)",
               display: "flex",
@@ -252,7 +254,7 @@ export default function Curriculum() {
               }}
             />
 
-            <nav style={{ flex: 1, padding: "8px 0", position: "relative", zIndex: 2 }}>
+            <nav className="curriculum-sidebar-nav" style={{ flex: 1, padding: "8px 0", position: "relative", zIndex: 2 }}>
               {curriculum.map((m, idx) => {
                 const isActive = idx === activeModule;
                 return (
@@ -373,6 +375,7 @@ export default function Curriculum() {
 
           {/* ── RIGHT PANEL (scrollable) ── */}
           <div
+            className="curriculum-panel"
             ref={scrollContainerRef}
             style={{
               overflowY: "auto",
@@ -390,6 +393,7 @@ export default function Curriculum() {
               >
                 {/* Module banner */}
                 <div
+                  className="curriculum-module-banner"
                   style={{
                     position: "sticky",
                     top: 0,
@@ -475,7 +479,7 @@ export default function Curriculum() {
                 </div>
 
                 {/* Lessons */}
-                <div style={{ padding: "12px 32px 28px" }}>
+                <div className="curriculum-lessons-list" style={{ padding: "12px 32px 28px" }}>
                   {mod.lessons.map((lesson, li) => {
                     const reason = lessonReasons[lesson.text];
                     const isLast = li === mod.lessons.length - 1;

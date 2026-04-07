@@ -44,7 +44,8 @@ export default function Nav() {
             />
           </a>
           <a href="#basvur" className="btn btn-primary nav-cta">
-            Başvuru Formunu Doldur
+            <span className="nav-cta-full">Başvuru Formunu Doldur</span>
+            <span className="nav-cta-short">Başvur</span>
           </a>
         </div>
       </nav>

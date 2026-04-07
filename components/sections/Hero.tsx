@@ -67,9 +67,7 @@ export default function Hero() {
           <em>önce iyi öğren.</em>
         </h1>
         <p className="hero-sub" id="h-sub">
-          Türkiye Çerkes diasporası için tasarlanan
-          <br />
-          ilk modern akordeon metodolojisi.
+          Türkiye Çerkes diasporası için tasarlanan ilk modern akordeon metodolojisi.
         </p>
         <div className="hero-actions" id="h-actions">
           <a href="#basvur" className="btn btn-primary btn-lg">

@@ -181,6 +181,7 @@ export default function Features() {
               src="https://www.soundslice.com/slices/nS11c/embed/"
               width="100%"
               height="500"
+              className="soundslice-iframe"
               frameBorder="0"
               allowFullScreen
               loading="lazy"

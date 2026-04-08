@@ -2,7 +2,6 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/sections/Hero";
 import VSL from "@/components/sections/VSL";
 import Marquee from "@/components/sections/Marquee";
-import ForWhom from "@/components/sections/ForWhom";
 import Features from "@/components/sections/Features";
 import Comparison from "@/components/sections/Comparison";
 import Outcomes from "@/components/sections/Outcomes";
@@ -38,9 +37,6 @@ export default function Home() {
         </section>
         <section id="outcomes">
           <Outcomes />
-        </section>
-        <section id="for-whom">
-          <ForWhom />
         </section>
         <section id="instructor">
           <Instructor />

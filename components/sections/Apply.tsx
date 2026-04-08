@@ -7,27 +7,8 @@ import Script from "next/script";
 
 gsap.registerPlugin(ScrollTrigger);
 
-declare global {
-  interface Window {
-    jotformEmbedHandler?: (selector: string, url: string) => void;
-  }
-}
-
 export default function Apply() {
   const sectionRef = useRef<HTMLElement>(null);
-  const formLoadedRef = useRef(false);
-
-  useEffect(() => {
-    // Ensure jotform handler runs after script loads
-    const timer = setTimeout(() => {
-      if (window.jotformEmbedHandler && !formLoadedRef.current) {
-        window.jotformEmbedHandler("iframe[id='JotFormIFrame-260575845473972']", "https://form.jotform.com/");
-        formLoadedRef.current = true;
-      }
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   useGSAP(
     () => {
@@ -112,6 +93,9 @@ export default function Apply() {
         <div
           className="quota-notice gsap-reveal"
           style={{
+            display: "flex",
+            alignItems: "flex-start",
+            gap: "0.9rem",
             maxWidth: "620px",
             margin: "0 auto 2rem",
             padding: "1rem 1.2rem",
@@ -123,54 +107,33 @@ export default function Apply() {
             lineHeight: "1.65",
           }}
         >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            style={{ flexShrink: 0, marginTop: "1px", color: "#39ff14" }}
+          >
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
           <p>
-            <span style={{ color: "#39ff14", fontWeight: "600" }}>Kontenjan 10 kişiyle sınırlı.</span> Başvurular geliş sırasına göre değerlendirilir; kontenjan dolduğunda form kapatılır. Başvuru yaptıysan fakat kontenjan dolduysa, seni <span style={{ color: "#39ff14", fontWeight: "600" }}>bekleme listesine</span> alıyorum.
+            <span style={{ color: "#39ff14", fontWeight: "600" }}>Kontenjan sınırlı.</span> Başvurular geliş sırasına göre değerlendirilir; kontenjan dolduğunda form kapatılır. Başvuru yaptıysan fakat kontenjan dolduysa, seni <span style={{ color: "#39ff14", fontWeight: "600" }}>bekleme listesine</span> alıyorum.
           </p>
         </div>
 
         {/* JotForm embed */}
         <div className="form-wrapper gsap-reveal">
-          <iframe
-            id="JotFormIFrame-260575845473972"
-            title="Psefitone Ön Kayıt ve Değerlendirme Formu"
-            onLoad={() => window.parent.scrollTo(0, 0)}
-            allowTransparency={true}
-            allow="geolocation; microphone; camera; fullscreen; payment"
-            src="https://form.jotform.com/260575845473972"
-            frameBorder="0"
-            style={{
-              minWidth: "100%",
-              maxWidth: "100%",
-              height: "539px",
-              border: "none",
-            }}
-            scrolling="no"
-          >
-            Yükleniyor&hellip;
-          </iframe>
+          <Script
+            src="https://form.jotform.com/jsform/260575845473972"
+            strategy="lazyOnload"
+          />
         </div>
-        <p className="form-fallback">
-          Form yüklenmiyorsa{" "}
-          <a
-            href="https://form.jotform.com/260575845473972"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            buraya tıklayarak yeni sekmede aç.
-          </a>
-        </p>
-
-        {/* JotForm embed handler script */}
-        <Script
-          src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"
-          strategy="afterInteractive"
-          onLoad={() => {
-            if (window.jotformEmbedHandler && !formLoadedRef.current) {
-              window.jotformEmbedHandler("iframe[id='JotFormIFrame-260575845473972']", "https://form.jotform.com/");
-              formLoadedRef.current = true;
-            }
-          }}
-        />
 
         {/* WhatsApp */}
         <div className="cta-center" style={{ marginTop: "2rem" }}>

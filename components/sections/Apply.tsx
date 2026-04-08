@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -129,9 +129,28 @@ export default function Apply() {
 
         {/* JotForm embed */}
         <div className="form-wrapper gsap-reveal">
+          <iframe
+            id="JotFormIFrame-260575845473972"
+            title="Psefitone Ön Kayıt ve Değerlendirme Formu"
+            allowTransparency={true}
+            allow="geolocation; microphone; camera; fullscreen; payment"
+            src="https://form.jotform.com/260575845473972"
+            frameBorder={0}
+            style={{ minWidth: "100%", maxWidth: "100%", height: "539px", border: "none", display: "block" }}
+            scrolling="no"
+            loading="eager"
+          />
           <Script
-            src="https://form.jotform.com/jsform/260575845473972"
-            strategy="lazyOnload"
+            src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"
+            strategy="afterInteractive"
+            onLoad={() => {
+              if (typeof window !== "undefined" && (window as any).jotformEmbedHandler) {
+                (window as any).jotformEmbedHandler(
+                  "iframe[id='JotFormIFrame-260575845473972']",
+                  "https://form.jotform.com/"
+                );
+              }
+            }}
           />
         </div>
 

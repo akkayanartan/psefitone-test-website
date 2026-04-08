@@ -321,6 +321,7 @@ export default function Curriculum() {
 
                     {/* Title */}
                     <span
+                      className="curriculum-module-title"
                       style={{
                         fontFamily: "var(--font-body)",
                         fontSize: "0.775rem",

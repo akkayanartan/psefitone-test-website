@@ -36,20 +36,41 @@ export default function Marquee() {
       <div className="section-inner">
         <span className="section-tag marquee-label">Öğrenci Geri Bildirimleri</span>
       </div>
-      <div className="marquee-outer">
-        <div className="marquee-fade-left" aria-hidden="true" />
-        <div className="marquee-fade-right" aria-hidden="true" />
-        <div className="marquee-track" id="marqueeTrack">
-          {allTestimonials.map((t, i) => (
-            <article
-              key={i}
-              className="marquee-card"
-              aria-hidden={i >= testimonials.length ? "true" : undefined}
-            >
-              <p>&ldquo;{t.quote}&rdquo;</p>
-              <span className="marquee-author">{t.author}</span>
-            </article>
-          ))}
+      <div className="marquee-rows">
+        {/* First row — default left scroll */}
+        <div className="marquee-outer">
+          <div className="marquee-fade-left" aria-hidden="true" />
+          <div className="marquee-fade-right" aria-hidden="true" />
+          <div className="marquee-track" id="marqueeTrack">
+            {allTestimonials.map((t, i) => (
+              <article
+                key={i}
+                className="marquee-card"
+                aria-hidden={i >= testimonials.length ? "true" : undefined}
+              >
+                <p>&ldquo;{t.quote}&rdquo;</p>
+                <span className="marquee-author">{t.author}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        {/* Second row — reverse right scroll (mobile only) */}
+        <div className="marquee-outer marquee-row-second">
+          <div className="marquee-fade-left" aria-hidden="true" />
+          <div className="marquee-fade-right" aria-hidden="true" />
+          <div className="marquee-track marquee-track-reverse" id="marqueeTrackReverse">
+            {allTestimonials.map((t, i) => (
+              <article
+                key={i}
+                className="marquee-card"
+                aria-hidden={i >= testimonials.length ? "true" : undefined}
+              >
+                <p>&ldquo;{t.quote}&rdquo;</p>
+                <span className="marquee-author">{t.author}</span>
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </div>

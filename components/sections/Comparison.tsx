@@ -54,6 +54,7 @@ export default function Comparison() {
   const labelsContainerRef = useRef<HTMLDivElement>(null);
   const [labelWidth, setLabelWidth] = useState<string>("auto");
   const [psefitoneWidth, setPsefitoneWidth] = useState<string>("auto");
+  const [activeLabelIdx, setActiveLabelIdx] = useState<number | null>(null);
 
   useLayoutEffect(() => {
     if (labelsContainerRef.current) {
@@ -192,6 +193,11 @@ export default function Comparison() {
           </div>
         </div>
 
+        {/* Mobile CTA text */}
+        <p className="cmp-mobile-cta">
+          Etiketlere dokun, formatlar arasındaki farkı keşfet.
+        </p>
+
         {/* Rows */}
         <div ref={labelsContainerRef} style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
           {rows.map((row, i) => (
@@ -262,9 +268,10 @@ export default function Comparison() {
                 />
               </div>
 
-              {/* Label (center-aligned) */}
+              {/* Label (center-aligned, clickable on mobile) */}
               <div
-                className="cmp-cell-label"
+                className={`cmp-cell-label ${i === activeLabelIdx ? "cmp-cell-label--active" : ""}`}
+                onClick={() => setActiveLabelIdx(i === activeLabelIdx ? null : i)}
                 style={{
                   padding: "1rem 1.25rem",
                   display: "flex",
@@ -279,6 +286,10 @@ export default function Comparison() {
                   background: "rgba(227,224,170,0.04)",
                   whiteSpace: "nowrap",
                   textAlign: "center",
+                  ...(i === activeLabelIdx && {
+                    transform: "scale(1.08)",
+                    boxShadow: "0 0 16px rgba(134,41,255,0.5), 0 0 32px rgba(134,41,255,0.25)",
+                  }),
                 }}
               >
                 {row.label}

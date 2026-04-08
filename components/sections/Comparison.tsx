@@ -74,6 +74,7 @@ export default function Comparison() {
 
   useGSAP(
     () => {
+      // Header: runs on both breakpoints
       gsap.fromTo(
         ".comparison-header",
         { opacity: 0, y: 24 },
@@ -90,23 +91,82 @@ export default function Comparison() {
         }
       );
 
-      gsap.utils.toArray<HTMLElement>(".cmp-row").forEach((row, i) => {
-        gsap.fromTo(
-          row,
-          { opacity: 0, y: 20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.55,
-            ease: "power2.out",
-            delay: i * 0.06,
+      const mm = gsap.matchMedia();
+
+      // ── DESKTOP (unchanged) ──────────────────────────────────────
+      mm.add("(min-width: 641px)", () => {
+        gsap.utils.toArray<HTMLElement>(".cmp-row").forEach((row, i) => {
+          gsap.fromTo(
+            row,
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.55,
+              ease: "power2.out",
+              delay: i * 0.06,
+              scrollTrigger: {
+                trigger: row,
+                start: "top 92%",
+                toggleActions: "play none none none",
+              },
+            }
+          );
+        });
+      });
+
+      // ── MOBILE: scroll-scrubbed reveal ──────────────────────────
+      mm.add("(max-width: 640px)", () => {
+        gsap.utils.toArray<HTMLElement>(".cmp-row").forEach((row) => {
+          const psefCell = row.querySelector<HTMLElement>(".cmp-cell-psef");
+          const tradCell = row.querySelector<HTMLElement>(".cmp-cell-trad");
+          if (!psefCell || !tradCell) return;
+
+          gsap.set([psefCell, tradCell], { willChange: "transform, opacity" });
+
+          // Scrubbed timeline: frame + cells tied directly to scroll position
+          const tl = gsap.timeline({
             scrollTrigger: {
               trigger: row,
-              start: "top 92%",
-              toggleActions: "play none none none",
+              start: "top 90%",
+              end: "center 55%",
+              scrub: 0.7,
             },
-          }
-        );
+          });
+
+          // Row frame fades in
+          tl.fromTo(row, { opacity: 0 }, { opacity: 1, ease: "none" }, 0);
+
+          // Psef cell: slides in from left + scales up (come-from-behind-on-top)
+          tl.fromTo(
+            psefCell,
+            { x: -45, scale: 0.85, opacity: 0 },
+            { x: 0, scale: 1, opacity: 1, ease: "power2.out" },
+            0
+          );
+
+          // Trad cell: same motion, arrives dimmed
+          tl.fromTo(
+            tradCell,
+            { x: -45, scale: 0.85, opacity: 0 },
+            { x: 0, scale: 1, opacity: 0.55, ease: "power2.out" },
+            0.25
+          );
+
+          // Non-scrubbed glow trigger — CSS class toggled at scroll threshold
+          ScrollTrigger.create({
+            trigger: row,
+            start: "top 75%",
+            onEnter: () => psefCell.classList.add("cmp-cell-psef--glowing"),
+            onLeaveBack: () => psefCell.classList.remove("cmp-cell-psef--glowing"),
+          });
+        });
+
+        return () => {
+          gsap.utils.toArray<HTMLElement>(".cmp-cell-psef, .cmp-cell-trad").forEach((el) => {
+            gsap.set(el as HTMLElement, { clearProps: "willChange" });
+          });
+        };
       });
     },
     { scope: sectionRef }
@@ -195,7 +255,7 @@ export default function Comparison() {
 
         {/* Mobile CTA text */}
         <p className="cmp-mobile-cta">
-          Etiketlere dokun, formatlar arasındaki farkı keşfet.
+          Aşağı kaydır, farkı satır satır keşfet.
         </p>
 
         {/* Rows */}

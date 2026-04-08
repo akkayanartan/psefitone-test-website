@@ -1922,6 +1922,7 @@ ul { list-style: none; }
     flex-direction: column !important;
     align-items: center !important;
     gap: 0 !important;
+    overflow: hidden; /* clips cells during x-slide animation */
   }
 
   /* Order and width for each cell */
@@ -1966,6 +1967,36 @@ ul { list-style: none; }
     border-right: none !important;
     border-radius: 0 0 8px 8px !important;
     padding: 1rem 1.25rem !important;
+  }
+}
+
+/* ─── COMPARISON: Mobile Scroll Animation Initial States ────────────── */
+@media (max-width: 640px) {
+  /* Rows start invisible; GSAP scrub drives to opacity 1 */
+  .cmp-row {
+    opacity: 0;
+  }
+  /* Cells start off-left and scaled back; GSAP scrub drives to final position */
+  .cmp-cell-psef,
+  .cmp-cell-trad {
+    transform: translateX(-45px) scale(0.85);
+    opacity: 0;
+  }
+  /* Label anchor is always visible */
+  .cmp-cell-label {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ─── COMPARISON: Mobile Psef Glow State ────────────────────────────── */
+@media (max-width: 640px) {
+  .cmp-cell-psef--glowing {
+    box-shadow:
+      0 0 18px rgba(134,41,255,0.55),
+      0 0 36px rgba(134,41,255,0.25),
+      inset 0 1px 0 rgba(134,41,255,0.4) !important;
+    transition: box-shadow 0.45s ease;
   }
 }
 

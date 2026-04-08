@@ -18,20 +18,46 @@ export default function Home() {
     <>
       <Nav />
       <main>
-        <Hero />
-        <VSL />
-        <Marquee />
-        <ForWhom />
-        <Features />
-        <Comparison />
-        <Outcomes />
-        <Curriculum />
-        <Instructor />
-        <FAQ />
-        <Apply />
-        <Contact />
+        <section id="hero">
+          <Hero />
+        </section>
+        <section id="vsl">
+          <VSL />
+        </section>
+        <section id="marquee">
+          <Marquee />
+        </section>
+        <section id="comparison">
+          <Comparison />
+        </section>
+        <section id="features">
+          <Features />
+        </section>
+        <section id="curriculum">
+          <Curriculum />
+        </section>
+        <section id="outcomes">
+          <Outcomes />
+        </section>
+        <section id="for-whom">
+          <ForWhom />
+        </section>
+        <section id="instructor">
+          <Instructor />
+        </section>
+        <section id="faq">
+          <FAQ />
+        </section>
+        <section id="basvur">
+          <Apply />
+        </section>
+        <section id="contact">
+          <Contact />
+        </section>
       </main>
-      <Footer />
+      <footer id="footer">
+        <Footer />
+      </footer>
     </>
   );
 }

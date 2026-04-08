@@ -158,7 +158,7 @@ export default function Curriculum() {
     >
       <div style={{ maxWidth: "var(--max-width)", margin: "0 auto" }}>
         {/* Section header */}
-        <div style={{ marginBottom: "3rem" }}>
+        <div style={{ marginBottom: "3rem", textAlign: "center" }}>
           <span
             style={{
               fontFamily: "var(--font-body)",
@@ -193,6 +193,8 @@ export default function Curriculum() {
               color: "var(--text-muted)",
               lineHeight: 1.7,
               maxWidth: "520px",
+              margin: "0 auto",
+              textAlign: "center",
             }}
           >
             10 haftalık programın içeriği. Her modül, bir sonrakine zemin hazırlar.
@@ -254,7 +256,7 @@ export default function Curriculum() {
               }}
             />
 
-            <nav className="curriculum-sidebar-nav" style={{ flex: 1, padding: "8px 0", position: "relative", zIndex: 2 }}>
+            <nav className="curriculum-sidebar-nav" style={{ flex: 1, padding: "0", position: "relative", zIndex: 2, display: "flex", flexDirection: "column" }}>
               {curriculum.map((m, idx) => {
                 const isActive = idx === activeModule;
                 return (
@@ -265,10 +267,11 @@ export default function Curriculum() {
                       all: "unset",
                       cursor: "pointer",
                       display: "flex",
-                      alignItems: "flex-start",
+                      alignItems: "center",
                       gap: "12px",
-                      padding: "13px 20px 13px 14px",
+                      padding: "0 20px 0 14px",
                       width: "100%",
+                      flex: 1,
                       boxSizing: "border-box",
                       position: "relative",
                       background: isActive ? "rgba(134,41,255,0.1)" : "transparent",
@@ -316,33 +319,18 @@ export default function Curriculum() {
                       {m.num}
                     </span>
 
-                    {/* Title + tagline */}
-                    <span style={{ display: "flex", flexDirection: "column", gap: "3px" }}>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-body)",
-                          fontSize: "0.775rem",
-                          fontWeight: isActive ? 600 : 400,
-                          color: isActive ? "var(--text)" : "var(--text-muted)",
-                          lineHeight: 1.35,
-                          transition: "color 0.25s ease",
-                        }}
-                      >
-                        {m.title}
-                      </span>
-                      <span
-                        style={{
-                          fontFamily: "var(--font-body)",
-                          fontSize: "0.66rem",
-                          color: isActive ? "var(--accent)" : "transparent",
-                          fontStyle: "italic",
-                          opacity: isActive ? 0.8 : 0,
-                          transition: "opacity 0.25s ease, color 0.25s ease",
-                          letterSpacing: "0.01em",
-                        }}
-                      >
-                        {m.desc}
-                      </span>
+                    {/* Title */}
+                    <span
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.775rem",
+                        fontWeight: isActive ? 600 : 400,
+                        color: isActive ? "var(--text)" : "var(--text-muted)",
+                        lineHeight: 1.35,
+                        transition: "color 0.25s ease",
+                      }}
+                    >
+                      {m.title}
                     </span>
                   </button>
                 );

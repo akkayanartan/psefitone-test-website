@@ -1,13 +1,33 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Script from "next/script";
 
 gsap.registerPlugin(ScrollTrigger);
 
+declare global {
+  interface Window {
+    jotformEmbedHandler?: (selector: string, url: string) => void;
+  }
+}
+
 export default function Apply() {
   const sectionRef = useRef<HTMLElement>(null);
+  const formLoadedRef = useRef(false);
+
+  useEffect(() => {
+    // Ensure jotform handler runs after script loads
+    const timer = setTimeout(() => {
+      if (window.jotformEmbedHandler && !formLoadedRef.current) {
+        window.jotformEmbedHandler("iframe[id='JotFormIFrame-260575845473972']", "https://form.jotform.com/");
+        formLoadedRef.current = true;
+      }
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useGSAP(
     () => {
@@ -88,16 +108,43 @@ export default function Apply() {
           </p>
         </div>
 
-        {/* Google Form embed */}
+        {/* Quota notice with neon green accents */}
+        <div
+          className="quota-notice gsap-reveal"
+          style={{
+            maxWidth: "620px",
+            margin: "0 auto 2rem",
+            padding: "1rem 1.2rem",
+            background: "rgba(0, 255, 0, 0.04)",
+            border: "1px solid rgba(0, 255, 0, 0.3)",
+            borderRadius: "8px",
+            color: "#e3e0aa",
+            fontSize: "0.855rem",
+            lineHeight: "1.65",
+          }}
+        >
+          <p>
+            <span style={{ color: "#39ff14", fontWeight: "600" }}>Kontenjan 10 kişiyle sınırlı.</span> Başvurular geliş sırasına göre değerlendirilir; kontenjan dolduğunda form kapatılır. Başvuru yaptıysan fakat kontenjan dolduysa, seni <span style={{ color: "#39ff14", fontWeight: "600" }}>bekleme listesine</span> alıyorum.
+          </p>
+        </div>
+
+        {/* JotForm embed */}
         <div className="form-wrapper gsap-reveal">
           <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSfgQ9Ucq1pAgVnxWVv00wJobdXVVZKcHNG7RU6IK8b-UADEdg/viewform?embedded=true"
-            width="100%"
-            height="1709"
+            id="JotFormIFrame-260575845473972"
+            title="Psefitone Ön Kayıt ve Değerlendirme Formu"
+            onLoad={() => window.parent.scrollTo(0, 0)}
+            allowTransparency={true}
+            allow="geolocation; microphone; camera; fullscreen; payment"
+            src="https://form.jotform.com/260575845473972"
             frameBorder="0"
-            marginHeight={0}
-            marginWidth={0}
-            loading="lazy"
+            style={{
+              minWidth: "100%",
+              maxWidth: "100%",
+              height: "539px",
+              border: "none",
+            }}
+            scrolling="no"
           >
             Yükleniyor&hellip;
           </iframe>
@@ -105,13 +152,25 @@ export default function Apply() {
         <p className="form-fallback">
           Form yüklenmiyorsa{" "}
           <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSfgQ9Ucq1pAgVnxWVv00wJobdXVVZKcHNG7RU6IK8b-UADEdg/viewform"
+            href="https://form.jotform.com/260575845473972"
             target="_blank"
             rel="noopener noreferrer"
           >
             buraya tıklayarak yeni sekmede aç.
           </a>
         </p>
+
+        {/* JotForm embed handler script */}
+        <Script
+          src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"
+          strategy="afterInteractive"
+          onLoad={() => {
+            if (window.jotformEmbedHandler && !formLoadedRef.current) {
+              window.jotformEmbedHandler("iframe[id='JotFormIFrame-260575845473972']", "https://form.jotform.com/");
+              formLoadedRef.current = true;
+            }
+          }}
+        />
 
         {/* WhatsApp */}
         <div className="cta-center" style={{ marginTop: "2rem" }}>

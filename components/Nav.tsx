@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Nav() {
   const [solid, setSolid] = useState(false);
@@ -33,7 +34,7 @@ export default function Nav() {
 
       <nav className={`nav${solid ? " nav--solid" : ""}`} id="mainNav">
         <div className="nav-inner">
-          <a href="/" className="nav-logo" aria-label="Psefitone - Ana Sayfa">
+          <Link href="/" className="nav-logo" aria-label="Psefitone - Ana Sayfa">
             <Image
               src="/horizontal-logo.png"
               alt="Psefitone"
@@ -42,7 +43,7 @@ export default function Nav() {
               style={{ filter: "invert(1) brightness(0.92) sepia(0.15) hue-rotate(240deg)" }}
               priority
             />
-          </a>
+          </Link>
           <a href="#basvur" className="btn btn-primary nav-cta">
             <span className="nav-cta-full">Başvuru Formunu Doldur</span>
             <span className="nav-cta-short">Başvur</span>

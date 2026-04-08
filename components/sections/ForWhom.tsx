@@ -1,28 +1,131 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
+type Category = "yes" | "no";
+
+const yesPersonas = [
+  {
+    id: "beginner",
+    title: "Başlangıç",
+    subtitle: "Hiç çalmadınız",
+    description: "Sıfırdan başlamak istiyorsanız",
+    icon: "🎹",
+  },
+  {
+    id: "returner",
+    title: "Geri Dönen",
+    subtitle: "Bırakmışsınız",
+    description: "Neden bıraktığınızı anlamak istiyorsanız",
+    icon: "🔄",
+  },
+  {
+    id: "preserver",
+    title: "Koruyucu",
+    subtitle: "Kültür önemli",
+    description: "Mirası taşımak istiyorsanız",
+    icon: "🌟",
+  },
+  {
+    id: "now",
+    title: "Şimdi!",
+    subtitle: "Ertelemişsiniz",
+    description: '"Bir gün" yerine "şimdi" demek istiyorsanız',
+    icon: "⚡",
+  },
+];
+
+const noPersonas = [
+  {
+    id: "advanced",
+    title: "İleri Seviye",
+    subtitle: "Zaten çalıyorsunuz",
+    description: "Teknik geliştirme arıyorsanız",
+    icon: "🎯",
+  },
+  {
+    id: "quick",
+    title: "Çabuk Sonuç",
+    subtitle: "Pratik istemiyorsunuz",
+    description: "Hızlı öğrenmeyi bekleyenler",
+    icon: "⏱️",
+  },
+  {
+    id: "advanced-topics",
+    title: "İleri Konular",
+    subtitle: "Spesifik teknikler",
+    description: "Düğün/performans gibi konular arıyorsanız",
+    icon: "🎭",
+  },
+  {
+    id: "no-time",
+    title: "Zaman Yok",
+    subtitle: "Ciddi kısıtlar",
+    description: "Haftada 3-4 saat yapamıyorsanız",
+    icon: "🚫",
+  },
+];
+
 export default function ForWhom() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [activeCategory, setActiveCategory] = useState<Category>("yes");
 
   useGSAP(
     () => {
-      gsap.utils.toArray<HTMLElement>(".gsap-reveal", sectionRef.current!).forEach((el) => {
+      // Reveal section header
+      gsap.fromTo(
+        ".fw-header",
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".fw-header",
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      // Reveal toggle
+      gsap.fromTo(
+        ".fw-toggle",
+        { opacity: 0, y: 24 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.7,
+          ease: "power2.out",
+          delay: 0.1,
+          scrollTrigger: {
+            trigger: ".fw-toggle",
+            start: "top 88%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      // Staggered reveal for persona cards
+      gsap.utils.toArray<HTMLElement>(".fw-card", sectionRef.current!).forEach((el, index) => {
         gsap.fromTo(
           el,
-          { opacity: 0, y: 24 },
+          { opacity: 0, y: 32, scale: 0.95 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.7,
+            scale: 1,
+            duration: 0.6,
             ease: "power2.out",
+            delay: index * 0.08,
             scrollTrigger: {
               trigger: el,
-              start: "top 88%",
+              start: "top 85%",
               toggleActions: "play none none none",
             },
           }
@@ -32,51 +135,75 @@ export default function ForWhom() {
     { scope: sectionRef }
   );
 
-  return (
-    <section className="section" id="for-whom" ref={sectionRef}>
-      <div className="section-inner">
-        <div className="section-header gsap-reveal">
-          <span className="section-tag">Bu Program</span>
-          <h2 className="section-title">Senin için mi?</h2>
-        </div>
-        <div className="who-grid">
-          {/* YES */}
-          <div className="who-card who-yes gsap-reveal">
-            <div className="who-card-head">
-              <div className="who-icon who-icon--yes">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
-              </div>
-              <h3>Senin için</h3>
-            </div>
-            <ul className="who-list">
-              <li>Hiç akordeon çalmamış, sıfırdan başlamak istiyorsan</li>
-              <li>Daha önce denemişsin ama bırakmışsan ve bunun neden olduğunu anlamak istiyorsan</li>
-              <li>Kültürünü taşıma isteği var ama nasıl başlayacağını bilmiyorsan</li>
-              <li>Kafanda &ldquo;bir gün öğrenirim&rdquo; cümlesi varsa ve artık &ldquo;şimdi&rdquo; demek istiyorsan</li>
-              <li>Düzenli pratik yapabilecek haftada en az 3-4 saatin varsa</li>
-            </ul>
-          </div>
+  const personas = activeCategory === "yes" ? yesPersonas : noPersonas;
+  const categoryColor = activeCategory === "yes" ? "var(--sec-15)" : "rgba(203,195,214,0.1)";
+  const textColor = activeCategory === "yes" ? "var(--secondary)" : "var(--primary)";
 
-          {/* NO */}
-          <div className="who-card who-no gsap-reveal">
-            <div className="who-card-head">
-              <div className="who-icon who-icon--no">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <line x1="18" y1="6" x2="6" y2="18" />
-                  <line x1="6" y1="6" x2="18" y2="18" />
-                </svg>
-              </div>
-              <h3>Senin için değil</h3>
-            </div>
-            <ul className="who-list">
-              <li>Zaten çalıyorsun ve teknik geliştirme arıyorsan</li>
-              <li>Hızlı sonuç istiyorsan ve pratik yapmak istemiyorsan</li>
-              <li>Düğün performansı psikolojisi gibi ileri konular arıyorsan</li>
-              <li>Zamanlama konusunda ciddi kısıtların varsa</li>
-            </ul>
+  return (
+    <section className="fw-section" id="for-whom" ref={sectionRef}>
+      <div className="fw-container">
+        {/* Header */}
+        <div className="fw-header">
+          <span className="fw-tag">Bu Program</span>
+          <h2 className="fw-title">Senin için mi?</h2>
+        </div>
+
+        {/* Toggle */}
+        <div className="fw-toggle">
+          <div className="fw-toggle-buttons">
+            <button
+              className={`fw-toggle-btn ${activeCategory === "yes" ? "fw-toggle-btn--active" : ""}`}
+              onClick={() => setActiveCategory("yes")}
+              style={activeCategory === "yes" ? { backgroundColor: "var(--sec-15)" } : {}}
+            >
+              <span className="fw-toggle-icon">✓</span>
+              <span>Senin için</span>
+            </button>
+            <button
+              className={`fw-toggle-btn ${activeCategory === "no" ? "fw-toggle-btn--active" : ""}`}
+              onClick={() => setActiveCategory("no")}
+              style={activeCategory === "no" ? { backgroundColor: "rgba(203,195,214,0.1)" } : {}}
+            >
+              <span className="fw-toggle-icon">✕</span>
+              <span>Senin için değil</span>
+            </button>
           </div>
+        </div>
+
+        {/* Personas Grid */}
+        <div className="fw-grid">
+          {personas.map((persona) => (
+            <div key={persona.id} className="fw-card" data-category={activeCategory}>
+              <div className="fw-card-inner">
+                {/* Icon */}
+                <div
+                  className="fw-card-icon"
+                  style={{ backgroundColor: categoryColor, color: textColor }}
+                >
+                  {persona.icon}
+                </div>
+
+                {/* Content */}
+                <div className="fw-card-content">
+                  <h3 className="fw-card-title">{persona.title}</h3>
+                  <p className="fw-card-subtitle">{persona.subtitle}</p>
+                </div>
+
+                {/* Hover Detail */}
+                <div className="fw-card-detail">{persona.description}</div>
+
+                {/* Accent Line */}
+                <div
+                  className="fw-card-accent"
+                  style={
+                    activeCategory === "yes"
+                      ? { backgroundColor: "var(--secondary)" }
+                      : { backgroundColor: "var(--primary)" }
+                  }
+                />
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

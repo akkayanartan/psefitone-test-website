@@ -1,10 +1,16 @@
 "use client";
 import { motion } from "framer-motion";
 import { LampContainer } from "@/components/ui/lamp";
+import { Backlight } from "@/components/ui/backlight";
 
 export default function VSL() {
   return (
-    <section id="vsl" className="vsl-section">
+    <section id="vsl" className="vsl-section relative overflow-hidden">
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <Backlight blur={60} className="absolute inset-0 flex items-center justify-center">
+          <div className="h-72 w-72 rounded-full bg-purple-600 opacity-70" />
+        </Backlight>
+      </div>
       <LampContainer>
         <div className="section-inner vsl-inner" style={{ width: "100%", maxWidth: "var(--max-width)", padding: "0 var(--section-pad-h)" }}>
           <div className="section-header vsl-header">

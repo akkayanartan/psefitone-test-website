@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
@@ -51,6 +51,25 @@ const rows = [
 
 export default function Comparison() {
   const sectionRef = useRef<HTMLElement>(null);
+  const labelsContainerRef = useRef<HTMLDivElement>(null);
+  const [labelWidth, setLabelWidth] = useState<string>("auto");
+  const [psefitoneWidth, setPsefitoneWidth] = useState<string>("auto");
+
+  useLayoutEffect(() => {
+    if (labelsContainerRef.current) {
+      const labels = Array.from(labelsContainerRef.current.querySelectorAll(".cmp-cell-label"));
+      if (labels.length > 0) {
+        const maxWidth = Math.max(...labels.map(label => (label as HTMLElement).offsetWidth));
+        setLabelWidth(`${maxWidth}px`);
+      }
+
+      const psefitones = Array.from(labelsContainerRef.current.querySelectorAll(".cmp-cell-psef"));
+      if (psefitones.length > 0) {
+        const maxWidth = Math.max(...psefitones.map(psef => (psef as HTMLElement).offsetWidth));
+        setPsefitoneWidth(`${maxWidth}px`);
+      }
+    }
+  }, []);
 
   useGSAP(
     () => {
@@ -137,17 +156,30 @@ export default function Comparison() {
           className="cmp-col-headers"
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
+            gridTemplateColumns: `${psefitoneWidth} ${labelWidth} 1fr`,
             gap: "0",
             marginBottom: "0.5rem",
             padding: "0 0 0 0",
           }}
         >
+          <div
+            style={{
+              padding: "0.75rem 1.25rem",
+              textAlign: "right",
+              fontSize: "0.72rem",
+              fontWeight: 700,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "var(--brand-secondary)",
+            }}
+          >
+            Psefitone
+          </div>
           <div style={{ padding: "0 1.25rem 0.75rem" }} />
           <div
             style={{
               padding: "0.75rem 1.25rem",
-              textAlign: "center",
+              textAlign: "left",
               fontSize: "0.72rem",
               fontWeight: 700,
               letterSpacing: "0.14em",
@@ -158,43 +190,86 @@ export default function Comparison() {
           >
             Geleneksel Ders
           </div>
-          <div
-            style={{
-              padding: "0.75rem 1.25rem",
-              textAlign: "center",
-              fontSize: "0.72rem",
-              fontWeight: 700,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "var(--brand-secondary)",
-            }}
-          >
-            Psefitone
-          </div>
         </div>
 
         {/* Rows */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
+        <div ref={labelsContainerRef} style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
           {rows.map((row, i) => (
             <div
               key={i}
               className="cmp-row"
               style={{
                 display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
+                gridTemplateColumns: `${psefitoneWidth} ${labelWidth} 1fr`,
                 borderRadius: "8px",
                 overflow: "hidden",
                 background: "var(--dark2)",
                 border: "1px solid var(--brand-border)",
               }}
             >
-              {/* Label */}
+              {/* Psefitone — glowing (right-aligned) */}
+              <div
+                className="cmp-cell-psef"
+                style={{
+                  padding: "1rem 1.25rem",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "flex-end",
+                  fontSize: "0.875rem",
+                  color: "var(--brand-text)",
+                  lineHeight: 1.6,
+                  fontWeight: 500,
+                  gap: "0.625rem",
+                  background: "linear-gradient(135deg, rgba(134,41,255,0.10) 0%, rgba(134,41,255,0.04) 100%)",
+                  position: "relative",
+                  borderRight: "1px solid var(--brand-border)",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {row.psefitone}
+                <span
+                  aria-hidden="true"
+                  style={{
+                    flexShrink: 0,
+                    width: "16px",
+                    height: "16px",
+                    borderRadius: "50%",
+                    background: "rgba(134,41,255,0.25)",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    color: "var(--brand-secondary)",
+                    boxShadow: "0 0 6px rgba(134,41,255,0.4)",
+                  }}
+                >
+                  <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
+                    <polyline points="1.5,5 4,7.5 8.5,2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </span>
+                {/* Right accent bar */}
+                <div
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    right: 0,
+                    top: "20%",
+                    bottom: "20%",
+                    width: "2px",
+                    borderRadius: "2px",
+                    background: "var(--brand-secondary)",
+                    boxShadow: "0 0 8px rgba(134,41,255,0.7), 0 0 20px rgba(134,41,255,0.35)",
+                  }}
+                />
+              </div>
+
+              {/* Label (center-aligned) */}
               <div
                 className="cmp-cell-label"
                 style={{
                   padding: "1rem 1.25rem",
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: "center",
                   fontSize: "0.78rem",
                   fontWeight: 700,
                   letterSpacing: "0.08em",
@@ -202,22 +277,24 @@ export default function Comparison() {
                   color: "var(--brand-accent)",
                   borderRight: "1px solid var(--brand-border)",
                   background: "rgba(227,224,170,0.04)",
+                  whiteSpace: "nowrap",
+                  textAlign: "center",
                 }}
               >
                 {row.label}
               </div>
 
-              {/* Traditional */}
+              {/* Traditional (left-aligned) */}
               <div
                 className="cmp-cell-trad"
                 style={{
                   padding: "1rem 1.25rem",
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: "flex-start",
                   fontSize: "0.875rem",
                   color: "var(--text-muted)",
                   lineHeight: 1.6,
-                  borderRight: "1px solid var(--brand-border)",
                   gap: "0.625rem",
                 }}
               >
@@ -239,58 +316,6 @@ export default function Comparison() {
                   </svg>
                 </span>
                 {row.traditional}
-              </div>
-
-              {/* Psefitone — glowing */}
-              <div
-                className="cmp-cell-psef"
-                style={{
-                  padding: "1rem 1.25rem",
-                  display: "flex",
-                  alignItems: "center",
-                  fontSize: "0.875rem",
-                  color: "var(--brand-text)",
-                  lineHeight: 1.6,
-                  fontWeight: 500,
-                  gap: "0.625rem",
-                  background: "linear-gradient(135deg, rgba(134,41,255,0.10) 0%, rgba(134,41,255,0.04) 100%)",
-                  position: "relative",
-                }}
-              >
-                {/* Left accent bar */}
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: "absolute",
-                    left: 0,
-                    top: "20%",
-                    bottom: "20%",
-                    width: "2px",
-                    borderRadius: "2px",
-                    background: "var(--brand-secondary)",
-                    boxShadow: "0 0 8px rgba(134,41,255,0.7), 0 0 20px rgba(134,41,255,0.35)",
-                  }}
-                />
-                <span
-                  aria-hidden="true"
-                  style={{
-                    flexShrink: 0,
-                    width: "16px",
-                    height: "16px",
-                    borderRadius: "50%",
-                    background: "rgba(134,41,255,0.25)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "var(--brand-secondary)",
-                    boxShadow: "0 0 6px rgba(134,41,255,0.4)",
-                  }}
-                >
-                  <svg width="8" height="8" viewBox="0 0 10 10" fill="none">
-                    <polyline points="1.5,5 4,7.5 8.5,2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </span>
-                {row.psefitone}
               </div>
             </div>
           ))}

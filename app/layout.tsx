@@ -1,6 +1,23 @@
 import type { Metadata } from "next";
+import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import GlobalSparkles from "@/components/GlobalSparkles";
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
+
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  variable: "--font-body",
+  display: "swap",
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
 
 export const metadata: Metadata = {
   title: "Psefitone Kickstarter — 2. Kohort | Çerkes Akordeon Programı",
@@ -24,7 +41,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <body>
+      <body className={`${playfair.variable} ${montserrat.variable}`}>
+        <a href="#main-content" className="skip-nav">
+          Ana içeriğe geç
+        </a>
         <GlobalSparkles />
         <NoiseOverlay />
         {children}

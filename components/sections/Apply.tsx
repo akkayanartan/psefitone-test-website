@@ -132,20 +132,19 @@ export default function Apply() {
           <iframe
             id="JotFormIFrame-260575845473972"
             title="Psefitone Ön Kayıt ve Değerlendirme Formu"
-            allowTransparency={true}
             allow="geolocation; microphone; camera; fullscreen; payment"
             src="https://form.jotform.com/260575845473972"
-            frameBorder={0}
             style={{ minWidth: "100%", maxWidth: "100%", height: "539px", border: "none", display: "block" }}
             scrolling="no"
-            loading="eager"
+            loading="lazy"
           />
           <Script
             src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"
             strategy="afterInteractive"
             onLoad={() => {
-              if (typeof window !== "undefined" && (window as any).jotformEmbedHandler) {
-                (window as any).jotformEmbedHandler(
+              if (typeof window !== "undefined") {
+                const w = window as Window & { jotformEmbedHandler?: (sel: string, base: string) => void };
+                w.jotformEmbedHandler?.(
                   "iframe[id='JotFormIFrame-260575845473972']",
                   "https://form.jotform.com/"
                 );

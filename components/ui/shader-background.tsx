@@ -152,6 +152,10 @@ const ShaderBackground = () => {
       return null;
     }
 
+    // Shaders are linked — mark them for deletion (freed when program is deleted)
+    gl.deleteShader(vertexShader);
+    gl.deleteShader(fragmentShader);
+
     return shaderProgram;
   };
 
@@ -226,6 +230,8 @@ const ShaderBackground = () => {
     return () => {
       cancelAnimationFrame(animId);
       window.removeEventListener("resize", resizeCanvas);
+      gl.deleteBuffer(positionBuffer);
+      gl.deleteProgram(shaderProgram);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

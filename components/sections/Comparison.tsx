@@ -330,10 +330,13 @@ export default function Comparison() {
               </div>
 
               {/* Label (center-aligned, clickable on mobile) */}
-              <div
+              <button
                 className={`cmp-cell-label ${i === activeLabelIdx ? "cmp-cell-label--active" : ""}`}
                 onClick={() => setActiveLabelIdx(i === activeLabelIdx ? null : i)}
+                aria-pressed={i === activeLabelIdx}
+                aria-label={`${row.label} — detayları göster`}
                 style={{
+                  all: "unset",
                   padding: "1rem 1.25rem",
                   display: "flex",
                   alignItems: "center",
@@ -347,6 +350,7 @@ export default function Comparison() {
                   background: "rgba(227,224,170,0.04)",
                   whiteSpace: "nowrap",
                   textAlign: "center",
+                  cursor: "pointer",
                   ...(i === activeLabelIdx && {
                     transform: "scale(1.08)",
                     boxShadow: "0 0 16px rgba(134,41,255,0.5), 0 0 32px rgba(134,41,255,0.25)",
@@ -354,7 +358,7 @@ export default function Comparison() {
                 }}
               >
                 {row.label}
-              </div>
+              </button>
 
               {/* Traditional (left-aligned) */}
               <div

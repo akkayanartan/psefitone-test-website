@@ -140,8 +140,10 @@ export default function FAQ() {
                     className={`faq-item${openKey === key ? " open" : ""}`}
                   >
                     <button
+                      id={`faq-btn-${key}`}
                       className="faq-q"
                       aria-expanded={openKey === key}
+                      aria-controls={`faq-panel-${key}`}
                       onClick={() => toggle(key)}
                     >
                       {faq.q}
@@ -160,7 +162,12 @@ export default function FAQ() {
                         <polyline points="6 9 12 15 18 9" />
                       </svg>
                     </button>
-                    <div className="faq-a" role="region">
+                    <div
+                      id={`faq-panel-${key}`}
+                      className="faq-a"
+                      role="region"
+                      aria-labelledby={`faq-btn-${key}`}
+                    >
                       <div className="faq-a-inner">
                         <p>{faq.a}</p>
                       </div>

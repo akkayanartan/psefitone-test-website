@@ -77,12 +77,12 @@ export default function Features() {
           <div className="soundslice-wrapper">
             <iframe
               src="https://www.soundslice.com/slices/nS11c/embed/"
+              title="Soundslice — Canlı Akordeon Demo"
               width="100%"
               height="500"
               className="soundslice-iframe"
-              frameBorder="0"
-              allowFullScreen
               loading="lazy"
+              allowFullScreen
             />
           </div>
         </div>

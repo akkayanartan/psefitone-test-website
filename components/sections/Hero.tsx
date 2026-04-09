@@ -5,7 +5,6 @@ import gsap from "gsap";
 import { SparklesCore } from "@/components/SparklesCore";
 import ShaderBackground from "@/components/ui/shader-background";
 
-gsap.registerPlugin();
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);

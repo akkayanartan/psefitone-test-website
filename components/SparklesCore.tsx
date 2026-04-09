@@ -42,7 +42,7 @@ export const SparklesCore = (props: ParticlesProps) => {
           options={{
             background: { color: { value: background || "transparent" } },
             fullScreen: { enable: false, zIndex: 1 },
-            fpsLimit: 120,
+            fpsLimit: 60,
             particles: {
               color: { value: particleColor || "#cbc3d6" },
               move: { enable: true, speed: { min: 0.1, max: 0.6 }, direction: "none", outModes: { default: "out" } },

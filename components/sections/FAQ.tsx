@@ -11,42 +11,26 @@ const faqGroups = [
     category: "Program",
     items: [
       {
-        q: "Hiç akordeon bilmeden başlayabilir miyim?",
-        a: "Evet, program tamamen yeni başlayanlar için tasarlandı. Nota okumayı bilmiyorsan da sıkıntı yok; sana bunu da öğretiyoruz.",
-      },
-      {
         q: "Dersleri canlı mı izliyorum?",
-        a: "Hayır. Ders videoları Soundslice'ta kayıtlı, istediğin zaman erişirsin. Canlı olan kısımlar haftalık grup seansı ve birebir koçluk.",
+        a: "Ders videoları Soundslice'ta kayıtlı. Canlı olan kısımlar haftalık grup seansı ve birebir koçluk. Kafanın karıştığı herhangi bir yerde ben canlı derslerde müdahale edebiliyorum.",
       },
       {
         q: "Birebir koçluk ne kadar sürüyor?",
-        a: "Haftalık 15 dakika.",
+        a: "15 dakika çoğu sorunu çözmek için yeterli oluyor, fakat daha detaylı bir yaklaşım gerektiren bir sorunun olursa, süreyi uzatabiliyoruz.",
       },
       {
         q: "Program boyunca hangi materyallere erişebiliyorum?",
-        a: "Soundslice üzerindeki ders videoları, play-along egzersizler, nota dökümanları, çalışma rutini rehberleri ve kontrol listeleri.",
+        a: "Soundslice üzerindeki ders videoları, canlı derslerin ve görüşmelerin kayıtları, çalışma rutini rehberleri ve kontrol listeleri.",
       },
       {
         q: "Program bittikten sonra materyallere erişimim devam ediyor mu?",
         a: "Evet, belirli bir süre boyunca erişimin devam eder. Detaylar kayıt sürecinde paylaşılıyor.",
-      },
-      {
-        q: "Online eğitim benim için işe yarar mı?",
-        a: "Eğer teknolojiyle aranız iyi değilse, işe yaramaz. Yeni bir şey öğrenmeye açık değilseniz, işe yaramaz. Bu program Soundslice üzerinden yürüyor; video gönderiyorsun, geri bildirim alıyorsun, materyallere dijital ortamda erişiyorsun. Sisteme uyum sağlayamayacağını düşünüyorsan, başvurmamanı öneririm.",
       },
     ],
   },
   {
     category: "Kayıt ve Ödeme",
     items: [
-      {
-        q: "Taksit seçeneği var mı?",
-        a: "Program ücreti 25.000 TL. Farksız 3 taksitle de bölebiliyoruz.",
-      },
-      {
-        q: "Ödeme nasıl yapılıyor?",
-        a: "IBAN üzerinden havale/EFT ile. Ödeme bilgileri kabul sürecinden sonra paylaşılıyor.",
-      },
       {
         q: "Formu doldurdum, sonra ne olacak?",
         a: "Formunu inceleyeceğim ve seninle iletişime geçeceğim. Programa uygunluğunu değerlendirdikten sonra ödeme adımına geçeceğiz. Formu doldurmak kayıt garantisi değildir.",
@@ -70,7 +54,7 @@ const faqGroups = [
       },
       {
         q: "Akordeona sahip olmam gerekiyor mu?",
-        a: "Evet, programa başlamadan önce bir akordeonun olması gerekiyor. Hangi akordeonun uygun olduğu konusunda başvuru sonrasında rehberlik edebiliyorum.",
+        a: "Evet, programa başlamadan önce bir akordeonun olması gerekiyor.",
       },
       {
         q: "Grup seansları ne zaman?",
@@ -91,11 +75,11 @@ const faqGroups = [
     items: [
       {
         q: "WhatsApp'tan soru sorabilir miyim?",
-        a: "Programa dair tüm bilgiler bu sayfada ve tanıtım videosunda mevcut. Başvurmak istiyorsan aşağıdaki formu doldur; süreç içinde konuşuruz.",
+        a: "Programa dair tüm bilgiler bu sayfada ve tanıtım videosunda mevcut.",
       },
       {
         q: "Kayıt olmadan önce deneme dersi var mı?",
-        a: "Hayır. Tanıtım videosunu izleyerek programın yapısını ve sana uygun olup olmadığını değerlendirebilirsin.",
+        a: "Hayır. Tanıtım videosundan ve bu siteden programın yapısını ve sana uygun olup olmadığını değerlendirebilirsin.",
       },
     ],
   },

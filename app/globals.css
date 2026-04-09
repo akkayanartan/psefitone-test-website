@@ -1444,6 +1444,35 @@ ul { list-style: none; }
   gap: 0.75rem;
 }
 
+.faq-groups {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.faq-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.faq-category-header {
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 0.25rem;
+}
+
+.faq-category-label {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
 .faq-item {
   background: var(--dark3);
   border: 1px solid var(--border);
@@ -1780,6 +1809,40 @@ ul { list-style: none; }
 
   /* Keep the left accent bar hidden on mobile (absolute positioned, not useful stacked) */
   .cmp-cell-psef > div[aria-hidden="true"] { display: none; }
+
+}
+
+/* ── Comparison: mobile progressive blur overlays ── */
+.cmp-blur-top,
+.cmp-blur-bottom {
+  display: none; /* hidden on desktop */
+}
+
+@media (max-width: 640px) {
+  .cmp-blur-top,
+  .cmp-blur-bottom {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 28%;
+    pointer-events: none;
+    z-index: 10;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+  }
+
+  .cmp-blur-top {
+    top: 0;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  }
+
+  .cmp-blur-bottom {
+    bottom: 0;
+    mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+  }
 }
 
 /* ── Curriculum: horizontal tab sidebar + full-width panel on mobile ── */

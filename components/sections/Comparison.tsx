@@ -259,7 +259,10 @@ export default function Comparison() {
         </p>
 
         {/* Rows */}
-        <div ref={labelsContainerRef} style={{ display: "flex", flexDirection: "column", gap: "0.375rem" }}>
+        <div ref={labelsContainerRef} style={{ display: "flex", flexDirection: "column", gap: "0.375rem", position: "relative" }}>
+          {/* Mobile progressive blur overlays — visible only on mobile via CSS */}
+          <div className="cmp-blur-top" aria-hidden="true" />
+          <div className="cmp-blur-bottom" aria-hidden="true" />
           {rows.map((row, i) => (
             <div
               key={i}
@@ -294,6 +297,7 @@ export default function Comparison() {
               >
                 {row.psefitone}
                 <span
+                  className="hidden sm:flex items-center justify-center"
                   aria-hidden="true"
                   style={{
                     flexShrink: 0,
@@ -301,9 +305,6 @@ export default function Comparison() {
                     height: "16px",
                     borderRadius: "50%",
                     background: "rgba(134,41,255,0.25)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
                     color: "var(--brand-secondary)",
                     boxShadow: "0 0 6px rgba(134,41,255,0.4)",
                   }}
@@ -370,6 +371,7 @@ export default function Comparison() {
                 }}
               >
                 <span
+                  className="hidden sm:flex items-center justify-center"
                   aria-hidden="true"
                   style={{
                     flexShrink: 0,
@@ -377,9 +379,6 @@ export default function Comparison() {
                     height: "16px",
                     borderRadius: "50%",
                     background: "rgba(155,145,176,0.15)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
                   }}
                 >
                   <svg width="8" height="8" viewBox="0 0 10 10" fill="none">

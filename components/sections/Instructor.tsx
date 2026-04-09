@@ -8,8 +8,7 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const credentials = [
-  "Yüzlerce düğünde sahne deneyimi",
-  "Elbrus halk danslarına müzisyenlik",
+  "Onlarca düğünde sahne deneyimi",
   "Duayen müzisyenler tarafından desteklendi",
   "İlk kohort tamamlandı",
 ];
@@ -49,7 +48,7 @@ export default function Instructor() {
             <div className="instructor-photo">
               <Image
                 src="/instructor.jpg"
-                alt="Psefit — Psefitone Kurucusu"
+                alt="Nartan Psefit Akkaya"
                 loading="lazy"
                 width={260}
                 height={260}
@@ -58,10 +57,9 @@ export default function Instructor() {
           </div>
 
           <div className="instructor-text-col gsap-reveal">
-            <h2 className="instructor-name">Psefit</h2>
-            <p className="instructor-title">Psefitone Kurucusu · 7 Yıllık Sahne Deneyimi</p>
+            <h2 className="instructor-name">Nartan Psefit Akkaya</h2>
             <blockquote className="instructor-bio">
-              &ldquo;7 yıl boyunca onlarca düğünde sahneye çıktım. Bu süreçte hem çalmayı hem de öğretmeyi merak ettim. Şu anki öğrenme yöntemimizde bir şeylerin eksik olduğunu gördüm. Psefitone, bu eksikliğe verdiğim cevap.&rdquo;
+              &ldquo;Onlarca düğünde sahneye çıktım. Bu süreçte hem çalmayı hem de öğretmeyi merak ettim. Şu anki öğrenme yöntemimizde bir şeylerin eksik olduğunu gördüm. Psefitone, bu eksikliğe verdiğim cevap.&rdquo;
             </blockquote>
             <ul className="credentials">
               {credentials.map((c, i) => (

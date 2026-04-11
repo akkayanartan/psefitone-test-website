@@ -44,9 +44,25 @@ export default function Apply() {
           </p>
         </div>
 
+        {/* Start date banner */}
+        <div className="start-date-wrap gsap-reveal">
+          <div className="start-date-banner">
+            <div className="start-date-glow" aria-hidden="true" />
+            <span className="start-date-label">Başlangıç Tarihi</span>
+            <div className="start-date-display">
+              <span className="start-date-day">4</span>
+              <div className="start-date-divider" aria-hidden="true" />
+              <div className="start-date-right">
+                <span className="start-date-month">Mayıs</span>
+                <span className="start-date-year">2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="seat-counter seat-counter--center gsap-reveal">
           <span className="pulse-dot" aria-hidden="true" />
-          <span>9 kontenjan kaldı</span>
+          <span>14 kontenjan kaldı</span>
         </div>
 
         {/* Pricing */}
@@ -156,7 +172,7 @@ export default function Apply() {
         {/* WhatsApp */}
         <div className="cta-center" style={{ marginTop: "2rem" }}>
           <a
-            href="https://wa.me/905387332520?text=Merhaba%2C%20Psefitone%20Kickstarter%20hakk%C4%B1nda%20bir%20sorum%20var."
+            href="https://wa.me/905318197140?text=Merhaba%2C%20Psefitone%20Kickstarter%20hakk%C4%B1nda%20bir%20sorum%20var."
             className="btn btn-whatsapp"
             target="_blank"
             rel="noopener noreferrer"

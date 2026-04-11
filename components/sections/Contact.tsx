@@ -43,7 +43,7 @@ export default function Contact() {
             benimle iletişime geçebilirsin.
           </p>
           <a
-            href="https://wa.me/905387332520?text=Merhaba%2C%20Psefitone%20Kickstarter%20hakk%C4%B1nda%20bir%20sorum%20var."
+            href="https://wa.me/905318197140?text=Merhaba%2C%20Psefitone%20Kickstarter%20hakk%C4%B1nda%20bir%20sorum%20var."
             className="btn btn-whatsapp"
             target="_blank"
             rel="noopener noreferrer"

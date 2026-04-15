@@ -35,17 +35,17 @@ const rows = [
   {
     label: "Ders materyali",
     traditional: "Yok veya dağınık",
-    psefitone: "Soundslice: profesyonel müzik eğitim altyapısı",
+    psefitone: "Profesyonel müzik eğitim altyapısı",
   },
   {
     label: "Yapı ve takip",
     traditional: "Takip mekanizması yok",
-    psefitone: "Bireysel gelişim takibi, haftalık birebir koçluk",
+    psefitone: "Bireysel gelişim takibi, birebir koçluk",
   },
   {
     label: "Bağımsızlık",
     traditional: "Hocaya sürekli bağımlı kalma riski",
-    psefitone: "Öğrenmeyi öğrenmiş, bağımsız icracı kimliği",
+    psefitone: "Öğrenmeyi öğrenmiş, bağımsız icracı",
   },
 ];
 

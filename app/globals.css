@@ -1469,11 +1469,20 @@ nav[aria-label] button:focus-visible {
 }
 
 .faq-groups {
-  max-width: 720px;
+  max-width: var(--max-width);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+}
+
+@media (min-width: 1024px) {
+  .faq-groups {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: start;
+    gap: 1.5rem 2rem;
+  }
 }
 
 .faq-group {
@@ -1495,6 +1504,13 @@ nav[aria-label] button:focus-visible {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--accent);
+}
+
+@media (min-width: 1024px) {
+  .faq-category-header {
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.5rem;
+  }
 }
 
 .faq-item {
@@ -1527,6 +1543,16 @@ nav[aria-label] button:focus-visible {
 }
 
 .faq-q:hover { color: #fff; }
+
+@media (min-width: 1024px) {
+  .faq-q {
+    padding: 0.95rem 1.1rem;
+    font-size: 0.875rem;
+  }
+  .faq-a-inner {
+    padding: 0 1.1rem 1.1rem;
+  }
+}
 
 .faq-item.open .faq-q { color: #fff; }
 

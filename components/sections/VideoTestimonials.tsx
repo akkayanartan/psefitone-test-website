@@ -7,10 +7,9 @@ import { motion } from "framer-motion";
 const VIDEO_IDS: string[] = [
   "o3lTTOIGX_g",
   "JTwcdT2w5Tw",
-  "PLACEHOLDER_3",
-  "PLACEHOLDER_4",
-  "PLACEHOLDER_5",
-  "PLACEHOLDER_6",
+  "KPjWSKhOEwc",
+  "RuOCwBRDvYY",
+  "QEWM6vPJwGk",
 ];
 
 export default function VideoTestimonials() {
@@ -28,6 +27,9 @@ export default function VideoTestimonials() {
           <h2 className="vt-title">
             Kursiyerlerimiz Ne Diyor?
           </h2>
+          <p className="vt-subtitle" style={{ marginTop: '0.75rem', color: 'rgba(255,255,255,0.7)', fontSize: '0.95rem', maxWidth: '600px', marginInline: 'auto', lineHeight: '1.5' }}>
+            Bu videolar önceki dönem katılımcılarımızın geri bildirimleridir, bazı kesitler canlı ders kayıtlarından alınmıştır.
+          </p>
         </motion.div>
 
         <motion.div

@@ -239,6 +239,28 @@ export default function Outcomes() {
             grid-template-columns: 1fr !important;
           }
           .outcomes-ornament { display: none; }
+          .outcomes-desktop-layout { display: none !important; }
+          .outcomes-mobile-layout {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 0.5rem !important;
+          }
+          .outcomes-mobile-full {
+            grid-column: 1 / -1;
+          }
+          .outcomes-mobile-layout .outcome-card p {
+            min-width: 0;
+            overflow-wrap: break-word;
+            word-break: normal;
+          }
+          .outcomes-mobile-layout .outcome-card {
+            min-width: 0;
+          }
+        }
+
+        /* Desktop shows desktop layout, hides mobile layout */
+        @media (min-width: 768px) {
+          .outcomes-mobile-layout { display: none !important; }
         }
       `}</style>
 
@@ -262,7 +284,8 @@ export default function Outcomes() {
             </h2>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.85rem", maxWidth: "960px", margin: "0 auto" }}>
+          {/* Desktop layout: staggered 3-row bento grid */}
+          <div className="outcomes-desktop-layout" style={{ display: "flex", flexDirection: "column", gap: "0.85rem", maxWidth: "960px", margin: "0 auto" }}>
 
             {/* Row 1 — wider left card */}
             <div className="outcomes-row1" style={{ display: "grid", gap: "0.85rem" }}>
@@ -280,6 +303,17 @@ export default function Outcomes() {
             {/* Row 3 — wider right card (mirrored from row 1) */}
             <div className="outcomes-row3" style={{ display: "grid", gap: "0.85rem" }}>
               <OutcomeCard text={outcomes[3]} />
+              <OutcomeCard text={outcomes[4]} />
+            </div>
+          </div>
+
+          {/* Mobile layout: flat 2-col grid (hidden on desktop) */}
+          <div className="outcomes-mobile-layout outcomes-mobile-grid" style={{ maxWidth: "960px", margin: "0 auto" }}>
+            <OutcomeCard text={outcomes[0]} />
+            <OutcomeCard text={outcomes[1]} />
+            <OutcomeCard text={outcomes[2]} />
+            <OutcomeCard text={outcomes[3]} />
+            <div className="outcomes-mobile-full">
               <OutcomeCard text={outcomes[4]} />
             </div>
           </div>

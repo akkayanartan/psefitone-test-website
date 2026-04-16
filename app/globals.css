@@ -1561,6 +1561,31 @@ nav[aria-label] button:focus-visible {
   line-height: 1.7;
 }
 
+/* ─── OUTCOMES MOBILE ─────────────────────────────────────────────────────── */
+@media (max-width: 767px) {
+  .outcomes-mobile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+  .outcomes-mobile-full {
+    grid-column: 1 / -1;
+  }
+  .outcome-card {
+    padding: 0.9rem 1rem !important;
+  }
+  .outcome-card p {
+    font-size: 0.82rem !important;
+    line-height: 1.55 !important;
+  }
+  .outcomes-quote-reveal {
+    margin-top: 1.75rem !important;
+  }
+  .outcomes-quote-reveal p {
+    font-size: 0.88rem !important;
+  }
+}
+
 /* ─── APPLY ─────────────────────────────────────────────────────────────── */
 
 @keyframes date-pulse {

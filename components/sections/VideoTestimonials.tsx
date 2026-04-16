@@ -38,10 +38,11 @@ export default function VideoTestimonials() {
           transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
         >
           {VIDEO_IDS.map((id, index) => (
-            <div key={index} className="vt-video-cell">
+            <div key={id} className="vt-video-cell">
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${id}`}
                 title={`Öğrenci yorumu ${index + 1}`}
+                sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 loading="lazy"
@@ -51,7 +52,7 @@ export default function VideoTestimonials() {
           ))}
         </motion.div>
 
-        <p className="vt-scroll-hint">← Sürükle veya kaydır →</p>
+        <p className="vt-scroll-hint" aria-hidden="true">← Sürükle veya kaydır →</p>
       </div>
     </section>
   );

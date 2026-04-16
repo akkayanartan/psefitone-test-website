@@ -612,6 +612,7 @@ ul { list-style: none; }
 
 .marquee-outer {
   position: relative;
+  cursor: pointer;
 }
 
 .marquee-fade-left,
@@ -634,7 +635,11 @@ ul { list-style: none; }
   width: max-content;
 }
 
-/* marquee never pauses on hover */
+/* Pause state — driven by JS via class on .marquee-outer */
+.marquee-outer.is-paused .marquee-track,
+.marquee-outer.is-paused .marquee-track-reverse {
+  animation-play-state: paused;
+}
 
 @keyframes marqueeScroll {
   from { transform: translateX(0); }
@@ -2055,7 +2060,7 @@ nav[aria-label] button:focus-visible {
 }
 
 .marquee-row-second {
-  display: none !important;
+  display: none;
 }
 
 @media (max-width: 640px) {
@@ -2070,7 +2075,7 @@ nav[aria-label] button:focus-visible {
   }
 
   .marquee-track {
-    font-size: clamp(0.85rem, 3.5vw, 1rem);
+    font-size: clamp(0.72rem, 3vw, 0.85rem);
   }
 
   .marquee-track-reverse {
@@ -2078,13 +2083,18 @@ nav[aria-label] button:focus-visible {
   }
 
   .marquee-card {
-    min-width: 280px;
-    max-width: 320px;
-    padding: 1.2rem 1.6rem;
+    min-width: 240px;
+    max-width: 280px;
+    padding: 1rem 1.25rem;
   }
 
   .marquee-card p {
-    font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+    font-size: clamp(0.68rem, 2.2vw, 0.82rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .marquee-author {
+    font-size: 0.65rem;
   }
 }
 

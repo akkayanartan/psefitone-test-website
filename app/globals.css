@@ -1563,7 +1563,7 @@ nav[aria-label] button:focus-visible {
 
 /* ─── OUTCOMES MOBILE ─────────────────────────────────────────────────────── */
 @media (max-width: 767px) {
-  .outcomes-mobile-grid {
+  .outcomes-mobile-layout {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.5rem;

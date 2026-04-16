@@ -158,7 +158,21 @@ export default function Outcomes() {
         }
       );
 
-      gsap.utils.toArray<HTMLElement>(".outcome-card", sectionRef.current!).forEach((card, i) => {
+      const desktopCards = gsap.utils.toArray<HTMLElement>(".outcomes-desktop-layout .outcome-card", sectionRef.current!);
+      const mobileCards  = gsap.utils.toArray<HTMLElement>(".outcomes-mobile-layout .outcome-card",  sectionRef.current!);
+
+      desktopCards.forEach((card, i) => {
+        gsap.fromTo(
+          card,
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1, y: 0, duration: 0.65, ease: "power2.out",
+            delay: i * 0.1,
+            scrollTrigger: { trigger: card, start: "top 92%", toggleActions: "play none none none" },
+          }
+        );
+      });
+      mobileCards.forEach((card, i) => {
         gsap.fromTo(
           card,
           { opacity: 0, y: 28 },
@@ -233,11 +247,6 @@ export default function Outcomes() {
             color: var(--brand-accent);
             font-weight: 500;
           }
-          .outcomes-row1,
-          .outcomes-row2,
-          .outcomes-row3 {
-            grid-template-columns: 1fr !important;
-          }
           .outcomes-ornament { display: none; }
           .outcomes-desktop-layout { display: none !important; }
           .outcomes-mobile-layout {
@@ -308,7 +317,7 @@ export default function Outcomes() {
           </div>
 
           {/* Mobile layout: flat 2-col grid (hidden on desktop) */}
-          <div className="outcomes-mobile-layout outcomes-mobile-grid" style={{ maxWidth: "960px", margin: "0 auto" }}>
+          <div className="outcomes-mobile-layout" style={{ maxWidth: "960px", margin: "0 auto" }}>
             <OutcomeCard text={outcomes[0]} />
             <OutcomeCard text={outcomes[1]} />
             <OutcomeCard text={outcomes[2]} />

@@ -67,15 +67,13 @@ export default function Apply() {
 
         {/* Pricing */}
         <div className="pricing-block gsap-reveal">
-          <div className="pricing-amount">25.000 TL</div>
-          <div className="pricing-desc">Peşin veya 3 taksitte — fark yok.</div>
           <div className="pricing-rows">
             <div className="pricing-row">
-              <span className="pricing-row-label">Peşin</span>
+              <span className="pricing-row-label">Peşin Ücret</span>
               <span className="pricing-row-value">25.000 TL</span>
             </div>
             <div className="pricing-row">
-              <span className="pricing-row-label">3 taksit</span>
+              <span className="pricing-row-label">Taksitli Ücret</span>
               <span className="pricing-row-value">3 × 8.334 TL</span>
             </div>
           </div>

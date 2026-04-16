@@ -23,8 +23,8 @@ export default function Home() {
         <Marquee />
         <Comparison />
         <Features />
-        <Curriculum />
         <VideoTestimonials />
+        <Curriculum />
         <Outcomes />
         <Instructor />
         <FAQ />

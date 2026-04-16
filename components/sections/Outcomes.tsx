@@ -250,12 +250,23 @@ export default function Outcomes() {
           .outcomes-ornament { display: none; }
           .outcomes-desktop-layout { display: none !important; }
           .outcomes-mobile-layout {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr !important;
-            gap: 0.5rem !important;
+            display: flex !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory;
+            gap: 1rem !important;
+            padding: 0.5rem 0 1.5rem 0 !important; /* padding prevents shadow clipping & gives space to scrollbar */
           }
-          .outcomes-mobile-full {
-            grid-column: 1 / -1;
+          /* Hide scrollbar for cleaner look */
+          .outcomes-mobile-layout::-webkit-scrollbar {
+            display: none;
+          }
+          .outcomes-mobile-layout {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+          }
+          .outcomes-mobile-layout > div {
+            scroll-snap-align: center;
+            flex: 0 0 85% !important; /* Cards take up 85% of standard width */
           }
           .outcomes-mobile-layout .outcome-card p {
             min-width: 0;
@@ -316,15 +327,13 @@ export default function Outcomes() {
             </div>
           </div>
 
-          {/* Mobile layout: flat 2-col grid (hidden on desktop) */}
+          {/* Mobile layout: auto-scroll horizontal carousel (hidden on desktop) */}
           <div className="outcomes-mobile-layout" style={{ maxWidth: "960px", margin: "0 auto" }}>
             <OutcomeCard text={outcomes[0]} />
             <OutcomeCard text={outcomes[1]} />
             <OutcomeCard text={outcomes[2]} />
             <OutcomeCard text={outcomes[3]} />
-            <div className="outcomes-mobile-full">
-              <OutcomeCard text={outcomes[4]} />
-            </div>
+            <OutcomeCard text={outcomes[4]} />
           </div>
 
           {/* Quote */}

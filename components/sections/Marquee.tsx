@@ -48,20 +48,33 @@ function MarqueeRow({
     outerRef.current?.classList.remove("is-paused");
   }, []);
 
-  // Mobile: toggle pause on tap
+  // Mobile: toggle pause on tap (touch-only — guard against desktop click)
   const handleClick = useCallback(() => {
-    outerRef.current?.classList.toggle("is-paused");
+    if (window.matchMedia("(hover: none)").matches) {
+      outerRef.current?.classList.toggle("is-paused");
+    }
   }, []);
 
   return (
     <div
       ref={outerRef}
       className={`marquee-outer${isReverse ? " marquee-row-second" : ""}`}
+      tabIndex={0}
+      role="group"
+      aria-label={
+        isReverse
+          ? "Öğrenci geri bildirimleri (ters yön) — duraklatmak için tıklayın"
+          : "Öğrenci geri bildirimleri — duraklatmak için tıklayın"
+      }
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
-      role="region"
-      aria-label="Öğrenci geri bildirimleri — duraklatmak için tıklayın"
+      onKeyDown={(e) => {
+        if (e.key === " " || e.key === "Enter") {
+          e.preventDefault();
+          outerRef.current?.classList.toggle("is-paused");
+        }
+      }}
     >
       <div className="marquee-fade-left" aria-hidden="true" />
       <div className="marquee-fade-right" aria-hidden="true" />

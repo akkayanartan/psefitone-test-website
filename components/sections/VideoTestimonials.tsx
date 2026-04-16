@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 // Replace these 6 YouTube video IDs with your student testimonial videos.
 // Format: https://www.youtube-nocookie.com/embed/VIDEO_ID
 const VIDEO_IDS: string[] = [
-  "PLACEHOLDER_1",
-  "PLACEHOLDER_2",
+  "o3lTTOIGX_g",
+  "JTwcdT2w5Tw",
   "PLACEHOLDER_3",
   "PLACEHOLDER_4",
   "PLACEHOLDER_5",

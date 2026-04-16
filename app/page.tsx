@@ -11,6 +11,7 @@ import FAQ from "@/components/sections/FAQ";
 import Apply from "@/components/sections/Apply";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
+import VideoTestimonials from "@/components/sections/VideoTestimonials";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         <Comparison />
         <Features />
         <Curriculum />
+        <VideoTestimonials />
         <Outcomes />
         <Instructor />
         <FAQ />

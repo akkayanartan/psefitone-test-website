@@ -12,6 +12,7 @@ import Apply from "@/components/sections/Apply";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/sections/Footer";
 import VideoTestimonials from "@/components/sections/VideoTestimonials";
+import SectionTracker from "@/components/SectionTracker";
 
 export default function Home() {
   return (
@@ -32,6 +33,7 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <SectionTracker />
     </>
   );
 }

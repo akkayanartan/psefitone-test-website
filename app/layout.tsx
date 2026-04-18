@@ -3,6 +3,7 @@ import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import GlobalSparkles from "@/components/GlobalSparkles";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -50,6 +51,7 @@ export default function RootLayout({
         <NoiseOverlay />
         {children}
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

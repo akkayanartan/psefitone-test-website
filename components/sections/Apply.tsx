@@ -42,6 +42,9 @@ export default function Apply() {
           <p className="apply-intro">
             Formu doldur, başvurunu gönder. Geri kalanı ben hallediyorum.
           </p>
+          <p style={{ marginTop: "1rem", color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: "1.7" }}>
+            Kurs 10 hafta sürecektir.
+          </p>
         </div>
 
         {/* Start date banner */}
@@ -67,6 +70,9 @@ export default function Apply() {
 
         {/* Pricing */}
         <div className="pricing-block gsap-reveal">
+          <p style={{ textAlign: "center", color: "var(--brand-muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>
+            10 haftalık ücret
+          </p>
           <div className="pricing-rows">
             <div className="pricing-row">
               <span className="pricing-row-label">Peşin Ücret</span>

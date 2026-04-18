@@ -23,8 +23,8 @@ export default function Home() {
         <VSL />
         <Marquee />
         <Comparison />
-        <Features />
         <VideoTestimonials />
+        <Features />
         <Curriculum />
         <Outcomes />
         <Instructor />

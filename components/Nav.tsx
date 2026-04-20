@@ -2,11 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Nav() {
   const [solid, setSolid] = useState(false);
   const [scrollWidth, setScrollWidth] = useState(0);
   const progressRef = useRef<HTMLDivElement>(null);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
 
   useEffect(() => {
     const onScroll = () => {
@@ -32,7 +35,11 @@ export default function Nav() {
         aria-hidden="true"
       />
 
-      <nav className={`nav${solid ? " nav--solid" : ""}`} id="mainNav">
+      <nav 
+        className={`nav${solid ? " nav--solid" : ""}`} 
+        id="mainNav"
+        style={{ top: isHome ? 'var(--banner-height)' : '0' }}
+      >
         <div className="nav-inner">
           <Link href="/" className="nav-logo" aria-label="Psefitone - Ana Sayfa">
             <Image

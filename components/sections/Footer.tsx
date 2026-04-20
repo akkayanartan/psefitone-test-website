@@ -11,6 +11,7 @@ export default function Footer() {
         <nav className="footer-links" aria-label="Alt navigasyon">
           <Link href="/kullanim-kosullari">Kullanım Koşulları</Link>
           <Link href="/gizlilik-politikasi">Gizlilik Politikası</Link>
+          <Link href="/mesafeli-satis-sozlesmesi">Mesafeli Satış Sözleşmesi</Link>
         </nav>
       </div>
       <p className="footer-legal">

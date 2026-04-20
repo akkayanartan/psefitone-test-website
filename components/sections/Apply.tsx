@@ -96,7 +96,7 @@ export default function Apply() {
               <p className="bonus-card-period" style={{ marginBottom: "0.8rem" }}>3 Aylık Erişim</p>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <span style={{ fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brand-muted)", marginBottom: "0.2rem" }}>Yaklaşık Değer:</span>
-                <p className="bonus-card-value" style={{ marginBottom: "0" }}>6.000 TL</p>
+                <p className="bonus-card-value" style={{ marginBottom: "0" }}>10.000 TL</p>
               </div>
             </div>
             
@@ -105,7 +105,7 @@ export default function Apply() {
               <p className="bonus-card-period" style={{ marginBottom: "0.8rem" }}>%20 İndirim & Erken Erişim</p>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <span style={{ fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brand-muted)", marginBottom: "0.2rem" }}>Yaklaşık Değer:</span>
-                <p className="bonus-card-value" style={{ marginBottom: "0" }}>₺2.000–₺10.000</p>
+                <p className="bonus-card-value" style={{ marginBottom: "0" }}>14.999 TL</p>
               </div>
             </div>
             

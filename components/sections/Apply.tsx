@@ -63,11 +63,6 @@ export default function Apply() {
           </div>
         </div>
 
-        <div className="seat-counter seat-counter--center gsap-reveal">
-          <span className="pulse-dot" aria-hidden="true" />
-          <span>14 kontenjan kaldı</span>
-        </div>
-
         {/* Pricing */}
         <div className="pricing-block gsap-reveal">
           <p style={{ textAlign: "center", color: "var(--brand-muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>
@@ -81,6 +76,24 @@ export default function Apply() {
             <div className="pricing-row">
               <span className="pricing-row-label">Taksitli Ücret</span>
               <span className="pricing-row-value">3 × 8.334 TL</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Guarantee block */}
+        <div className="guarantee-block gsap-reveal">
+          <div className="guarantee-block-inner">
+            <div className="guarantee-icon-wrap" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <polyline points="9 12 11 14 15 10" />
+              </svg>
+            </div>
+            <div className="guarantee-content">
+              <span className="section-tag" style={{ marginBottom: "0.4rem" }}>Sonuç Garantisi</span>
+              <p className="guarantee-text">
+                10 hafta sonunda çift elle Kafe parçaları çalamıyorsan, çalana kadar programa ücretsiz devam ediyorsun.
+              </p>
             </div>
           </div>
         </div>

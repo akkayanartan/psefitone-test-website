@@ -66,7 +66,7 @@ const faqGroups = [
       },
       {
         q: "Programdan ayrılmak istersem ne olur?",
-        a: "Detaylar kayıt sürecinde paylaşılan koşullarda belirtiliyor.",
+        a: "Program başlamadan önce iptal etmek istersen ücretin iade edilir. Program başladıktan sonra ayrılma durumunda iade yapılmaz; ancak sonuç garantimiz kapsamında programı tamamlayana kadar yanında olmaya devam ederiz.",
       },
     ],
   },

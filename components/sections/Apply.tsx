@@ -63,10 +63,71 @@ export default function Apply() {
           </div>
         </div>
 
-        {/* Pricing */}
-        <div className="pricing-block gsap-reveal">
-          <p style={{ textAlign: "center", color: "var(--brand-muted)", fontSize: "0.9rem", marginBottom: "1.5rem" }}>
-            10 haftalık ücret
+
+
+        {/* Guarantee block */}
+        <div className="guarantee-high-impact gsap-reveal">
+          <div className="guarantee-icon-wrap">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </div>
+          <h3 className="guarantee-hero-title">PARA İADE GARANTİSİ</h3>
+          <p className="guarantee-hero-text">
+            10 hafta boyunca grup ve birebir derslere eksiksiz katıldığın halde çift elle Çerkes müziği çalamazsan, ücretinin tamamı iade edilir.
+          </p>
+        </div>
+
+
+
+        {/* Bonus Stack Redesign */}
+        <div className="bonus-section-wrapper">
+          <div className="bonus-atmosphere-glow" aria-hidden="true" />
+          
+          <div className="bonus-stack-header gsap-reveal">
+            <span className="section-tag" style={{ color: "var(--brand-accent)" }}>Ekstra Değer</span>
+            <h3 className="section-title">Programa Dahil <em>Bonuslar</em></h3>
+          </div>
+
+          <div className="bonus-cards-grid gsap-reveal" style={{ textAlign: "center" }}>
+            <div className="bonus-card" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+              <h4 className="bonus-card-name">Çerkes Müziği Dijital Arşivi</h4>
+              <p className="bonus-card-period" style={{ marginBottom: "0.8rem" }}>3 Aylık Erişim</p>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <span style={{ fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brand-muted)", marginBottom: "0.2rem" }}>Yaklaşık Değer:</span>
+                <p className="bonus-card-value" style={{ marginBottom: "0" }}>6.000 TL</p>
+              </div>
+            </div>
+            
+            <div className="bonus-card" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+              <h4 className="bonus-card-name">Gelecek Eğitimlere Öncelikli Katılım</h4>
+              <p className="bonus-card-period" style={{ marginBottom: "0.8rem" }}>%20 İndirim & Erken Erişim</p>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <span style={{ fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brand-muted)", marginBottom: "0.2rem" }}>Yaklaşık Değer:</span>
+                <p className="bonus-card-value" style={{ marginBottom: "0" }}>₺2.000–₺10.000</p>
+              </div>
+            </div>
+            
+            <div className="bonus-card" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+              <h4 className="bonus-card-name">Sınırsız Topluluk Destek Ağı</h4>
+              <p className="bonus-card-period" style={{ marginBottom: "0.8rem" }}>Sürekli Erişim</p>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                <span style={{ fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brand-muted)", marginBottom: "0.2rem" }}>Yaklaşık Değer:</span>
+                <p className="bonus-card-value" style={{ marginBottom: "0" }}>Paha Biçilemez</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="bonus-summary-glow gsap-reveal">
+            <p className="bonus-total" style={{ margin: 0 }}>Toplam bonus değeri: <strong style={{ fontSize: "1.45rem" }}>25.000 TL+</strong></p>
+          </div>
+        </div>
+
+        {/* Pricing Moved Here */}
+        <div className="pricing-block gsap-reveal" style={{ marginTop: "2rem" }}>
+          <p style={{ textAlign: "center", color: "var(--brand-accent)", fontSize: "0.9rem", marginBottom: "1.5rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
+            10 Haftalık Eğitim Bedeli
           </p>
           <div className="pricing-rows">
             <div className="pricing-row">
@@ -76,24 +137,6 @@ export default function Apply() {
             <div className="pricing-row">
               <span className="pricing-row-label">Taksitli Ücret</span>
               <span className="pricing-row-value">3 × 8.334 TL</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Guarantee block */}
-        <div className="guarantee-block gsap-reveal">
-          <div className="guarantee-block-inner">
-            <div className="guarantee-icon-wrap" aria-hidden="true">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                <polyline points="9 12 11 14 15 10" />
-              </svg>
-            </div>
-            <div className="guarantee-content">
-              <span className="section-tag" style={{ marginBottom: "0.4rem" }}>Sonuç Garantisi</span>
-              <p className="guarantee-text">
-                10 hafta sonunda çift elle Kafe parçaları çalamıyorsan, çalana kadar programa ücretsiz devam ediyorsun.
-              </p>
             </div>
           </div>
         </div>

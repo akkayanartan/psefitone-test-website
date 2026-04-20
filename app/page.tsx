@@ -25,9 +25,9 @@ export default function Home() {
         <VSL />
         <Comparison />
         <VideoTestimonials />
+        <Outcomes />
         <Features />
         <Curriculum />
-        <Outcomes />
         <Instructor />
         <FAQ />
         <Apply />

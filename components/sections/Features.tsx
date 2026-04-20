@@ -33,8 +33,19 @@ export default function Features() {
   );
 
   return (
-    <section className="section features-section" id="content" ref={sectionRef}>
-      <div className="section-inner">
+    <>
+      <style>{`
+        .soundslice-iframe {
+          height: 700px;
+        }
+        @media (max-width: 767px) {
+          .soundslice-iframe {
+            height: 480px !important;
+          }
+        }
+      `}</style>
+      <section className="section features-section" id="content" ref={sectionRef}>
+        <div className="section-inner">
         {/* Soundslice interactive demo */}
         <div className="soundslice-block gsap-reveal">
           <div style={{
@@ -79,13 +90,13 @@ export default function Features() {
               src="https://www.soundslice.com/slices/nS11c/embed/?force_top_video=1&hshrink=1"
               title="Soundslice — Canlı Akordeon Demo"
               width="100%"
-              height="700"
               className="soundslice-iframe"
               allowFullScreen
             />
           </div>
         </div>
       </div>
-    </section>
+      </section>
+    </>
   );
 }

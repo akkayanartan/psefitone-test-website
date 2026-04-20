@@ -66,10 +66,11 @@ function OutcomeCard({
         background: "var(--brand-dark2)",
         border: "1px solid var(--brand-border)",
         borderRadius: "4px",
-        padding: padded ? "2.25rem 2.75rem" : "2rem 2.25rem",
+        padding: padded ? "2.5rem 2.75rem" : "2.25rem 2.25rem",
         display: "flex",
-        gap: "1.1rem",
-        alignItems: "flex-start",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
         position: "relative",
         overflow: "hidden",
         /* hover spring is applied via CSS class below */
@@ -92,14 +93,10 @@ function OutcomeCard({
         pointerEvents: "none",
       }} />
 
-      <DiamondIcon />
-
       <p
+        className={`outcome-text ${padded ? "padded" : ""}`}
         style={{
-          fontFamily: "var(--font-body)",
-          fontSize: padded ? "1.25rem" : "1.12rem",
           color: "var(--brand-text)",
-          lineHeight: 1.72,
           margin: 0,
           flex: 1,
           fontWeight: 400,
@@ -217,6 +214,15 @@ export default function Outcomes() {
             outline-offset: 3px;
           }
 
+          .outcome-text {
+            font-family: var(--font-body);
+            font-size: 1.12rem;
+            line-height: 1.72;
+          }
+          .outcome-text.padded {
+            font-size: 1.25rem;
+          }
+
           /* Emphasized phrase styles */
           .outcome-em {
             font-family: var(--font-display);
@@ -247,26 +253,25 @@ export default function Outcomes() {
             color: var(--brand-accent);
             font-weight: 500;
           }
+
+          .outcome-text {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            line-height: 1.45;
+          }
+          .outcome-text.padded {
+            font-size: 2rem;
+          }
           .outcomes-ornament { display: none; }
           .outcomes-desktop-layout { display: none !important; }
           .outcomes-mobile-layout {
             display: flex !important;
-            overflow-x: auto !important;
-            scroll-snap-type: x mandatory;
-            gap: 1rem !important;
-            padding: 0.5rem 0 1.5rem 0 !important; /* padding prevents shadow clipping & gives space to scrollbar */
-          }
-          /* Hide scrollbar for cleaner look */
-          .outcomes-mobile-layout::-webkit-scrollbar {
-            display: none;
-          }
-          .outcomes-mobile-layout {
-            -ms-overflow-style: none;  /* IE and Edge */
-            scrollbar-width: none;  /* Firefox */
+            flex-direction: column !important;
+            gap: 1.5rem !important;
+            padding: 0.5rem 0 1.5rem 0 !important;
           }
           .outcomes-mobile-layout > div {
-            scroll-snap-align: center;
-            flex: 0 0 85% !important; /* Cards take up 85% of standard width */
+            width: 100% !important;
           }
           .outcomes-mobile-layout .outcome-card p {
             min-width: 0;
@@ -336,36 +341,7 @@ export default function Outcomes() {
             <OutcomeCard text={outcomes[4]} />
           </div>
 
-          {/* Quote */}
-          <div className="outcomes-quote-reveal" style={{
-            maxWidth: "620px",
-            margin: "3.5rem auto 0",
-            textAlign: "center",
-            padding: "0 1rem",
-          }}>
-            <div style={{
-              width: "1px", height: "2.5rem",
-              background: "linear-gradient(to bottom, transparent, rgba(134,41,255,0.3))",
-              margin: "0 auto 1.5rem",
-            }} />
 
-            <p style={{
-              fontFamily: "var(--font-display)",
-              fontSize: "1.05rem",
-              fontStyle: "italic",
-              color: "var(--brand-primary)",
-              lineHeight: 1.7,
-              margin: 0,
-            }}>
-              &ldquo;Bu sadece çalmayı öğrenmek değil. Kültürünü taşıyacak biri olarak sahneye çıkmak, ailenin önünde çalmak, o anlara hazır olmak — bunun için sağlam bir temel gerekiyor.&rdquo;
-            </p>
-
-            <div style={{
-              width: "1px", height: "2.5rem",
-              background: "linear-gradient(to bottom, rgba(134,41,255,0.3), transparent)",
-              margin: "1.5rem auto 0",
-            }} />
-          </div>
         </div>
       </section>
     </>

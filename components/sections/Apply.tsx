@@ -134,15 +134,10 @@ export default function Apply() {
               <span className="pricing-row-label">Peşin Ücret</span>
               <span className="pricing-row-value">25.000 TL</span>
             </div>
-            <div className="pricing-row">
-              <span className="pricing-row-label">Taksitli Ücret</span>
-              <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", textAlign: "right" }}>
-                <span style={{ fontSize: "0.8rem", color: "var(--brand-muted)", fontWeight: 400, fontStyle: "italic", lineHeight: 1.4 }}>
-                  Farklı taksit seçenekleri başvurusu onaylanan<br />adaylara ödeme aşamasında sunulacaktır.
-                </span>
-              </div>
-            </div>
           </div>
+          <p style={{ textAlign: "center", color: "var(--brand-muted)", fontSize: "0.82rem", marginTop: "1.2rem", fontStyle: "italic", lineHeight: 1.4 }}>
+            Farklı taksit seçenekleri başvurusu onaylanan adaylara ödeme aşamasında sunulacaktır.
+          </p>
         </div>
 
         {/* Warning notice */}

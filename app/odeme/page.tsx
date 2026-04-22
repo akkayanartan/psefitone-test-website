@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import Link from "next/link";
 
 import PayTRIframe from "@/components/payment/PayTRIframe";
+import PayTRInstallmentWidget from "@/components/payment/PayTRInstallmentWidget";
 import { fetchPaytrToken, generateMerchantOid, type BasketItem } from "@/lib/paytr";
 import ReloadButton from "./ReloadButton";
 
@@ -70,6 +71,7 @@ async function generateToken(): Promise<{ token: string } | { error: string }> {
 
 export default async function OdemePage() {
   const result = await generateToken();
+  const priceTl = Number(process.env.NEXT_PUBLIC_COURSE_PRICE_TL ?? 25000);
 
   return (
     <div className="relative min-h-screen bg-[var(--brand-dark)] text-[var(--brand-text)]">
@@ -89,6 +91,8 @@ export default async function OdemePage() {
             <PayTRIframe token={result.token} />
           )}
         </div>
+
+        <PayTRInstallmentWidget amountTl={priceTl} maxInstallment={5} />
 
         <LegalFooter />
       </main>

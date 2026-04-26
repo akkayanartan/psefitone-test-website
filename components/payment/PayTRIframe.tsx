@@ -8,16 +8,7 @@ interface Props {
 
 export default function PayTRIframe({ token }: Props) {
   return (
-    <div className="relative overflow-hidden rounded-lg border border-[var(--brand-border)] bg-[var(--brand-dark3)]">
-      <div
-        className="pointer-events-none absolute inset-0 opacity-50"
-        aria-hidden="true"
-        style={{
-          background:
-            "radial-gradient(ellipse 80% 50% at 20% 0%, rgba(134,41,255,0.15), transparent 70%)",
-        }}
-      />
-
+    <div className="relative overflow-hidden bg-[var(--brand-dark3)]">
       <div className="relative p-1.5 sm:p-2">
         <iframe
           src={`https://www.paytr.com/odeme/guvenli/${encodeURIComponent(token)}`}

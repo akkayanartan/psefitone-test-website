@@ -9,6 +9,7 @@ export default function Footer() {
           <p className="footer-tagline">Yaşatmak için, önce iyi öğren.</p>
         </div>
         <nav className="footer-links" aria-label="Alt navigasyon">
+          <Link href="/iletisim">İletişim</Link>
           <Link href="/kullanim-kosullari">Kullanım Koşulları</Link>
           <Link href="/gizlilik-politikasi">Gizlilik Politikası</Link>
           <Link href="/mesafeli-satis-sozlesmesi">Mesafeli Satış Sözleşmesi</Link>

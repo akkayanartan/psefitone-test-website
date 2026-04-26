@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { headers } from "next/headers";
-import Link from "next/link";
 
+import Nav from "@/components/Nav";
+import Footer from "@/components/sections/Footer";
 import PayTRIframe from "@/components/payment/PayTRIframe";
-import PayTRInstallmentWidget from "@/components/payment/PayTRInstallmentWidget";
 import { fetchPaytrToken, generateMerchantOid, type BasketItem } from "@/lib/paytr";
 import ReloadButton from "./ReloadButton";
 
@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-// Always server-rendered on demand — token generation is per-request.
 export const dynamic = "force-dynamic";
 
 function absoluteUrl(path: string): string {
@@ -43,8 +42,6 @@ async function generateToken(): Promise<{ token: string } | { error: string }> {
   try {
     const result = await fetchPaytrToken({
       merchantOid,
-      // Buyer details are collected via WhatsApp — use generic placeholders here.
-      // PayTR's hosted iframe handles card entry and 3DS on their side.
       email: "ogrenci@psefitone.com",
       paymentAmountKurus: Math.round(priceTl * 100),
       userIp,
@@ -71,36 +68,39 @@ async function generateToken(): Promise<{ token: string } | { error: string }> {
 
 export default async function OdemePage() {
   const result = await generateToken();
-  const priceTl = Number(process.env.NEXT_PUBLIC_COURSE_PRICE_TL ?? 25000);
 
   return (
     <div className="relative min-h-screen bg-[var(--brand-dark)] text-[var(--brand-text)]">
       <AtmosphericGlows />
-      <BrandHeader />
+      <Nav />
 
       <main
         id="main-content"
-        className="relative mx-auto w-full max-w-[860px] px-4 pb-24 pt-4 sm:px-8"
+        className="relative flex w-full max-w-[640px] flex-col items-center"
+        style={{
+          marginInline: "auto",
+          paddingTop: "clamp(7rem, 14vw, 9rem)",
+          paddingBottom: "5rem",
+          paddingInline: "1.5rem",
+        }}
       >
         <PageHeader />
 
-        <div className="mt-10">
+        <div style={{ marginTop: "2.5rem", width: "100%" }}>
           {"error" in result ? (
             <ErrorState message={result.error} />
           ) : (
-            <PayTRIframe token={result.token} />
+            <PaymentSection token={result.token} />
           )}
         </div>
-
-        <PayTRInstallmentWidget amountTl={priceTl} maxInstallment={5} />
-
-        <LegalFooter />
       </main>
+
+      <Footer />
     </div>
   );
 }
 
-/* ─── Sub-components ─────────────────────────────────────────── */
+/* ─── Atmospheric background ─────────────────────────────────── */
 
 function AtmosphericGlows() {
   return (
@@ -108,149 +108,180 @@ function AtmosphericGlows() {
       className="pointer-events-none fixed inset-0 -z-10"
       aria-hidden="true"
       style={{
-        background:
-          "radial-gradient(ellipse 60% 40% at 15% 20%, rgba(134,41,255,0.10), transparent 60%), radial-gradient(ellipse 50% 40% at 85% 75%, rgba(227,224,170,0.06), transparent 60%)",
+        background: [
+          "radial-gradient(ellipse 70% 55% at 5% 10%, rgba(134,41,255,0.13), transparent 65%)",
+          "radial-gradient(ellipse 50% 45% at 90% 80%, rgba(227,224,170,0.07), transparent 60%)",
+          "radial-gradient(ellipse 35% 30% at 50% 110%, rgba(134,41,255,0.07), transparent 55%)",
+        ].join(", "),
       }}
     />
   );
 }
 
-function BrandHeader() {
-  return (
-    <header className="relative z-10 mx-auto flex w-full max-w-[860px] items-center justify-between px-4 py-6 sm:px-8">
-      <Link
-        href="/"
-        className="inline-flex items-baseline gap-0.5 text-[var(--brand-text)] transition-opacity hover:opacity-80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brand-secondary)]"
-        aria-label="Psefitone anasayfaya dön"
-      >
-        <span
-          className="text-xl sm:text-2xl font-medium tracking-tight"
-          style={{ fontFamily: "var(--font-display)" }}
-        >
-          Psefitone
-        </span>
-        <span
-          className="ml-0.5 text-xl sm:text-2xl text-[var(--brand-primary)]"
-          style={{ fontFamily: "var(--font-display)" }}
-          aria-hidden="true"
-        >
-          .
-        </span>
-      </Link>
-      <Link
-        href="/"
-        className="group inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.14em] text-[var(--brand-muted)] transition-colors hover:text-[var(--brand-text)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--brand-secondary)]"
-      >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-          className="transition-transform group-hover:-translate-x-0.5"
-        >
-          <line x1="19" y1="12" x2="5" y2="12" />
-          <polyline points="12 19 5 12 12 5" />
-        </svg>
-        Anasayfa
-      </Link>
-    </header>
-  );
-}
+/* ─── Page header ─────────────────────────────────────────────── */
 
 function PageHeader() {
   return (
-    <div className="mx-auto max-w-[640px] text-center">
-      <span
-        className="inline-block text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-[var(--brand-accent)]"
-        style={{ fontFamily: "var(--font-body)" }}
+    <div className="text-center">
+      {/* Security pill */}
+      <div
+        className="inline-flex items-center gap-2 rounded-full border border-[rgba(134,41,255,0.3)] bg-[rgba(134,41,255,0.09)] px-4 py-2"
       >
-        Güvenli Ödeme · 2. Kohort
-      </span>
+        <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true">
+          <path
+            d="M5.5 0L0 2.25v3.5c0 3.08 2.34 5.96 5.5 6.75C8.66 11.71 11 8.83 11 5.75v-3.5L5.5 0z"
+            fill="var(--brand-accent)"
+            opacity="0.85"
+          />
+        </svg>
+        <span
+          className="text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-[var(--brand-accent)]"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
+          Güvenli Ödeme · 2. Kohort
+        </span>
+      </div>
+
       <h1
-        className="mt-4 text-[clamp(1.75rem,4vw,2.75rem)] font-medium leading-[1.15] text-[var(--brand-text)]"
-        style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.018em" }}
+        className="mt-5 text-[clamp(1.8rem,7vw,2.75rem)] font-medium leading-[1.1] text-[var(--brand-text)]"
+        style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}
       >
         Başvurun onaylandı.{" "}
-        <em className="not-italic" style={{ fontStyle: "italic", color: "var(--brand-primary)" }}>
+        <em style={{ fontStyle: "italic", color: "var(--brand-primary)" }}>
           Kursa katıl.
         </em>
       </h1>
-      <p className="mx-auto mt-4 max-w-[480px] text-[0.9rem] leading-relaxed text-[var(--brand-muted)]">
-        Ödemen tamamlandığında kayıt onayı ve grup erişim bilgileri e-posta ile
-        gönderilir. Kurs 4 Mayıs 2026&apos;da başlar.
+
+      <p
+        className="mx-auto mt-4 max-w-[380px] text-[0.85rem] leading-relaxed text-[var(--brand-muted)]"
+        style={{ fontFamily: "var(--font-body)" }}
+      >
+        Ödemen tamamlandığında kayıt onayı ve grup erişim bilgileri e-posta
+        ile gönderilir. Kurs <strong className="text-[var(--brand-text)] font-medium">4 Mayıs 2026</strong>&apos;da başlar.
       </p>
     </div>
   );
 }
+
+/* ─── Payment section (iframe + branded frame) ───────────────── */
+
+function PaymentSection({ token }: { token: string }) {
+  return (
+    <div className="overflow-hidden rounded border border-[rgba(134,41,255,0.22)]">
+      {/* Branded header bar above iframe */}
+      <div
+        className="flex items-center justify-between border-b border-[rgba(134,41,255,0.2)] px-4 py-3"
+        style={{ background: "rgba(134,41,255,0.09)" }}
+      >
+        <div className="flex items-center gap-2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--brand-primary)] opacity-80" aria-hidden="true">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+          </svg>
+          <span
+            className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[var(--brand-text)]"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            Kart Bilgileri
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span
+            className="rounded-sm border border-[rgba(134,41,255,0.3)] bg-[rgba(134,41,255,0.1)] px-2 py-0.5 text-[0.62rem] font-semibold uppercase tracking-[0.1em] text-[var(--brand-primary)]"
+            style={{ fontFamily: "var(--font-body)" }}
+          >
+            3D Secure
+          </span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--brand-muted)]" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+        </div>
+      </div>
+
+      {/* PayTR iframe — no styling modifications inside */}
+      <PayTRIframe token={token} />
+
+      {/* Trust strip below iframe */}
+      <div
+        className="border-t border-[rgba(134,41,255,0.15)] px-4 py-3"
+        style={{ background: "rgba(14,10,26,0.7)" }}
+      >
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          <TrustBadge icon="lock" label="256-bit SSL" />
+          <TrustBadge icon="credit-card" label="Kart verisi saklanmaz" />
+          <TrustBadge icon="paytr" label="PayTR Virtual POS" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TrustBadge({ icon, label }: { icon: "lock" | "credit-card" | "paytr"; label: string }) {
+  return (
+    <div className="flex items-center gap-1.5">
+      {icon === "lock" && (
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--brand-muted)] opacity-70" aria-hidden="true">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+          <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+        </svg>
+      )}
+      {icon === "credit-card" && (
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--brand-muted)] opacity-70" aria-hidden="true">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+          <line x1="1" y1="10" x2="23" y2="10" />
+        </svg>
+      )}
+      {icon === "paytr" && (
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--brand-muted)] opacity-70" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+      )}
+      <span
+        className="text-[0.67rem] text-[var(--brand-muted)]"
+        style={{ fontFamily: "var(--font-body)" }}
+      >
+        {label}
+      </span>
+    </div>
+  );
+}
+
+/* ─── Error state ─────────────────────────────────────────────── */
 
 function ErrorState({ message }: { message: string }) {
   return (
-    <div className="mx-auto max-w-[560px] rounded-lg border border-[rgba(227,224,170,0.2)] bg-[var(--brand-dark3)] px-6 py-10 text-center">
+    <div
+      className="overflow-hidden rounded border border-[rgba(227,224,170,0.18)]"
+      style={{
+        background: "linear-gradient(135deg, var(--brand-dark3), var(--brand-dark2))",
+        boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
+      }}
+    >
       <div
-        className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-[rgba(227,224,170,0.3)] bg-[var(--brand-dark2)]"
+        className="h-px w-full"
+        style={{ background: "linear-gradient(90deg, transparent, rgba(227,224,170,0.4), transparent)" }}
         aria-hidden="true"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-[var(--brand-accent)]"
+      />
+      <div className="px-6 py-10 text-center">
+        <div
+          className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-[rgba(227,224,170,0.25)] bg-[rgba(227,224,170,0.06)]"
+          aria-hidden="true"
         >
-          <circle cx="12" cy="12" r="10" />
-          <line x1="12" y1="8" x2="12" y2="12" />
-          <line x1="12" y1="16" x2="12.01" y2="16" />
-        </svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[var(--brand-accent)]">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="8" x2="12" y2="12" />
+            <line x1="12" y1="16" x2="12.01" y2="16" />
+          </svg>
+        </div>
+        <p
+          className="text-[0.875rem] leading-relaxed text-[var(--brand-muted)]"
+          style={{ fontFamily: "var(--font-body)" }}
+        >
+          {message}
+        </p>
+        <ReloadButton />
       </div>
-      <p className="text-sm leading-relaxed text-[var(--brand-muted)]">{message}</p>
-      <ReloadButton />
     </div>
   );
 }
 
-function LegalFooter() {
-  return (
-    <footer className="mt-12 border-t border-[var(--brand-border)] pt-5 text-center text-xs leading-relaxed text-[var(--brand-muted)]">
-      <p>
-        Ödeme altyapısı{" "}
-        <span className="text-[var(--brand-text)]">PayTR Virtual POS</span>{" "}
-        tarafından sağlanır. Kart bilgileri 3D Secure ile doğrulanır ve
-        sunucularımızda saklanmaz.
-      </p>
-      <p className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-        <Link
-          href="/mesafeli-satis-sozlesmesi"
-          target="_blank"
-          className="transition-colors hover:text-[var(--brand-text)]"
-        >
-          Mesafeli Satış Sözleşmesi
-        </Link>
-        <span aria-hidden="true" className="opacity-30">·</span>
-        <Link
-          href="/gizlilik-politikasi"
-          target="_blank"
-          className="transition-colors hover:text-[var(--brand-text)]"
-        >
-          Gizlilik Politikası
-        </Link>
-        <span aria-hidden="true" className="opacity-30">·</span>
-        <Link
-          href="/kullanim-kosullari"
-          target="_blank"
-          className="transition-colors hover:text-[var(--brand-text)]"
-        >
-          Kullanım Koşulları
-        </Link>
-      </p>
-    </footer>
-  );
-}

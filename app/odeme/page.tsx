@@ -156,8 +156,7 @@ function PageHeader() {
         className="mx-auto mt-4 max-w-[380px] text-[0.85rem] leading-relaxed text-[var(--brand-muted)]"
         style={{ fontFamily: "var(--font-body)" }}
       >
-        Ödemen tamamlandığında kayıt onayı ve grup erişim bilgileri e-posta
-        ile gönderilir. Kurs <strong className="text-[var(--brand-text)] font-medium">4 Mayıs 2026</strong>&apos;da başlar.
+        Ödemen tamamlandığında kayıt onayı ve grup erişim bilgileri WhatsApp ile gönderilir.
       </p>
     </div>
   );

@@ -91,6 +91,7 @@ export async function POST(req: NextRequest) {
       merchantOkUrl: absoluteUrl("/odeme/basarili"),
       merchantFailUrl: absoluteUrl("/odeme/hata"),
       maxInstallment: Number.isFinite(maxInstallment) ? maxInstallment : 5,
+      timeoutLimit: 15,
     });
 
     if (result.status !== "success" || !result.token) {

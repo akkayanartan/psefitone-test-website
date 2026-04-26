@@ -78,12 +78,22 @@ export default function OdemeClient() {
   }
 
   return (
-    <PaymentForm
-      onTokenIssued={(t, oid) => {
-        setToken(t);
-        setMerchantOid(oid);
+    <div
+      className="overflow-hidden rounded border border-[var(--brand-border)]"
+      style={{
+        background: "linear-gradient(135deg, var(--brand-dark3), var(--brand-dark2))",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.4), 0 2px 10px rgba(0,0,0,0.3)",
       }}
-    />
+    >
+      <div className="p-6 sm:p-8">
+        <PaymentForm
+          onTokenIssued={(t, oid) => {
+            setToken(t);
+            setMerchantOid(oid);
+          }}
+        />
+      </div>
+    </div>
   );
 }
 

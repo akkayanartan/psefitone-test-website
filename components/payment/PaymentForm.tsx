@@ -35,15 +35,7 @@ const schema = z.object({
     .min(7, "Telefon numarası eksik")
     .max(20)
     .regex(/^[+0-9 ()-]+$/, "Geçersiz telefon numarası"),
-  address: z
-    .string()
-    .trim()
-    .min(10, "Fatura için tam adres gerekli")
-    .max(400),
-  tcKimlik: z
-    .string()
-    .trim()
-    .regex(/^[1-9][0-9]{10}$/, "T.C. Kimlik No 11 haneli olmalıdır"),
+  address: z.string().trim().optional(),
   kvkk: z.literal(true, {
     message: "Devam etmek için onay vermeniz gerekir",
   }),
@@ -66,7 +58,6 @@ export default function PaymentForm({ onTokenIssued }: Props) {
       email: "",
       phone: "",
       address: "",
-      tcKimlik: "",
       kvkk: false as unknown as true,
     },
     mode: "onBlur",
@@ -84,7 +75,6 @@ export default function PaymentForm({ onTokenIssued }: Props) {
           email: values.email,
           phone: values.phone,
           address: values.address,
-          tcKimlik: values.tcKimlik,
         }),
       });
       const data = (await res.json()) as {
@@ -158,7 +148,7 @@ export default function PaymentForm({ onTokenIssued }: Props) {
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
             <FormField
               control={form.control}
               name="phone"
@@ -172,26 +162,6 @@ export default function PaymentForm({ onTokenIssued }: Props) {
                       autoComplete="tel"
                       inputMode="tel"
                       placeholder="+90 5XX XXX XX XX"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-xs" />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="tcKimlik"
-              render={({ field }) => (
-                <FormItem>
-                  <FieldLabel>T.C. Kimlik No</FieldLabel>
-                  <FormControl>
-                    <StyledInput
-                      {...field}
-                      type="text"
-                      inputMode="numeric"
-                      autoComplete="off"
-                      maxLength={11}
-                      placeholder="11 haneli kimlik no"
                     />
                   </FormControl>
                   <FormMessage className="text-xs" />

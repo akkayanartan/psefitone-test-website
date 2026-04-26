@@ -10,8 +10,8 @@ import {
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// Turkish-friendly validation: phone is loose (PayTR handles its own checks),
-// TC Kimlik is 11-digit numeric, address is PayTR-required (min 10 chars).
+// Turkish-friendly validation: phone is loose (PayTR handles its own checks).
+// TC Kimlik removed. Address relaxed.
 const bodySchema = z.object({
   name: z.string().trim().min(2).max(120),
   email: z.string().trim().toLowerCase().email().max(160),
@@ -21,11 +21,7 @@ const bodySchema = z.object({
     .min(7)
     .max(20)
     .regex(/^[+0-9 ()-]+$/, "Geçersiz telefon numarası"),
-  address: z.string().trim().min(10).max(400),
-  tcKimlik: z
-    .string()
-    .trim()
-    .regex(/^[1-9][0-9]{10}$/, "T.C. Kimlik No 11 haneli olmalıdır"),
+  address: z.string().trim().optional(),
 });
 
 function getUserIp(req: NextRequest): string {
@@ -74,7 +70,7 @@ export async function POST(req: NextRequest) {
 
   const userName = parsedBody.name.slice(0, 60);
   const userPhone = parsedBody.phone.replace(/[^+0-9]/g, "").slice(0, 20);
-  const userAddress = parsedBody.address.slice(0, 400);
+  const userAddress = (parsedBody.address || "Türkiye").slice(0, 400);
 
   const maxInstallment = Number(process.env.PAYTR_MAX_INSTALLMENT ?? 5);
 

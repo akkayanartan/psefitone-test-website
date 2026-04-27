@@ -124,7 +124,7 @@ export default function Apply() {
           </div>
         </div>
 
-        {/* Pricing Moved Here */}
+        {/* Pricing */}
         <div className="pricing-block gsap-reveal" style={{ marginTop: "2rem" }}>
           <p style={{ textAlign: "center", color: "var(--brand-accent)", fontSize: "0.9rem", marginBottom: "1.5rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
             10 Haftalık Eğitim Bedeli
@@ -135,9 +135,96 @@ export default function Apply() {
               <span className="pricing-row-value">25.000 TL</span>
             </div>
           </div>
-          <p style={{ textAlign: "center", color: "var(--brand-muted)", fontSize: "0.82rem", marginTop: "1.2rem", fontStyle: "italic", lineHeight: 1.4 }}>
-            Farklı taksit seçenekleri başvurusu onaylanan adaylara ödeme aşamasında sunulacaktır.
+
+          {/* Payment options */}
+          <hr style={{ border: "none", borderTop: "1px solid var(--brand-border)", margin: "1.4rem 0 1.2rem" }} />
+          <p style={{ textAlign: "center", color: "var(--brand-muted)", fontSize: "0.73rem", letterSpacing: "0.13em", textTransform: "uppercase", marginBottom: "1rem", fontFamily: "var(--font-body)" }}>
+            Ödeme Yöntemleri
           </p>
+
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem" }}>
+            {/* IBAN */}
+            <div style={{
+              display: "flex", alignItems: "center", gap: "0.75rem",
+              background: "var(--brand-dark)", border: "1px solid var(--brand-border)",
+              borderRadius: "6px", padding: "0.65rem 1rem",
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}>
+                <rect x="3" y="8" width="18" height="13" rx="2" />
+                <path d="M7 8V6a5 5 0 0 1 10 0v2" />
+                <line x1="12" y1="13" x2="12" y2="16" />
+              </svg>
+              <div style={{ flex: 1 }}>
+                <span style={{ color: "var(--brand-text)", fontSize: "0.84rem", fontFamily: "var(--font-body)", fontWeight: 600 }}>IBAN</span>
+                <span style={{ color: "var(--brand-muted)", fontSize: "0.78rem", fontFamily: "var(--font-body)", marginLeft: "0.5rem" }}>Havale / EFT</span>
+              </div>
+            </div>
+
+            {/* Credit card — single payment */}
+            <div style={{
+              display: "flex", alignItems: "center", gap: "0.75rem",
+              background: "var(--brand-dark)", border: "1px solid var(--brand-border)",
+              borderRadius: "6px", padding: "0.65rem 1rem",
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}>
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                <line x1="1" y1="10" x2="23" y2="10" />
+              </svg>
+              <div style={{ flex: 1 }}>
+                <span style={{ color: "var(--brand-text)", fontSize: "0.84rem", fontFamily: "var(--font-body)", fontWeight: 600 }}>Kredi Kartı</span>
+                <span style={{ color: "var(--brand-muted)", fontSize: "0.78rem", fontFamily: "var(--font-body)", marginLeft: "0.5rem" }}>Tek çekim</span>
+              </div>
+            </div>
+
+            {/* Credit card — installments */}
+            <div style={{
+              display: "flex", alignItems: "center", gap: "0.75rem",
+              background: "var(--brand-dark)", border: "1px solid rgba(134,41,255,0.2)",
+              borderRadius: "6px", padding: "0.65rem 1rem",
+            }}>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}>
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                <line x1="1" y1="10" x2="23" y2="10" />
+                <line x1="7" y1="15" x2="9" y2="15" />
+                <line x1="12" y1="15" x2="14" y2="15" />
+                <line x1="17" y1="15" x2="19" y2="15" />
+              </svg>
+              <div style={{ flex: 1 }}>
+                <span style={{ color: "var(--brand-text)", fontSize: "0.84rem", fontFamily: "var(--font-body)", fontWeight: 600 }}>Kredi Kartı</span>
+                <span style={{ color: "var(--brand-muted)", fontSize: "0.78rem", fontFamily: "var(--font-body)", marginLeft: "0.5rem" }}>6 taksite kadar</span>
+              </div>
+              <span style={{
+                fontSize: "0.68rem", fontFamily: "var(--font-body)", fontWeight: 600,
+                color: "var(--brand-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
+                background: "rgba(227,224,170,0.1)", border: "1px solid rgba(227,224,170,0.25)",
+                borderRadius: "4px", padding: "0.15rem 0.4rem", flexShrink: 0,
+              }}>FAİZLİ</span>
+            </div>
+          </div>
+
+          {/* Interest note + eligibility callout */}
+          <p style={{ color: "var(--brand-muted)", fontSize: "0.78rem", fontFamily: "var(--font-body)", lineHeight: 1.55, marginTop: "0.9rem", textAlign: "center" }}>
+            Taksitli ödemelerde toplam tutar banka faizi kadar daha yüksek olacaktır.
+          </p>
+
+          <div style={{
+            display: "flex", alignItems: "flex-start", gap: "0.5rem",
+            marginTop: "1rem",
+            padding: "0.8rem 1rem",
+            background: "rgba(134,41,255,0.06)",
+            border: "1px solid rgba(134,41,255,0.2)",
+            borderRadius: "6px",
+            textAlign: "left",
+          }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--brand-secondary)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0, marginTop: "2px" }}>
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="8" x2="12" y2="12" />
+              <line x1="12" y1="16" x2="12.01" y2="16" />
+            </svg>
+            <p style={{ margin: 0, color: "var(--brand-muted)", fontSize: "0.82rem", fontFamily: "var(--font-body)", lineHeight: 1.6 }}>
+              Ödeme seçenekleri yalnızca <strong style={{ color: "var(--brand-text)", fontWeight: 600 }}>formu dolduran ve kursa kabul edilen</strong> adaylara sunulacaktır.
+            </p>
+          </div>
         </div>
 
         {/* Warning notice */}

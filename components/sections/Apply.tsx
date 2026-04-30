@@ -37,13 +37,10 @@ export default function Apply() {
     <section className="section apply-section" id="basvur" ref={sectionRef}>
       <div className="section-inner">
         <div className="section-header gsap-reveal">
-          <span className="section-tag">Başvuru</span>
-          <h2 className="section-title">10 haftada başla.</h2>
+          <span className="section-tag">Özel Teklif</span>
+          <h2 className="section-title">Reddedemeyeceğin Bir Teklif.</h2>
           <p className="apply-intro">
-            Formu doldur, başvurunu gönder. Geri kalanı ben hallediyorum.
-          </p>
-          <p style={{ marginTop: "1rem", color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: "1.7" }}>
-            Kurs 10 hafta sürecektir.
+            10 haftalık yoğun eğitim ve hayat boyu kullanacağın tüm kaynaklar.
           </p>
         </div>
 
@@ -63,28 +60,10 @@ export default function Apply() {
           </div>
         </div>
 
-
-
-        {/* Guarantee block */}
-        <div className="guarantee-high-impact gsap-reveal">
-          <div className="guarantee-icon-wrap">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-              <path d="m9 12 2 2 4-4" />
-            </svg>
-          </div>
-          <h3 className="guarantee-hero-title">PARA İADE GARANTİSİ</h3>
-          <p className="guarantee-hero-text">
-            10 hafta boyunca grup ve birebir derslere eksiksiz katıldığın halde çift elle Çerkes müziği çalamazsan, ücretinin tamamı iade edilir.
-          </p>
-        </div>
-
-
-
         {/* Bonus Stack Redesign */}
-        <div className="bonus-section-wrapper">
+        <div className="bonus-section-wrapper" style={{ marginTop: "3rem" }}>
           <div className="bonus-atmosphere-glow" aria-hidden="true" />
-          
+
           <div className="bonus-stack-header gsap-reveal">
             <span className="section-tag" style={{ color: "var(--brand-accent)" }}>Ekstra Değer</span>
             <h3 className="section-title">Programa Dahil <em>Bonuslar</em></h3>
@@ -99,16 +78,16 @@ export default function Apply() {
                 <p className="bonus-card-value" style={{ marginBottom: "0" }}>10.000 TL</p>
               </div>
             </div>
-            
+
             <div className="bonus-card" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
               <h4 className="bonus-card-name">Gelecek Eğitimlere Öncelikli Katılım</h4>
               <p className="bonus-card-period" style={{ marginBottom: "0.8rem" }}>%20 İndirim & Erken Erişim</p>
               <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <span style={{ fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--brand-muted)", marginBottom: "0.2rem" }}>Yaklaşık Değer:</span>
-                <p className="bonus-card-value" style={{ marginBottom: "0" }}>14.999 TL</p>
+                <p className="bonus-card-value" style={{ marginBottom: "0" }}>15.000 TL</p>
               </div>
             </div>
-            
+
             <div className="bonus-card" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
               <h4 className="bonus-card-name">Sınırsız Topluluk Destek Ağı</h4>
               <p className="bonus-card-period" style={{ marginBottom: "0.8rem" }}>Sürekli Erişim</p>
@@ -118,22 +97,60 @@ export default function Apply() {
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="bonus-summary-glow gsap-reveal">
-            <p className="bonus-total" style={{ margin: 0 }}>Toplam bonus değeri: <strong style={{ fontSize: "1.45rem" }}>25.000 TL+</strong></p>
+        {/* Value Stack */}
+        <div className="value-stack-block gsap-reveal" style={{
+          maxWidth: "600px",
+          margin: "3rem auto",
+          background: "var(--brand-dark2)",
+          border: "1px solid var(--brand-border)",
+          borderRadius: "12px",
+          padding: "2rem",
+          boxShadow: "0 10px 40px rgba(0,0,0,0.5)"
+        }}>
+          <h3 style={{ color: "var(--brand-text)", fontSize: "1.2rem", fontWeight: 600, textAlign: "center", marginBottom: "1.5rem" }}>
+            Neler Alıyorsunuz?
+          </h3>
+
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <li style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px dashed var(--brand-border)", paddingBottom: "1rem" }}>
+              <span style={{ color: "var(--brand-text)", fontSize: "0.95rem" }}>10 Haftalık Ana Eğitim & Müfredat</span>
+              <span style={{ color: "var(--brand-muted)", fontSize: "0.9rem" }}>Değeri: 40.000 TL</span>
+            </li>
+            <li style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px dashed var(--brand-border)", paddingBottom: "1rem" }}>
+              <span style={{ color: "var(--brand-text)", fontSize: "0.95rem" }}>Bonus #1: Dijital Arşiv (3 Ay)</span>
+              <span style={{ color: "var(--brand-muted)", fontSize: "0.9rem" }}>Değeri: 10.000 TL</span>
+            </li>
+            <li style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px dashed var(--brand-border)", paddingBottom: "1rem" }}>
+              <span style={{ color: "var(--brand-text)", fontSize: "0.95rem" }}>Bonus #2: Gelecek Eğitimlerde Öncelik</span>
+              <span style={{ color: "var(--brand-muted)", fontSize: "0.9rem" }}>Değeri: 15.000 TL</span>
+            </li>
+            <li style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px dashed var(--brand-border)", paddingBottom: "1rem" }}>
+              <span style={{ color: "var(--brand-text)", fontSize: "0.95rem" }}>Bonus #3: Topluluk Desteği</span>
+              <span style={{ color: "var(--brand-muted)", fontSize: "0.9rem" }}>Paha Biçilemez</span>
+            </li>
+          </ul>
+
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1.5rem", paddingTop: "1rem" }}>
+            <span style={{ color: "var(--brand-text)", fontSize: "1.1rem", fontWeight: 600 }}>TOPLAM DEĞER:</span>
+            <span style={{ color: "var(--brand-accent)", fontSize: "1.3rem", fontWeight: 700, textDecoration: "line-through" }}>65.000 TL</span>
           </div>
         </div>
 
         {/* Pricing */}
         <div className="pricing-block gsap-reveal" style={{ marginTop: "2rem" }}>
           <p style={{ textAlign: "center", color: "var(--brand-accent)", fontSize: "0.9rem", marginBottom: "1.5rem", letterSpacing: "0.1em", textTransform: "uppercase" }}>
-            10 Haftalık Eğitim Bedeli
+            Bugün Ödeyeceğiniz Tutar
           </p>
-          <div className="pricing-rows">
-            <div className="pricing-row">
-              <span className="pricing-row-label">Peşin Ücret</span>
-              <span className="pricing-row-value">25.000 TL</span>
+          <hr style={{ border: "none", borderTop: "1px solid var(--brand-border)", margin: "0 0 1.5rem" }} />
+          <div className="pricing-feature" style={{ overflowX: "clip" }}>
+            <div className="pricing-feature-glow" aria-hidden="true" />
+            <span className="pricing-feature-label">Peşin Ücret</span>
+            <div className="pricing-feature-figure">
+              25.000 <span className="pricing-unit">TL</span>
             </div>
+            <div className="pricing-feature-rule" />
           </div>
 
           {/* Payment options */}
@@ -202,7 +219,6 @@ export default function Apply() {
             </div>
           </div>
 
-          {/* Interest note + eligibility callout */}
           <p style={{ color: "var(--brand-muted)", fontSize: "0.78rem", fontFamily: "var(--font-body)", lineHeight: 1.55, marginTop: "0.9rem", textAlign: "center" }}>
             Taksitli ödemelerde toplam tutar banka faizi kadar daha yüksek olacaktır.
           </p>
@@ -227,6 +243,183 @@ export default function Apply() {
           </div>
         </div>
 
+        {/* Guarantee block */}
+        <div className="guarantee-high-impact gsap-reveal" style={{ marginTop: "3rem" }}>
+          <div className="guarantee-icon-wrap">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <path d="m9 12 2 2 4-4" />
+            </svg>
+          </div>
+          <h3 className="guarantee-hero-title">PARA İADE GARANTİSİ</h3>
+          <p className="guarantee-hero-text">
+            10 hafta boyunca grup ve birebir derslere eksiksiz katıldığın ve verilen ödevleri yerine getirdiğin halde çift elle Çerkes müziği çalamazsan, ücretinin tamamı iade edilir. <strong>Dahası, sen bu hedefi başarana kadar seninle birebir çalışmaya ücretsiz devam etme sözü veriyorum.</strong>
+          </p>
+        </div>
+
+        {/* Quota notice with neon green accents */}
+        <div
+          className="quota-notice gsap-reveal"
+          style={{
+            position: "relative",
+            maxWidth: "600px",
+            margin: "3rem auto 2rem",
+            padding: "2rem 1.8rem",
+            background: "rgba(57,255,20,0.05)",
+            border: "2px solid rgba(57,255,20,0.4)",
+            borderRadius: "8px",
+            textAlign: "center",
+            overflow: "hidden",
+          }}
+        >
+          {/* Atmospheric glow */}
+          <div aria-hidden="true" style={{
+            position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+            width: "100%", height: "120px",
+            background: "radial-gradient(ellipse 70% 100% at 50% 0%, rgba(57,255,20,0.12), transparent)",
+            pointerEvents: "none",
+          }} />
+          {/* Icon */}
+          <svg
+            width="32"
+            height="32"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#39ff14"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            style={{ display: "block", margin: "0 auto 1rem", opacity: 0.9 }}
+          >
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          {/* Heading */}
+          <h4 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "1.3rem",
+            fontWeight: 600,
+            color: "#39ff14",
+            marginBottom: "1rem",
+            lineHeight: 1.3,
+            letterSpacing: "-0.01em",
+          }}>
+            Kontenjan Neden Sınırlı?
+          </h4>
+          {/* Body */}
+          <p style={{ color: "#e3e0aa", fontSize: "0.95rem", lineHeight: 1.7, margin: "0 0 1rem" }}>
+            Bu bir video kurs değil. Sizinle birebir ilgilenmem, gelişiminizi takip etmem ve sorularınıza şahsen yanıt vermem gerekiyor. Kaliteyi koruyabilmek için alabileceğim kişi sayısı belli.
+          </p>
+          <p style={{ color: "#e3e0aa", fontSize: "0.95rem", lineHeight: 1.7, margin: 0 }}>
+            Başvurular geliş sırasına göre değerlendirilir; kontenjan dolduğunda form kapatılır. Başvuru yaptıysan fakat kontenjan dolduysa, seni{" "}
+            <span style={{ color: "#39ff14", fontWeight: 600 }}>bekleme listesine</span>{" "}
+            alıyorum.
+          </p>
+        </div>
+
+        {/* Warning / Cost of Inaction */}
+        <div className="warning-inaction-block gsap-reveal" style={{
+          position: "relative",
+          maxWidth: "600px",
+          margin: "0 auto 3rem",
+          padding: "2.2rem 2rem",
+          background: "rgba(255, 30, 30, 0.09)",
+          border: "2px solid rgba(255, 60, 60, 0.55)",
+          borderRadius: "10px",
+          overflow: "hidden",
+        }}>
+          {/* Atmospheric red glow */}
+          <div aria-hidden="true" style={{
+            position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+            width: "100%", height: "140px",
+            background: "radial-gradient(ellipse 80% 100% at 50% 0%, rgba(255,30,30,0.18), transparent)",
+            pointerEvents: "none",
+          }} />
+          <h4 style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.6rem",
+            fontFamily: "var(--font-body)",
+            color: "#ff4444",
+            fontSize: "1.4rem",
+            marginBottom: "1.2rem",
+            fontWeight: 700,
+            textAlign: "center",
+          }}>
+            Harekete Geçmezsen Ne Olacak?
+          </h4>
+          <p style={{ color: "var(--brand-text)", fontSize: "1.05rem", lineHeight: 1.75, marginBottom: "1rem", textAlign: "center" }}>
+            Bu fırsatı değerlendirmezsen, önümüzdeki 6 ay boyunca yine aynı YouTube videolarını başa saracak, çaldığın şeyin mantığını anlamadan ezber yapmaya çalışacak ve düğünlerde sahneye çıkma özgüvenini <strong>asla</strong> bulamayacaksın.
+          </p>
+          <p style={{ color: "var(--brand-text)", fontSize: "1.05rem", lineHeight: 1.75, margin: 0, textAlign: "center" }}>
+            Karar senin: Ya eski yöntemlerle vakit kaybetmeye devam et, ya da kendini kanıtlamış Psefitone formülüyle <strong>10 haftada bu işi çöz.</strong>
+          </p>
+        </div>
+
+        {/* CTA action-zone header */}
+        <div className="gsap-reveal" style={{
+          position: "relative",
+          maxWidth: "660px",
+          margin: "0 auto 2.5rem",
+          padding: "2.4rem 2.2rem",
+          background: "rgba(134,41,255,0.08)",
+          border: "1px solid rgba(134,41,255,0.35)",
+          borderRadius: "12px",
+          textAlign: "center",
+          overflow: "hidden",
+        }}>
+          {/* Atmospheric glow */}
+          <div aria-hidden="true" style={{
+            position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+            width: "90%", height: "120px",
+            background: "radial-gradient(ellipse 80% 100% at 50% 0%, rgba(134,41,255,0.22), transparent)",
+            pointerEvents: "none",
+          }} />
+          <p style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "clamp(1.4rem, 3.5vw, 2rem)",
+            fontWeight: 700,
+            color: "var(--brand-accent)",
+            lineHeight: 1.35,
+            margin: 0,
+          }}>
+            Başvuru için tek yapman gereken formu doldurmak.
+          </p>
+        </div>
+
+        {/* Process steps */}
+        <div className="apply-process gsap-reveal" aria-label="Başvuru süreci">
+          <div className="apply-process-line" aria-hidden="true" />
+          <ol className="apply-process-steps">
+            <li className="apply-process-step" style={{
+              borderColor: "rgba(134,41,255,0.55)",
+              boxShadow: "0 0 0 1px rgba(134,41,255,0.18), 0 4px 24px rgba(134,41,255,0.14)",
+            }}>
+              <span className="apply-process-numeral"><em>1</em></span>
+              <div className="apply-process-body">
+                <h4 className="apply-process-title" style={{ color: "var(--brand-text)", fontSize: "1.05rem" }}>Formu doldur</h4>
+                <p className="apply-process-text">2-3 dakikanı alır.</p>
+              </div>
+            </li>
+            <li className="apply-process-step">
+              <span className="apply-process-numeral"><em>2</em></span>
+              <div className="apply-process-body">
+                <h4 className="apply-process-title">Başvurunu inceleyeceğim</h4>
+                <p className="apply-process-text">24 saat içinde, kişisel olarak.</p>
+              </div>
+            </li>
+            <li className="apply-process-step">
+              <span className="apply-process-numeral"><em>3</em></span>
+              <div className="apply-process-body">
+                <h4 className="apply-process-title">WhatsApp&apos;tan dönüş yaparım</h4>
+                <p className="apply-process-text">Uygun bulduğum adaylara ödeme bilgileriyle ulaşırım.</p>
+              </div>
+            </li>
+          </ol>
+        </div>
+
         {/* Warning notice */}
         <div className="warning-box gsap-reveal">
           <svg
@@ -247,46 +440,23 @@ export default function Apply() {
           </svg>
           <p>
             Formu doldurduktan sonra <strong>Gönder</strong> butonuna basmayı unutma. Gönderim
-            yapılmadan başvurun sisteme ulaşmaz — dolayısıyla sana geri dönüş yapamam.
+            yapılmadan başvurun sisteme ulaşmaz — dolayısıyla sana geri dönüş yapamam. Gönderdiğin anda başvurun bana ulaşır. <strong>24 saat içinde WhatsApp&apos;tan sana yazıyorum.</strong>
           </p>
         </div>
 
-        {/* Quota notice with neon green accents */}
-        <div
-          className="quota-notice gsap-reveal"
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            gap: "0.9rem",
-            maxWidth: "620px",
-            margin: "0 auto 2rem",
-            padding: "1rem 1.2rem",
-            background: "rgba(0, 255, 0, 0.04)",
-            border: "1px solid rgba(0, 255, 0, 0.3)",
-            borderRadius: "8px",
-            color: "#e3e0aa",
-            fontSize: "0.855rem",
-            lineHeight: "1.65",
-          }}
-        >
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            aria-hidden="true"
-            style={{ flexShrink: 0, marginTop: "1px", color: "#39ff14" }}
-          >
-            <circle cx="12" cy="12" r="10" />
-            <polyline points="12 6 12 12 16 14" />
-          </svg>
-          <p>
-            <span style={{ color: "#39ff14", fontWeight: "600" }}>Kontenjan sınırlı.</span> Başvurular geliş sırasına göre değerlendirilir; kontenjan dolduğunda form kapatılır. Başvuru yaptıysan fakat kontenjan dolduysa, seni <span style={{ color: "#39ff14", fontWeight: "600" }}>bekleme listesine</span> alıyorum.
-          </p>
+        {/* Form lead-in */}
+        <div className="gsap-reveal" style={{ textAlign: "center", margin: "2rem 0 1rem" }}>
+          <span style={{
+            display: "inline-block",
+            fontFamily: "var(--font-body)",
+            fontSize: "0.7rem",
+            fontWeight: 700,
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: "var(--brand-accent)",
+          }}>
+            ↓ Başvuru Formu
+          </span>
         </div>
 
         {/* JotForm embed */}

@@ -662,6 +662,12 @@ export default function Curriculum() {
             />
           </div>
         </div>
+
+        <div className="cta-center" style={{ marginTop: "4rem" }}>
+          <a href="#basvur" className="btn btn-primary btn-lg">
+            Başvuru Formunu Doldur
+          </a>
+        </div>
       </div>
     </section>
   );

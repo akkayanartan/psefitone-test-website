@@ -4,28 +4,16 @@ import { useRef, useCallback } from "react";
 
 const testimonials = [
   {
-    quote: "Hiçbir şeyin tekniğini bilmeden çalıyordum. Şimdi her şey daha yerli yerine oturdu.",
-    author: "Setenay Ö · 1. Kohort",
+    quote: "Hiçbir şeyin tekniğini bilmeden çalıyordum. Neye bastığımı, neden bastığımı bilmiyordum. Şimdi parçanın içinde kaybolmuyorum; yapıyı görüyorum.",
+    author: "Setenay Ö.",
   },
   {
-    quote: "Bu kadar kapsamlı bir eğitim veren başka kimse yok ve büyük ihtimalle olmayacak.",
-    author: "Cem K · 1. Kohort",
+    quote: "Bu kadar kapsamlı ve bu müziğe özel bir eğitim veren başka kimse yok. Başka bir şeyden daha önce duymuş olsaydım yıllarımı boşa harcamazdım.",
+    author: "Cem K.",
   },
   {
-    quote: "Sistemin online olması ve nota bilgisi verilmesi, bunu yüz yüze derslerden daha iyi yapıyor.",
-    author: "Emrah A · 1. Kohort",
-  },
-  {
-    quote: "Bu çalışmanın arşivlenmesi gerekiyor. Tekrar tekrar izlemek istiyorum.",
-    author: "Setenay P · 1. Kohort",
-  },
-  {
-    quote: "Verilen ücretin kat be katına değer.",
-    author: "Samet Ç · 1. Kohort",
-  },
-  {
-    quote: "Bilmediğimiz çok şey vardı. Bunları öğrenmek farklı bir bilinç kattı.",
-    author: "Yunus Emre D · 1. Kohort",
+    quote: "Online olacağına dair şüphem vardı. Yanılmışım. Soundslice sayesinde parmakları istediğim kadar yavaşlatıp tekrarlayabiliyorum. Yüz yüze derste bunu hiçbir hocadan isteyemezsiniz.",
+    author: "Emrah A.",
   },
 ];
 
@@ -100,12 +88,8 @@ function MarqueeRow({
 export default function Marquee() {
   return (
     <div className="marquee-section" id="marquee">
-      <div className="section-inner">
-        <span className="section-tag marquee-label">Öğrenci Geri Bildirimleri</span>
-      </div>
       <div className="marquee-rows">
         <MarqueeRow trackId="marqueeTrack" />
-        <MarqueeRow trackId="marqueeTrackReverse" isReverse />
       </div>
     </div>
   );

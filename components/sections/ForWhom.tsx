@@ -205,6 +205,12 @@ export default function ForWhom() {
             </div>
           ))}
         </div>
+
+        <div className="cta-center gsap-reveal" style={{ marginTop: "4rem" }}>
+          <a href="#basvur" className="btn btn-primary btn-lg">
+            Başvuru Formunu Doldur
+          </a>
+        </div>
       </div>
     </section>
   );

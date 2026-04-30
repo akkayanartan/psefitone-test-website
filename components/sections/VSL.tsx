@@ -54,12 +54,14 @@ export default function VSL() {
             />
           </motion.div>
 
+
+
           <motion.div
             className="cta-center"
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.5 }}
-            transition={{ delay: 0.8, duration: 0.6, ease: "easeOut" }}
+            transition={{ delay: 0.9, duration: 0.6, ease: "easeOut" }}
           >
             <a href="#basvur" className="btn btn-primary btn-lg">
               Başvuru Formunu Doldur

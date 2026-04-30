@@ -78,11 +78,15 @@ export default function Features() {
               color: "var(--text-muted)",
               lineHeight: 1.8,
             }}>
-              Aşağıdaki pencere gerçek bir Soundslice dersidir. Arayüzle etkileşime gir, tempoyu ayarla, istediğin bölümü tekrar çal.{" "}
-              <strong style={{ color: "var(--text)", fontWeight: 600 }}>
-                Soundslice, müzik öğrenmenin bugüne kadar geliştirilmiş en güçlü dijital aracıdır.
-              </strong>{" "}
-              Pasif izleme değil, aktif pratik.
+              <strong style={{ color: "var(--text)", fontWeight: 600 }}>Sorun:</strong> Geleneksel video dersler pasif'tir — seyredin, taklit edin. Tempoyu ayarlayamazsınız, zorlandığınız bölümü tekrar tekrar çalamazsınız. Öğrenme durur.
+            </p>
+            <p style={{
+              fontSize: "0.9rem",
+              color: "var(--text-muted)",
+              lineHeight: 1.8,
+              marginTop: "1.2rem"
+            }}>
+              <strong style={{ color: "var(--text)", fontWeight: 600 }}>Çözüm:</strong> Soundslice, müzik öğrenmenin bugüne kadar geliştirilmiş en güçlü dijital aracıdır. Arayüzle etkileşime gir, tempoyu gerçek zamanda ayarla, istediğin bölümü sınırsız tekrar çal, nota okuyarak takip et. <strong style={{ color: "var(--text)", fontWeight: 600 }}>Aktif pratik.</strong> Bu pencere gerçek bir Psefitone dersidir — aşağıda dene.
             </p>
           </div>
           <div className="soundslice-wrapper">
@@ -94,6 +98,12 @@ export default function Features() {
               allowFullScreen
             />
           </div>
+        </div>
+
+        <div className="cta-center gsap-reveal" style={{ marginTop: "4rem" }}>
+          <a href="#basvur" className="btn btn-primary btn-lg">
+            Başvuru Formunu Doldur
+          </a>
         </div>
       </div>
       </section>

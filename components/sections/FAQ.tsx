@@ -70,19 +70,6 @@ const faqGroups = [
       },
     ],
   },
-  {
-    category: "İletişim",
-    items: [
-      {
-        q: "WhatsApp'tan soru sorabilir miyim?",
-        a: "Programa dair tüm bilgiler bu sayfada ve tanıtım videosunda mevcut.",
-      },
-      {
-        q: "Kayıt olmadan önce deneme dersi var mı?",
-        a: "Hayır. Tanıtım videosundan ve bu siteden programın yapısını ve sana uygun olup olmadığını değerlendirebilirsin.",
-      },
-    ],
-  },
 ];
 
 export default function FAQ() {
@@ -177,6 +164,12 @@ export default function FAQ() {
               })}
             </div>
           ))}
+        </div>
+
+        <div className="cta-center gsap-reveal" style={{ marginTop: "4rem" }}>
+          <a href="#basvur" className="btn btn-primary btn-lg">
+            Başvuru Formunu Doldur
+          </a>
         </div>
       </div>
     </section>

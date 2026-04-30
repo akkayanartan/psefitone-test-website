@@ -8,9 +8,9 @@ import ScrollTrigger from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 const credentials = [
-  "Onlarca düğünde sahne deneyimi",
-  "Duayen müzisyenler tarafından desteklendi",
-  "İlk kohort tamamlandı",
+  "Neredeyse 10 yıllık aktif akordeon geçmişi.",
+  "Yüzlerce düğün ve özel etkinlikte icracı olarak sahne deneyimi; davetli müzisyen olarak çağrılan bir performans profili.",
+  "Çerkes müziği camiasında duayen olarak tanınan, onlarca yıllık sahne tecrübesine sahip üst düzey müzisyenler tarafından takdirle karşılanan bir pedagojik yaklaşımın kurucusu.",
 ];
 
 export default function Instructor() {
@@ -59,7 +59,7 @@ export default function Instructor() {
           <div className="instructor-text-col gsap-reveal">
             <h2 className="instructor-name">Nartan Psefit Akkaya</h2>
             <blockquote className="instructor-bio">
-              &ldquo;Onlarca düğünde sahneye çıktım. Bu süreçte hem çalmayı hem de öğretmeyi merak ettim. Şu anki öğrenme yöntemimizde bir şeylerin eksik olduğunu gördüm. Psefitone, bu eksikliğe verdiğim cevap.&rdquo;
+              &ldquo;Yıllarca sahnedeydim. Düzinelerce düğünde, yüzlerce saatin içindeydim. Fakat ben de seninle aynı yoldan geçtim. Başlangıçta öğrenmek çok fazla vakit ve emek aldı. Fakat zamanla fark ettim ki geleneksel yöntemimiz çalmayı öğretmiyor, müziği değil, sadece ezberlemeyi öğretiyor. Bu iki yaklaşım arasındaki fark, benim için her şeyi değiştirdi. Psefitone, işte bu fark üzerine kuruldu.&rdquo;
             </blockquote>
             <ul className="credentials">
               {credentials.map((c, i) => (
@@ -72,6 +72,12 @@ export default function Instructor() {
               ))}
             </ul>
           </div>
+        </div>
+
+        <div className="cta-center gsap-reveal" style={{ marginTop: "4rem" }}>
+          <a href="#basvur" className="btn btn-primary btn-lg">
+            Başvuru Formunu Doldur
+          </a>
         </div>
       </div>
     </section>

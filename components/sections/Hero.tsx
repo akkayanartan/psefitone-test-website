@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SparklesCore } from "@/components/SparklesCore";
 import ShaderBackground from "@/components/ui/shader-background";
+import { ChevronDown } from "lucide-react";
 
 
 export default function Hero() {
@@ -14,8 +15,6 @@ export default function Hero() {
       const items = gsap.utils.toArray<HTMLElement>([
         "#h-tag",
         "#h-headline",
-        "#h-sub",
-        "#h-promise",
         "#h-actions",
       ]);
 
@@ -58,16 +57,13 @@ export default function Hero() {
 
       <div className="hero-content">
         <span className="section-tag hero-tag" id="h-tag">
-          Psefitone Kickstarter — 2. Kohort
+          AKORDEON ÖĞRENMEK İSTEYEN ÇERKES DİASPORASININ DİKKATİNE!
         </span>
         <h1 className="hero-headline" id="h-headline">
-          Yaşatmak için,
+          <strong>Sadece 10 HAFTADA</strong>, Hiçbir Nota ya da Akordeon Geçmişin Olmasa Bile,
           <br />
-          <em>önce iyi öğren.</em>
+          <em><strong>Çift Elle Qafe Çalmaya Başlayın</strong></em>
         </h1>
-        <p className="hero-sub" id="h-sub">
-          Türkiye Çerkes diasporası için tasarlanan ilk modern akordeon metodolojisi.
-        </p>
 
 
         <div className="hero-actions" id="h-actions">
@@ -78,10 +74,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll hint */}
-      <div className="scroll-hint" aria-hidden="true">
-        <div className="scroll-hint-line" />
-      </div>
     </section>
   );
 }

@@ -9,56 +9,29 @@ gsap.registerPlugin(ScrollTrigger);
 // JSX nodes — key phrases rendered in accent style
 const outcomes: React.ReactNode[] = [
   <>
-    Bir düğünde ya da aile buluşmasında akordeonu eline alıp{" "}
-    <em className="outcome-em">ilk parçalarını çalabileceksin.</em>
+    Hiç akordeon çalmamış biri olarak başladığınız bu sürecin sonunda, çift el kullanarak, ritim kaçırmadan <em className="outcome-em">Qafe çalabileceksiniz.</em>
   </>,
   <>
-    Akordeonun evin köşesinde{" "}
-    <em className="outcome-em">toz toplamayacak.</em>{" "}
-    Senin bir parçan olacak.
+    Müziğin mantığını bildiğiniz için yeni parçaları <em className="outcome-em">kendi başınıza çözebileceksiniz.</em>
   </>,
   <>
-    Dinleyerek büyüdüğün parçaların{" "}
-    <em className="outcome-em">nasıl çalındığını</em>{" "}
-    ve mantıklarını öğreneceksin.
+    Dinleyerek büyüdüğünüz parçaların sadece sesini değil, matematiğini, ritmik yapısını ve <em className="outcome-em">melodik mantığını anlayacaksınız.</em>
   </>,
   <>
-    İmrenerek dinlediğin pşinavoların{" "}
-    <em className="outcome-em">çalışma rutinlerini</em>{" "}
-    kendinde uygulayacaksın.
+    "Kulağım yok, yaşım geçti, parmaklarım yavaş" inançlarını sistematik ilerlemenin somut kanıtıyla <em className="outcome-em">bizzat çürüteceksiniz.</em>
   </>,
   <>
-    Çerkes müziğini anlayacak,{" "}
-    <em className="outcome-em">çift elle parçalar</em>{" "}
-    çalmaya başlayacaksın.
+    Akordeona her oturduğunuzda ne yapacağınızı bileceksiniz; oyalama değil, <em className="outcome-em">gerçek pratik yapacaksınız.</em>
   </>,
+  <>
+    Atalarımızın mirasını pasif bir izleyici olarak değil, onu aktif biçimde icra edebilen ve yaşatan biri olarak <em className="outcome-em">taşıyacaksınız.</em>
+  </>,
+  <>
+    Düğünde ya da aile toplantısında müzisyen koltuğuna oturmaktan çekinmeyeceksiniz; o koltuğun <em className="outcome-em">gerçek sahibi olacaksınız.</em>
+  </>
 ];
 
-function DiamondIcon() {
-  return (
-    <svg
-      width="9" height="9" viewBox="0 0 10 10"
-      fill="none" aria-hidden="true"
-      style={{ flexShrink: 0, marginTop: "0.28rem" }}
-    >
-      <rect
-        x="5" y="0.7"
-        width="5.8" height="5.8"
-        transform="rotate(45 5 5)"
-        fill="var(--brand-accent)"
-        opacity="0.8"
-      />
-    </svg>
-  );
-}
-
-function OutcomeCard({
-  text,
-  padded = false,
-}: {
-  text: React.ReactNode;
-  padded?: boolean;
-}) {
+function OutcomeCard({ text }: { text: React.ReactNode }) {
   return (
     <div
       className="outcome-card"
@@ -66,16 +39,13 @@ function OutcomeCard({
         background: "var(--brand-dark2)",
         border: "1px solid var(--brand-border)",
         borderRadius: "4px",
-        padding: padded ? "2.5rem 2.75rem" : "2.25rem 2.25rem",
+        padding: "2rem 2.5rem",
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        textAlign: "center",
+        flexDirection: "column",
+        gap: "1.2rem",
         position: "relative",
         overflow: "hidden",
-        /* hover spring is applied via CSS class below */
-        transition:
-          "transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease, border-color 0.22s ease",
+        transition: "transform 0.28s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.28s ease, border-color 0.22s ease",
       }}
     >
       {/* Corner atmosphere */}
@@ -92,51 +62,9 @@ function OutcomeCard({
         background: "linear-gradient(90deg, transparent, rgba(134,41,255,0.25), transparent)",
         pointerEvents: "none",
       }} />
-
-      <p
-        className={`outcome-text ${padded ? "padded" : ""}`}
-        style={{
-          color: "var(--brand-text)",
-          margin: 0,
-          flex: 1,
-          fontWeight: 400,
-        }}
-      >
+      <p className="outcome-text" style={{ color: "var(--brand-text)", margin: 0, fontWeight: 400 }}>
         {text}
       </p>
-    </div>
-  );
-}
-
-function OrnamentCell() {
-  return (
-    <div style={{
-      border: "1px solid var(--brand-border)",
-      borderRadius: "4px",
-      background: "var(--sec-8)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      minHeight: "80px",
-    }}>
-      <svg width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-        <rect
-          x="14" y="2"
-          width="16.97" height="16.97"
-          transform="rotate(45 14 14)"
-          fill="none"
-          stroke="var(--brand-accent)"
-          strokeWidth="0.8"
-          opacity="0.3"
-        />
-        <rect
-          x="14" y="8"
-          width="8.49" height="8.49"
-          transform="rotate(45 14 14)"
-          fill="var(--brand-accent)"
-          opacity="0.15"
-        />
-      </svg>
     </div>
   );
 }
@@ -155,38 +83,25 @@ export default function Outcomes() {
         }
       );
 
-      const desktopCards = gsap.utils.toArray<HTMLElement>(".outcomes-desktop-layout .outcome-card", sectionRef.current!);
-      const mobileCards  = gsap.utils.toArray<HTMLElement>(".outcomes-mobile-layout .outcome-card",  sectionRef.current!);
-
-      desktopCards.forEach((card, i) => {
+      const cards = gsap.utils.toArray<HTMLElement>(".outcome-card", sectionRef.current!);
+      cards.forEach((card, i) => {
         gsap.fromTo(
           card,
           { opacity: 0, y: 28 },
           {
             opacity: 1, y: 0, duration: 0.65, ease: "power2.out",
-            delay: i * 0.1,
-            scrollTrigger: { trigger: card, start: "top 92%", toggleActions: "play none none none" },
-          }
-        );
-      });
-      mobileCards.forEach((card, i) => {
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 28 },
-          {
-            opacity: 1, y: 0, duration: 0.65, ease: "power2.out",
-            delay: i * 0.1,
+            delay: i * 0.08,
             scrollTrigger: { trigger: card, start: "top 92%", toggleActions: "play none none none" },
           }
         );
       });
 
       gsap.fromTo(
-        ".outcomes-quote-reveal",
+        ".outcomes-cta-reveal",
         { opacity: 0, y: 18 },
         {
           opacity: 1, y: 0, duration: 0.7, ease: "power2.out",
-          scrollTrigger: { trigger: ".outcomes-quote-reveal", start: "top 88%", toggleActions: "play none none none" },
+          scrollTrigger: { trigger: ".outcomes-cta-reveal", start: "top 88%", toggleActions: "play none none none" },
         }
       );
     },
@@ -195,102 +110,85 @@ export default function Outcomes() {
 
   return (
     <>
-      {/* Hover styles — desktop only, no layout properties */}
       <style>{`
-        @media (min-width: 768px) {
-          .outcome-card:hover {
-            transform: translateY(-5px) scale(1.025);
-            border-color: rgba(134,41,255,0.35) !important;
-            box-shadow:
-              0 12px 40px rgba(134,41,255,0.22),
-              0 4px 16px rgba(0,0,0,0.45);
-            z-index: 2;
-          }
-          .outcome-card:active {
-            transform: translateY(1px) scale(0.99) !important;
-          }
-          .outcome-card:focus-visible {
-            outline: 2px solid var(--brand-secondary);
-            outline-offset: 3px;
-          }
+        .outcomes-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 1.25rem;
+          max-width: 960px;
+          margin: 0 auto;
+        }
 
-          .outcome-text {
-            font-family: var(--font-body);
-            font-size: 1.12rem;
-            line-height: 1.72;
-          }
-          .outcome-text.padded {
-            font-size: 1.25rem;
-          }
+        .outcome-number {
+          font-family: var(--font-display);
+          font-size: 2.2rem;
+          font-weight: 700;
+          color: var(--brand-accent);
+          line-height: 1;
+          letter-spacing: -0.03em;
+          opacity: 0.85;
+        }
 
-          /* Emphasized phrase styles */
-          .outcome-em {
-            font-family: var(--font-display);
-            font-style: italic;
-            font-size: 1.18em;
-            color: var(--brand-accent);
-            font-weight: 500;
-            letter-spacing: -0.015em;
-            text-shadow: 0 0 22px rgba(227,224,170,0.28);
-          }
+        .outcome-text {
+          font-family: var(--font-body);
+          font-size: 0.95rem;
+          line-height: 1.7;
+        }
 
-          /* Staggered row widths */
-          .outcomes-row1 {
-            grid-template-columns: 3fr 2fr;
-          }
-          .outcomes-row3 {
-            grid-template-columns: 2fr 3fr;
-          }
-          .outcomes-row2 {
-            grid-template-columns: 1fr 2.6fr 1fr;
-          }
+        .outcome-em {
+          font-family: var(--font-body);
+          font-style: italic;
+          font-size: 1.08em;
+          color: var(--brand-accent);
+          font-weight: 500;
+          letter-spacing: -0.015em;
+          text-shadow: 0 0 22px rgba(227,224,170,0.28);
+        }
+
+        .outcome-card:hover {
+          transform: translateY(-4px);
+          border-color: rgba(134,41,255,0.35) !important;
+          box-shadow:
+            0 12px 40px rgba(134,41,255,0.22),
+            0 4px 16px rgba(0,0,0,0.45);
+          z-index: 2;
+        }
+
+        .outcome-card:active {
+          transform: translateY(1px) scale(0.99) !important;
+        }
+
+        .outcome-card:focus-visible {
+          outline: 2px solid var(--brand-secondary);
+          outline-offset: 3px;
         }
 
         @media (max-width: 767px) {
-          .outcome-em {
-            font-family: var(--font-display);
-            font-style: italic;
-            color: var(--brand-accent);
-            font-weight: 500;
+          .outcomes-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
           }
-
+          .outcome-card {
+            text-align: center;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.75rem 1.5rem;
+          }
           .outcome-text {
-            font-family: var(--font-display);
-            font-size: 1.75rem;
-            line-height: 1.45;
+            font-size: 1rem;
+            line-height: 1.65;
           }
-          .outcome-text.padded {
-            font-size: 2rem;
+          .outcome-em {
+            font-size: 1.12em;
           }
-          .outcomes-ornament { display: none; }
-          .outcomes-desktop-layout { display: none !important; }
-          .outcomes-mobile-layout {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 1.5rem !important;
-            padding: 0.5rem 0 1.5rem 0 !important;
+          .outcome-number {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
           }
-          .outcomes-mobile-layout > div {
-            width: 100% !important;
-          }
-          .outcomes-mobile-layout .outcome-card p {
-            min-width: 0;
-            overflow-wrap: break-word;
-            word-break: normal;
-          }
-          .outcomes-mobile-layout .outcome-card {
-            min-width: 0;
-          }
-        }
-
-        /* Desktop shows desktop layout, hides mobile layout */
-        @media (min-width: 768px) {
-          .outcomes-mobile-layout { display: none !important; }
         }
       `}</style>
 
       <section className="section" id="outcomes" ref={sectionRef} style={{ background: "var(--brand-dark)" }}>
-        {/* Atmospheric glows */}
         <div aria-hidden="true" style={{
           position: "absolute", inset: 0, pointerEvents: "none",
           background: "radial-gradient(ellipse 80% 65% at 50% 50%, rgba(134,41,255,0.10), transparent)",
@@ -301,7 +199,6 @@ export default function Outcomes() {
         }} />
 
         <div className="section-inner" style={{ position: "relative", zIndex: 1 }}>
-          {/* Header */}
           <div className="section-header outcomes-header-reveal" style={{ textAlign: "center" }}>
             <span className="section-tag">10 Hafta Sonunda</span>
             <h2 className="section-title">
@@ -309,39 +206,17 @@ export default function Outcomes() {
             </h2>
           </div>
 
-          {/* Desktop layout: staggered 3-row bento grid */}
-          <div className="outcomes-desktop-layout" style={{ display: "flex", flexDirection: "column", gap: "0.85rem", maxWidth: "960px", margin: "0 auto" }}>
-
-            {/* Row 1 — wider left card */}
-            <div className="outcomes-row1" style={{ display: "grid", gap: "0.85rem" }}>
-              <OutcomeCard text={outcomes[0]} />
-              <OutcomeCard text={outcomes[1]} />
-            </div>
-
-            {/* Row 2 — centered hero card flanked by ornaments */}
-            <div className="outcomes-row2" style={{ display: "grid", gap: "0.85rem" }}>
-              <div className="outcomes-ornament"><OrnamentCell /></div>
-              <OutcomeCard text={outcomes[2]} padded />
-              <div className="outcomes-ornament"><OrnamentCell /></div>
-            </div>
-
-            {/* Row 3 — wider right card (mirrored from row 1) */}
-            <div className="outcomes-row3" style={{ display: "grid", gap: "0.85rem" }}>
-              <OutcomeCard text={outcomes[3]} />
-              <OutcomeCard text={outcomes[4]} />
-            </div>
+          <div className="outcomes-grid">
+            {outcomes.map((text, i) => (
+              <OutcomeCard key={i} text={text} />
+            ))}
           </div>
 
-          {/* Mobile layout: auto-scroll horizontal carousel (hidden on desktop) */}
-          <div className="outcomes-mobile-layout" style={{ maxWidth: "960px", margin: "0 auto" }}>
-            <OutcomeCard text={outcomes[0]} />
-            <OutcomeCard text={outcomes[1]} />
-            <OutcomeCard text={outcomes[2]} />
-            <OutcomeCard text={outcomes[3]} />
-            <OutcomeCard text={outcomes[4]} />
+          <div className="cta-center outcomes-cta-reveal" style={{ marginTop: "3rem" }}>
+            <a href="#basvur" className="btn btn-primary btn-lg">
+              Başvuru Formunu Doldur
+            </a>
           </div>
-
-
         </div>
       </section>
     </>

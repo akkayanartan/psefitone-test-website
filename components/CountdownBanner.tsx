@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 
-const TARGET = new Date("2026-05-04T00:00:00");
+const TARGET = new Date("2026-05-05T00:00:00");
 
 function getCountdown() {
   const diff = TARGET.getTime() - Date.now();

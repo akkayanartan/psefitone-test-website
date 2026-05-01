@@ -219,17 +219,11 @@ export default function Apply() {
                 <span style={{ color: "var(--brand-text)", fontSize: "0.84rem", fontFamily: "var(--font-body)", fontWeight: 600 }}>Kredi Kartı</span>
                 <span style={{ color: "var(--brand-muted)", fontSize: "0.78rem", fontFamily: "var(--font-body)", marginLeft: "0.5rem" }}>6 taksite kadar</span>
               </div>
-              <span style={{
-                fontSize: "0.68rem", fontFamily: "var(--font-body)", fontWeight: 600,
-                color: "var(--brand-accent)", letterSpacing: "0.06em", textTransform: "uppercase",
-                background: "rgba(227,224,170,0.1)", border: "1px solid rgba(227,224,170,0.25)",
-                borderRadius: "4px", padding: "0.15rem 0.4rem", flexShrink: 0,
-              }}>FAİZLİ</span>
             </div>
           </div>
 
           <p style={{ color: "var(--brand-muted)", fontSize: "0.78rem", fontFamily: "var(--font-body)", lineHeight: 1.55, marginTop: "0.9rem", textAlign: "center" }}>
-            Taksitli ödemelerde toplam tutar banka faizi kadar daha yüksek olacaktır.
+            Taksitli ödemelerde vade farkı uygulanacaktır.
           </p>
 
           <div style={{

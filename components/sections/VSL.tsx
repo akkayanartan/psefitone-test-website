@@ -32,7 +32,6 @@ export default function VSL() {
           <a href="#basvur" className="btn btn-primary btn-lg">
             Başvuru Formunu Doldur
           </a>
-          <p className="hero-note">Sınırlı kontenjan · Başlangıç: 4 Mayıs 2026</p>
         </motion.div>
 
       </div>

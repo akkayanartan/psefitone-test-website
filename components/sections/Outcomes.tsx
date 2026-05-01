@@ -111,6 +111,16 @@ export default function Outcomes() {
   return (
     <>
       <style>{`
+        #outcomes {
+          --oc-text: 1rem;
+          --oc-em:   1.08em;
+        }
+        @media (max-width: 767px) {
+          #outcomes {
+            --oc-text: 0.5rem;
+            --oc-em:   0.5em;
+          }
+        }
         .outcomes-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -118,33 +128,20 @@ export default function Outcomes() {
           max-width: 960px;
           margin: 0 auto;
         }
-
-        .outcome-number {
-          font-family: var(--font-display);
-          font-size: 2.2rem;
-          font-weight: 700;
-          color: var(--brand-accent);
-          line-height: 1;
-          letter-spacing: -0.03em;
-          opacity: 0.85;
-        }
-
         .outcome-text {
           font-family: var(--font-body);
-          font-size: 0.95rem;
+          font-size: var(--oc-text);
           line-height: 1.7;
         }
-
         .outcome-em {
           font-family: var(--font-body);
           font-style: italic;
-          font-size: 1.08em;
+          font-size: var(--oc-em);
           color: var(--brand-accent);
           font-weight: 500;
           letter-spacing: -0.015em;
           text-shadow: 0 0 22px rgba(227,224,170,0.28);
         }
-
         .outcome-card:hover {
           transform: translateY(-4px);
           border-color: rgba(134,41,255,0.35) !important;
@@ -153,16 +150,13 @@ export default function Outcomes() {
             0 4px 16px rgba(0,0,0,0.45);
           z-index: 2;
         }
-
         .outcome-card:active {
           transform: translateY(1px) scale(0.99) !important;
         }
-
         .outcome-card:focus-visible {
           outline: 2px solid var(--brand-secondary);
           outline-offset: 3px;
         }
-
         @media (max-width: 767px) {
           .outcomes-grid {
             grid-template-columns: 1fr;
@@ -170,20 +164,8 @@ export default function Outcomes() {
           }
           .outcome-card {
             text-align: center;
-            flex-direction: column;
             align-items: center;
-            padding: 1.75rem 1.5rem;
-          }
-          .outcome-text {
-            font-size: 1rem;
-            line-height: 1.65;
-          }
-          .outcome-em {
-            font-size: 1.12em;
-          }
-          .outcome-number {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+            padding: 1.25rem;
           }
         }
       `}</style>

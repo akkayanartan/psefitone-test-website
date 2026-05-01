@@ -63,16 +63,19 @@ export default function ReminderPS() {
             marginBottom: "1.5rem",
             fontFamily: "var(--font-display)"
           }}>
-            P.S. Yukarıdaki her şeyi atlayıp direkt en alta inenler için bir özet:
+            P.S. Yukarıdaki her şeyi atlayıp direkt en alta inenler için:
           </h3>
 
-          <div style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.7, display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <ul style={{ paddingLeft: "1.2rem", margin: 0, display: "flex", flexDirection: "column", gap: "0.8rem", listStyleType: "disc" }}>
-                <li><strong style={{ color: "var(--brand-text)" }}>Sadece 10 haftada</strong> Çerkes müziğini çift elle ve ritim kaçırmadan çalmayı öğreniyorsun.</li>
-                <li>Bu sadece bir kurs değil; teoriyi pratikle birleştiren, kanıtlanmış bir sistem.</li>
-                <li>Ücret <strong style={{ color: "var(--brand-text)" }}>25.000 TL</strong> ve 10 hafta para iade garantisiyle tamamen risksiz.</li>
-                <li>Birebir ilgilenebilmem için <strong style={{ color: "var(--brand-secondary)" }}>kontenjan sınırlı.</strong></li>
-            </ul>
+          <div style={{ color: "var(--brand-muted)", fontSize: "0.98rem", lineHeight: 1.75, display: "flex", flexDirection: "column", gap: "1.1rem" }}>
+            <p style={{ margin: 0 }}>
+              Eğer şu ana kadar “<em>kulağım yok, yaşım geçti, parmaklarım yavaş</em>” diye düşünüp akordeona el sürmediysen — sorun sen değilsin, sorun bugüne kadar denediğin yol. <strong style={{ color: "var(--brand-text)" }}>10 hafta</strong> sonra çift elle, ritim kaçırmadan Qafe çalıyor olacaksın; üstelik yeni parçaları da kendi başına çözebileceksin.
+            </p>
+            <p style={{ margin: 0 }}>
+              Ücret <strong style={{ color: "var(--brand-text)" }}>25.000 TL</strong>; tek seferde, kredi kartıyla 6 taksit ya da IBAN ile ödenebiliyor. Risk tamamen bende: 10 hafta sonunda hedefe ulaşamadıysan paranın tamamı iade ediliyor — <strong style={{ color: "var(--brand-text)" }}>dahası, hedefi başarana kadar seninle birebir çalışmaya ücretsiz devam ediyorum.</strong>
+            </p>
+            <p style={{ margin: 0 }}>
+              Tek pürüz <strong style={{ color: "var(--brand-secondary)" }}>kontenjan</strong>: birebir ilgilenebilmem için sınırlı sayıda öğrenci alıyorum ve <strong style={{ color: "var(--brand-text)" }}>4 Mayıs 2026</strong> başlangıç tarihine az kaldı. Formu doldur, 24 saat içinde sana WhatsApp'tan bizzat dönüş yapayım.
+            </p>
           </div>
 
           <div style={{ marginTop: "2rem", textAlign: "center" }}>

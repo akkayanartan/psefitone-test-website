@@ -58,9 +58,6 @@ export default function Instructor() {
 
           <div className="instructor-text-col gsap-reveal">
             <h2 className="instructor-name">Nartan Psefit Akkaya</h2>
-            <blockquote className="instructor-bio">
-              &ldquo;Yıllarca sahnedeydim. Düzinelerce düğünde, yüzlerce saatin içindeydim. Fakat ben de seninle aynı yoldan geçtim. Başlangıçta öğrenmek çok fazla vakit ve emek aldı. Fakat zamanla fark ettim ki geleneksel yöntemimiz çalmayı öğretmiyor, müziği değil, sadece ezberlemeyi öğretiyor. Bu iki yaklaşım arasındaki fark, benim için her şeyi değiştirdi. Psefitone, işte bu fark üzerine kuruldu.&rdquo;
-            </blockquote>
             <ul className="credentials">
               {credentials.map((c, i) => (
                 <li key={i}>

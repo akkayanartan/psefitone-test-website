@@ -4,8 +4,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { SparklesCore } from "@/components/SparklesCore";
 import ShaderBackground from "@/components/ui/shader-background";
-import { ChevronDown } from "lucide-react";
-
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
@@ -15,7 +13,8 @@ export default function Hero() {
       const items = gsap.utils.toArray<HTMLElement>([
         "#h-tag",
         "#h-headline",
-        "#h-actions",
+        "#h-sub",
+        "#h-urgency",
       ]);
 
       gsap.fromTo(
@@ -36,10 +35,8 @@ export default function Hero() {
 
   return (
     <section className="hero" id="hero" ref={containerRef}>
-      {/* WebGL shader background */}
       <ShaderBackground />
 
-      {/* Sparkle particles layered on top of shader */}
       <SparklesCore
         className="hero-sparkles"
         background="transparent"
@@ -50,30 +47,59 @@ export default function Hero() {
         speed={1}
       />
 
-      {/* Vignette glows */}
       <div className="hero-glow hero-glow--main" aria-hidden="true" />
       <div className="hero-glow hero-glow--accent" aria-hidden="true" />
       <div className="hero-glow hero-glow--center" aria-hidden="true" />
 
       <div className="hero-content">
+        {/* Section tag */}
         <span className="section-tag hero-tag" id="h-tag">
           AKORDEON ÖĞRENMEK İSTEYEN ÇERKES DİASPORASININ DİKKATİNE!
         </span>
+
+        {/* Headline */}
         <h1 className="hero-headline" id="h-headline">
-          <strong>Sadece 10 HAFTADA</strong>, Hiçbir Nota ya da Akordeon Geçmişin Olmasa Bile,
+          Sadece <strong>10 HAFTADA</strong>, Hiçbir Nota ya da Akordeon Geçmişin Olmasa Bile,
           <br />
           <em><strong>Çift Elle Qafe Çalmaya Başlayın</strong></em>
         </h1>
 
+        {/* Subtitle */}
+        <p className="hero-sub" id="h-sub">
+          Evrensel teoriye ve deneyime dayalı, yapılandırılmış bir program ile{" "}
+          <em>Çerkes Müziğini</em> gerçekten anla ve repertuarını inşa et.
+        </p>
 
-        <div className="hero-actions" id="h-actions">
-          <a href="#basvur" className="btn btn-primary btn-lg">
-            Başvuru Formunu Doldur
-          </a>
-          <p className="hero-note">Sınırlı kontenjan · Başlangıç: 4 Mayıs 2026</p>
+        {/* Urgency block */}
+        <div
+          className="hero-urgency"
+          id="h-urgency"
+          role="region"
+          aria-label="Kontenjan doluluk bilgisi"
+        >
+          <span className="hero-urgency-label">KONTENJAN DOLULUK ORANI</span>
+
+          <div
+            className="hero-urgency-track"
+            role="progressbar"
+            aria-valuenow={60}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Kontenjanın yüzde 60'ı doldu"
+          >
+            <div className="hero-urgency-fill">
+              <div className="hero-urgency-shimmer" aria-hidden="true" />
+              <span className="hero-urgency-fill-label">%60 DOLU</span>
+            </div>
+            <div className="hero-urgency-edge" aria-hidden="true" />
+          </div>
+
+          <p className="hero-urgency-deadline">
+            Son başvuru: <strong>4 Mayıs, gece yarısı</strong>
+          </p>
         </div>
-      </div>
 
+      </div>
     </section>
   );
 }

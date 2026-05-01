@@ -8,12 +8,24 @@ const testimonials = [
     author: "Setenay Ö.",
   },
   {
-    quote: "Bu kadar kapsamlı ve bu müziğe özel bir eğitim veren başka kimse yok. Başka bir şeyden daha önce duymuş olsaydım yıllarımı boşa harcamazdım.",
+    quote: "Bu kadar kapsamlı ve bu müziğe özel bir eğitim veren başka kimse yok. Eğer bunu daha önce bulmuş olsaydım, kendimi bu kadar çaresiz hissettirmezdi. Şu anda çok daha emin hissediyorum.",
     author: "Cem K.",
   },
   {
     quote: "Online olacağına dair şüphem vardı. Yanılmışım. Soundslice sayesinde parmakları istediğim kadar yavaşlatıp tekrarlayabiliyorum. Yüz yüze derste bunu hiçbir hocadan isteyemezsiniz.",
     author: "Emrah A.",
+  },
+  {
+    quote: "Bu çalışmanın kalitesi inanılmaz. Arşivlenmesi gerekiyor. Tekrar tekrar izlemek istiyorum, her seferinde bir şey daha öğreniyorum.",
+    author: "Setenay P.",
+  },
+  {
+    quote: "Başta pahalı olduğunu düşündüm, ama verilen ücretin kat be katına değer. Bu yatırımı hiç pişman olmadım.",
+    author: "Samet Ç.",
+  },
+  {
+    quote: "Bilmediğimiz çok şey vardı aslında. Bunları öğrenmek farklı bir bilinç kattı bize. Artık müziğe başka bir gözle bakıyorum.",
+    author: "Yunus Emre D.",
   },
 ];
 

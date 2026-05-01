@@ -1,10 +1,10 @@
 import ProgressBar from "@/components/ProgressBar";
 import CountdownBanner from "@/components/CountdownBanner";
 import Hero from "@/components/sections/Hero";
+import VSL from "@/components/sections/VSL";
 import Intrigue from "@/components/sections/Intrigue";
 import ProblemAgitation from "@/components/sections/ProblemAgitation";
 import Comparison from "@/components/sections/Comparison";
-import Outcomes from "@/components/sections/Outcomes";
 import Instructor from "@/components/sections/Instructor";
 import FAQ from "@/components/sections/FAQ";
 import Apply from "@/components/sections/Apply";
@@ -20,11 +20,11 @@ export default function Home() {
       <CountdownBanner />
       <main id="main-content">
         <Hero />
+        <VSL />
         <Intrigue />
         <ProblemAgitation />
         <Comparison />
         <Instructor />
-        <Outcomes />
         <VideoTestimonials />
         <Apply />
         <FAQ />

@@ -45,6 +45,26 @@ export default function Comparison() {
       );
 
       gsap.fromTo(
+        ".compare-card__arrow",
+        { scale: 0.85, opacity: 0.4 },
+        {
+          scale: 1.12,
+          opacity: 1,
+          duration: 0.6,
+          ease: "back.out(2)",
+          stagger: 0.15,
+          delay: 0.3,
+          yoyo: true,
+          repeat: 1,
+          scrollTrigger: {
+            trigger: ".solution-grid",
+            start: "top 85%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      gsap.fromTo(
         ".weekly-flow",
         { opacity: 0, y: 24 },
         {
@@ -130,7 +150,7 @@ export default function Comparison() {
               maxWidth: "800px",
               margin: "2rem auto 0",
               lineHeight: 1.8,
-              textAlign: "left",
+              textAlign: "center",
               display: "flex",
               flexDirection: "column",
               gap: "1.5rem"
@@ -140,7 +160,7 @@ export default function Comparison() {
               Geleneksel yöntemin özü şu: bir usta çalıyor, siz taklit ediyorsunuz. Plansız, teorisiz, müfredat yok. <strong style={{ color: "var(--brand-text)" }}>Hocaya ulaşamadığınız an öğrenme de duruyor.</strong> Çoğu kişi bu yüzden bir noktada bırakıyor.
             </p>
             <p>
-              Psefitone farklı bir sorudan başlıyor: "Bu kişi nasıl taklit eder?" değil, <strong style={{ color: "var(--brand-text)" }}>"Bu kişi bu müziği nasıl anlar?"</strong> Bu fark her şeyi değiştiriyor. <strong style={{ color: "var(--brand-text)" }}>Müziğin mantığını kavradığınızda</strong> yeni bir parçayı bağımsız çözebiliyorsunuz. Hata yaptığınızda nedenini görebiliyorsunuz. <strong style={{ color: "var(--brand-text)" }}>Hocasız ilerleyebiliyorsunuz.</strong>
+              Psefitone farklı bir sorudan başlıyor: "Bu kişi nasıl taklit eder?" değil, <strong style={{ color: "var(--brand-text)" }}>"Bu kişi bu müziği nasıl anlar?"</strong> Bu fark her şeyi değiştiriyor.
             </p>
           </div>
         </div>
@@ -149,25 +169,21 @@ export default function Comparison() {
           <p className="weekly-flow-caption">10 HAFTA · HER HAFTA AYNI RİTİM</p>
           <ol className="weekly-flow-steps">
             <li className="weekly-flow-step">
-              <span className="weekly-flow-num">01</span>
               <h3 className="weekly-flow-label">Yeni Ders Açılır</h3>
               <p className="weekly-flow-desc">Her hafta bir önceki üzerine inşa edilen yeni dersler.</p>
             </li>
             <li className="weekly-flow-arrow" aria-hidden="true">→</li>
             <li className="weekly-flow-step">
-              <span className="weekly-flow-num">02</span>
               <h3 className="weekly-flow-label">Egzersizleri Yükle</h3>
               <p className="weekly-flow-desc">Çalışmanı kaydet, yükle, neredeyse anında geri bildirim al.</p>
             </li>
             <li className="weekly-flow-arrow" aria-hidden="true">→</li>
             <li className="weekly-flow-step">
-              <span className="weekly-flow-num">03</span>
               <h3 className="weekly-flow-label">Grup Seansı</h3>
               <p className="weekly-flow-desc">Ortak sorunları birlikte çözüyoruz.</p>
             </li>
             <li className="weekly-flow-arrow" aria-hidden="true">→</li>
             <li className="weekly-flow-step">
-              <span className="weekly-flow-num">04</span>
               <h3 className="weekly-flow-label">Birebir Seans</h3>
               <p className="weekly-flow-desc">Sana özel bir uygulama planıyla bir sonraki haftaya geç.</p>
             </li>
@@ -175,79 +191,98 @@ export default function Comparison() {
           <p className="weekly-flow-loop">Her hafta yeniden, 10 hafta boyunca.</p>
         </div>
 
-        <div className="solution-grid" style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-          gap: "1.5rem",
-          marginTop: "4rem"
-        }}>
+        <div className="solution-grid">
           {/* Card 1 */}
-          <div className="solution-card" style={{
-            background: "var(--brand-dark3)",
-            border: "1px solid var(--brand-border)",
-            borderRadius: "12px",
-            padding: "2rem",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.3)"
-          }}>
-            <h3 style={{ fontFamily: "var(--font-display)", color: "var(--brand-accent)", fontSize: "1.3rem", marginBottom: "1rem" }}>10 hafta nasıl çalışır?</h3>
-            <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-              <strong style={{ color: "var(--brand-text)" }}>Sorun:</strong> <strong style={{ color: "var(--brand-text)" }}>Sırasız ve müfredatsız öğrenme</strong>, zora sokar. Koordinasyon egzersizi yapmadan süslemeli çalamazsın. Körüğü kontrol etmeyi öğrenmeden önce Şeşen çalamazsın.
-            </p>
-            <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6, marginTop: "1rem" }}>
-              <strong style={{ color: "var(--brand-text)" }}>Çözüm:</strong> Her haftanın bir öncekinin üzerine inşa edildiği, <strong style={{ color: "var(--brand-text)" }}>birikimli bir müfredat</strong>. Her adım bir sonrakini mümkün kılmak için var.
-            </p>
-          </div>
+          <article className="solution-card compare-card">
+            <h3 className="compare-card__title">10 hafta nasıl çalışır?</h3>
+
+            <div className="compare-card__zone compare-card__zone--problem">
+              <div className="compare-card__badge compare-card__badge--problem" aria-hidden="true">✕</div>
+              <span className="compare-card__zone-label compare-card__zone-label--problem">Sorun</span>
+              <p className="compare-card__body">
+                <strong>Sırasız ve müfredatsız öğrenme</strong>, zora sokar. Koordinasyon egzersizi yapmadan süslemeli çalamazsın. Körüğü kontrol etmeyi öğrenmeden önce Şeşen çalamazsın.
+              </p>
+            </div>
+
+            <div className="compare-card__arrow" aria-hidden="true">↓</div>
+
+            <div className="compare-card__zone compare-card__zone--solution">
+              <div className="compare-card__badge compare-card__badge--solution" aria-hidden="true">◆</div>
+              <span className="compare-card__zone-label compare-card__zone-label--solution">Çözüm</span>
+              <p className="compare-card__body">
+                Her haftanın bir öncekinin üzerine inşa edildiği, <strong>birikimli bir müfredat</strong>. Her adım bir sonrakini mümkün kılmak için var.
+              </p>
+            </div>
+          </article>
 
           {/* Card 2 */}
-          <div className="solution-card" style={{
-            background: "var(--brand-dark3)",
-            border: "1px solid var(--brand-border)",
-            borderRadius: "12px",
-            padding: "2rem",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.3)"
-          }}>
-            <h3 style={{ fontFamily: "var(--font-display)", color: "var(--brand-accent)", fontSize: "1.3rem", marginBottom: "1rem" }}>Haftalık grup seansı ne işe yarıyor?</h3>
-            <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-              <strong style={{ color: "var(--brand-text)" }}>Sorun:</strong> Öğrenciler aynı materyalle çalışıyor ama <strong style={{ color: "var(--brand-text)" }}>sorunlarını tek başına çözmeye çalışıyor</strong>. Verimlilik sıfır.
-            </p>
-            <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6, marginTop: "1rem" }}>
-              <strong style={{ color: "var(--brand-text)" }}>Çözüm:</strong> Grup seansı bir ders değil; <strong style={{ color: "var(--brand-text)" }}>soru-cevap ortamı</strong>. Aynı haftanın materyalini çalışmış kişiler aynı sorunlarla karşılaşıyor. Herkes aynı anda cevabını alıyor, kimse yalnız değil.
-            </p>
-          </div>
+          <article className="solution-card compare-card">
+            <h3 className="compare-card__title">Haftalık grup seansı ne işe yarıyor?</h3>
+
+            <div className="compare-card__zone compare-card__zone--problem">
+              <div className="compare-card__badge compare-card__badge--problem" aria-hidden="true">✕</div>
+              <span className="compare-card__zone-label compare-card__zone-label--problem">Sorun</span>
+              <p className="compare-card__body">
+                Öğrenciler aynı materyalle çalışıyor ama <strong>sorunlarını tek başına çözmeye çalışıyor</strong>. Verimlilik sıfır.
+              </p>
+            </div>
+
+            <div className="compare-card__arrow" aria-hidden="true">↓</div>
+
+            <div className="compare-card__zone compare-card__zone--solution">
+              <div className="compare-card__badge compare-card__badge--solution" aria-hidden="true">◆</div>
+              <span className="compare-card__zone-label compare-card__zone-label--solution">Çözüm</span>
+              <p className="compare-card__body">
+                Grup seansı bir ders değil; <strong>soru-cevap ortamı</strong>. Aynı haftanın materyalini çalışmış kişiler aynı sorunlarla karşılaşıyor. Herkes aynı anda cevabını alıyor, kimse yalnız değil.
+              </p>
+            </div>
+          </article>
 
           {/* Card 3 */}
-          <div className="solution-card" style={{
-            background: "var(--brand-dark3)",
-            border: "1px solid var(--brand-border)",
-            borderRadius: "12px",
-            padding: "2rem",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.3)"
-          }}>
-            <h3 style={{ fontFamily: "var(--font-display)", color: "var(--brand-accent)", fontSize: "1.3rem", marginBottom: "1rem" }}>Haftalık birebir seans ne işe yarıyor?</h3>
-            <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-              <strong style={{ color: "var(--brand-text)" }}>Sorun:</strong> Herkesin hayatı farklı. Birinin işi yoğunlaşabilir, ailesine bir şey olur... Bu durumda yeni bir şey öğrenmeye devam etmek için plan yapmak gerekir. O planı yapmak bile sizi zorlar, ve <strong style={{ color: "var(--brand-text)" }}>motivasyon erir</strong>.
-            </p>
-            <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6, marginTop: "1rem" }}>
-              <strong style={{ color: "var(--brand-text)" }}>Çözüm:</strong> Birebir seanslar, ilerleyişinizin kişisel değerlendirmesidir. O hafta nerede duruyorsunuz, önümüzdeki hafta ne üzerine çalışmanız gerekiyor, hangi konuda takıldınız, çalışma rutininiz nasıl yapılandırılmalı: sizin için hazırlanmış <strong style={{ color: "var(--brand-text)" }}>kişisel bir yol haritası</strong> oluşturuyoruz.
-            </p>
-          </div>
+          <article className="solution-card compare-card">
+            <h3 className="compare-card__title">Haftalık birebir seans ne işe yarıyor?</h3>
+
+            <div className="compare-card__zone compare-card__zone--problem">
+              <div className="compare-card__badge compare-card__badge--problem" aria-hidden="true">✕</div>
+              <span className="compare-card__zone-label compare-card__zone-label--problem">Sorun</span>
+              <p className="compare-card__body">
+                Herkesin hayatı farklı. Birinin işi yoğunlaşabilir, ailesine bir şey olur... Bu durumda yeni bir şey öğrenmeye devam etmek için plan yapmak gerekir. O planı yapmak bile sizi zorlar, ve <strong>motivasyon erir</strong>.
+              </p>
+            </div>
+
+            <div className="compare-card__arrow" aria-hidden="true">↓</div>
+
+            <div className="compare-card__zone compare-card__zone--solution">
+              <div className="compare-card__badge compare-card__badge--solution" aria-hidden="true">◆</div>
+              <span className="compare-card__zone-label compare-card__zone-label--solution">Çözüm</span>
+              <p className="compare-card__body">
+                Birebir seanslar, ilerleyişinizin kişisel değerlendirmesidir. O hafta nerede duruyorsunuz, önümüzdeki hafta ne üzerine çalışmanız gerekiyor, hangi konuda takıldınız, çalışma rutininiz nasıl yapılandırılmalı: sizin için hazırlanmış <strong>kişisel bir yol haritası</strong> oluşturuyoruz.
+              </p>
+            </div>
+          </article>
 
           {/* Card 4 */}
-          <div className="solution-card" style={{
-            background: "var(--brand-dark3)",
-            border: "1px solid var(--brand-border)",
-            borderRadius: "12px",
-            padding: "2rem",
-            boxShadow: "0 8px 30px rgba(0,0,0,0.3)"
-          }}>
-            <h3 style={{ fontFamily: "var(--font-display)", color: "var(--brand-accent)", fontSize: "1.3rem", marginBottom: "1rem" }}>Video geri bildirimi nasıl çalışıyor?</h3>
-            <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6 }}>
-              <strong style={{ color: "var(--brand-text)" }}>Sorun:</strong> Geleneksel derste günler boyunca yanlış teknikle çalışabilirsin. <strong style={{ color: "var(--brand-text)" }}>O hatalar kemikleşir.</strong> Hatayı erkenden fark edip müdahale etmek imkansız olmuştur.
-            </p>
-            <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6, marginTop: "1rem" }}>
-              <strong style={{ color: "var(--brand-text)" }}>Çözüm:</strong> Her dersin bir görevi var. Yeni dersler açmak için çalışmanızı kayıt altına alıp sisteme yüklüyorsunuz. Bir, ilerlemenizi somut olarak görüyorsunuz. İki, <strong style={{ color: "var(--brand-text)" }}>teknik bir hata kemikleşmeden müdahale edebiliyorum.</strong>
-            </p>
-          </div>
+          <article className="solution-card compare-card">
+            <h3 className="compare-card__title">Video geri bildirimi nasıl çalışıyor?</h3>
+
+            <div className="compare-card__zone compare-card__zone--problem">
+              <div className="compare-card__badge compare-card__badge--problem" aria-hidden="true">✕</div>
+              <span className="compare-card__zone-label compare-card__zone-label--problem">Sorun</span>
+              <p className="compare-card__body">
+                Geleneksel derste günler boyunca yanlış teknikle çalışabilirsin. <strong>O hatalar kemikleşir.</strong> Hatayı erkenden fark edip müdahale etmek imkansız olmuştur.
+              </p>
+            </div>
+
+            <div className="compare-card__arrow" aria-hidden="true">↓</div>
+
+            <div className="compare-card__zone compare-card__zone--solution">
+              <div className="compare-card__badge compare-card__badge--solution" aria-hidden="true">◆</div>
+              <span className="compare-card__zone-label compare-card__zone-label--solution">Çözüm</span>
+              <p className="compare-card__body">
+                Her dersin bir görevi var. Yeni dersler açmak için çalışmanızı kayıt altına alıp sisteme yüklüyorsunuz. Bir, ilerlemenizi somut olarak görüyorsunuz. İki, <strong>teknik bir hata kemikleşmeden müdahale edebiliyorum.</strong>
+              </p>
+            </div>
+          </article>
         </div>
 
         <div className="soundslice-try gsap-reveal">

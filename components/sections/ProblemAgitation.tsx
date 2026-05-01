@@ -87,56 +87,56 @@ export default function ProblemAgitation() {
           </h2>
 
           <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1.8rem" }}>
-            <li style={{ display: "flex", gap: "1.2rem", alignItems: "flex-start" }}>
-              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", marginTop: "-0.2rem" }}>✗</span>
+            <li style={{ display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center", textAlign: "center" }}>
+              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", alignSelf: "center" }}>✗</span>
               <div>
                 <strong style={{ color: "var(--brand-text)", fontSize: "1.1rem", display: "block", marginBottom: "0.35rem", fontWeight: 600 }}>
                   Ne Çalışacağınızı Bilememek
                 </strong>
                 <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
-                  Öğrenmeye heveslisiniz ama önünüzde ne bir müfredat var, ne bir yol haritası. YouTube'da bir video buluyorsunuz, ona bakıyorsunuz. Sonra bir başkası. Derken ne öğrendiğinizi, nerede durduğunuzu ve bir sonraki adımın ne olması gerektiğini bilemez hale geliyorsunuz. Hevesle başladığınız her seferinde aynı nokta: kafa karışıklığı ve erteleme.
+                  Öğrenmeye heveslisiniz ama önünüzde ne bir müfredat var, ne bir yol haritası. YouTube'da bir video buluyorsunuz, ona bakıyorsunuz. Sonra bir başkası. Derken ne öğrendiğinizi, nerede durduğunuzu ve bir sonraki adımın ne olması gerektiğini bilemez hale geliyorsunuz.
                 </p>
               </div>
             </li>
 
-            <li style={{ display: "flex", gap: "1.2rem", alignItems: "flex-start" }}>
-              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", marginTop: "-0.2rem" }}>✗</span>
+            <li style={{ display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center", textAlign: "center" }}>
+              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", alignSelf: "center" }}>✗</span>
               <div>
                 <strong style={{ color: "var(--brand-text)", fontSize: "1.1rem", display: "block", marginBottom: "0.35rem", fontWeight: 600 }}>
                   Sürekli Başa Sarmak, Hiç İlerlememek
                 </strong>
                 <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
-                  Videodaki eller ekranda kaybolup gidiyor. Ne yaptığını anlayabilmek için aynı 10 saniyelik kısmı defalarca izliyorsunuz. Saatlerinizi bu döngüde tüketiyorsunuz ama parmaklar hâlâ o hareketi yapamıyor. Çünkü görsel taklit, gerçek anlamayı ikame etmiyor.
+                  Videodaki eller ekranda kaybolup gidiyor. Ne yaptığını anlayabilmek için aynı 10 saniyelik kısmı defalarca izliyorsunuz. Saatlerinizi bu döngüde tüketiyorsunuz ama parmaklar hâlâ o hareketi yapamıyor.
                 </p>
               </div>
             </li>
 
-            <li style={{ display: "flex", gap: "1.2rem", alignItems: "flex-start" }}>
-              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", marginTop: "-0.2rem" }}>✗</span>
+            <li style={{ display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center", textAlign: "center" }}>
+              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", alignSelf: "center" }}>✗</span>
               <div>
                 <strong style={{ color: "var(--brand-text)", fontSize: "1.1rem", display: "block", marginBottom: "0.35rem", fontWeight: 600 }}>
                   Her Şeyi Bir Dışarıdan Desteğe Bağlamak
                 </strong>
                 <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
-                  Görünürde ilerliyorsunuz ama bir şeyleri gerçekten anlamıyorsunuz. Çünkü müziğin arkasındaki mantığı kavrayacak bir sistemle karşılaşmamışsınız. Bu yüzden her parça sanki sıfırdan başlıyormuş gibi geliyor. Bir hata çıkıyor, neden olduğunu bilemiyorsunuz; sadece bir daha yapmamaya çalışıyorsunuz. Bu bağımlılık eninde sonunda motivasyonu eritiyor.
+                  Görünürde ilerliyorsunuz ama bir şeyleri gerçekten anlamıyorsunuz. Çünkü müziğin arkasındaki mantığı kavrayacak bir sistemle karşılaşmamışsınız. Bu yüzden her parça sanki sıfırdan başlıyormuş gibi geliyor.
                 </p>
               </div>
             </li>
 
-            <li style={{ display: "flex", gap: "1.2rem", alignItems: "flex-start" }}>
-              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", marginTop: "-0.2rem" }}>✗</span>
+            <li style={{ display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center", textAlign: "center" }}>
+              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", alignSelf: "center" }}>✗</span>
               <div>
                 <strong style={{ color: "var(--brand-text)", fontSize: "1.1rem", display: "block", marginBottom: "0.35rem", fontWeight: 600 }}>
                   "Yeteneksizim" Yanılgısı
                 </strong>
                 <p style={{ color: "var(--brand-muted)", fontSize: "0.95rem", lineHeight: 1.6, margin: 0 }}>
-                  Aylarca çabaladınız. Görünür bir ilerleme yok. Sonra da şu sonuca varıyorsunuz: "Müzik kulağım yok. Bu benim için değil. Parmaklarım çok yavaş. Yaşım geçti." Ama gerçek şu: yanlış sistemle doğru sonuca ulaşmak mümkün değil. Sorunu yanlış yerde arıyorsunuz.
+                  Aylarca çabaladınız. Görünür bir ilerleme yok. Sonra da şu sonuca varıyorsunuz: "Müzik kulağım yok. Bu benim için değil. Parmaklarım çok yavaş. Yaşım geçti." Ama gerçek şu: yanlış sistemle doğru sonuca ulaşmak mümkün değil.
                 </p>
               </div>
             </li>
 
-            <li style={{ display: "flex", gap: "1.2rem", alignItems: "flex-start" }}>
-              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", marginTop: "-0.2rem" }}>✗</span>
+            <li style={{ display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center", textAlign: "center" }}>
+              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", alignSelf: "center" }}>✗</span>
               <div>
                 <strong style={{ color: "var(--brand-text)", fontSize: "1.1rem", display: "block", marginBottom: "0.35rem", fontWeight: 600 }}>
                   Toplum Önünde Ezilme Korkusu
@@ -147,8 +147,8 @@ export default function ProblemAgitation() {
               </div>
             </li>
 
-            <li style={{ display: "flex", gap: "1.2rem", alignItems: "flex-start" }}>
-              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", marginTop: "-0.2rem" }}>✗</span>
+            <li style={{ display: "flex", flexDirection: "column", gap: "0.75rem", alignItems: "center", textAlign: "center" }}>
+              <span style={{ color: "var(--brand-secondary)", fontSize: "1.4rem", alignSelf: "center" }}>✗</span>
               <div>
                 <strong style={{ color: "var(--brand-text)", fontSize: "1.1rem", display: "block", marginBottom: "0.35rem", fontWeight: 600 }}>
                   Kültürel Miras Baskısı

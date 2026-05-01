@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import GlobalSparkles from "@/components/GlobalSparkles";
@@ -25,6 +25,14 @@ export const metadata: Metadata = {
   title: "Psefitone Kickstarter — 2. Kohort | Çerkes Akordeon Programı",
   description:
     "Türkiye Çerkes diasporası için tasarlanan ilk modern akordeon metodolojisi. 10 haftada Çerkes müziğini anla ve ilk parçalarını çalmaya başla.",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+  themeColor: "#0e0a1a",
 };
 
 function NoiseOverlay() {

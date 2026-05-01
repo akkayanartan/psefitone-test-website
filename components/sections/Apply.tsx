@@ -113,29 +113,38 @@ export default function Apply() {
             Neler Alıyorsunuz?
           </h3>
 
-          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1rem" }}>
-            <li style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px dashed var(--brand-border)", paddingBottom: "1rem" }}>
-              <span style={{ color: "var(--brand-text)", fontSize: "0.95rem" }}>10 Haftalık Ana Eğitim & Müfredat</span>
-              <span style={{ color: "var(--brand-muted)", fontSize: "0.9rem" }}>Değeri: 40.000 TL</span>
-            </li>
-            <li style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px dashed var(--brand-border)", paddingBottom: "1rem" }}>
-              <span style={{ color: "var(--brand-text)", fontSize: "0.95rem" }}>Bonus #1: Dijital Arşiv (3 Ay)</span>
-              <span style={{ color: "var(--brand-muted)", fontSize: "0.9rem" }}>Değeri: 10.000 TL</span>
-            </li>
-            <li style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px dashed var(--brand-border)", paddingBottom: "1rem" }}>
-              <span style={{ color: "var(--brand-text)", fontSize: "0.95rem" }}>Bonus #2: Gelecek Eğitimlerde Öncelik</span>
-              <span style={{ color: "var(--brand-muted)", fontSize: "0.9rem" }}>Değeri: 15.000 TL</span>
-            </li>
-            <li style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px dashed var(--brand-border)", paddingBottom: "1rem" }}>
-              <span style={{ color: "var(--brand-text)", fontSize: "0.95rem" }}>Bonus #3: Topluluk Desteği</span>
-              <span style={{ color: "var(--brand-muted)", fontSize: "0.9rem" }}>Paha Biçilemez</span>
-            </li>
-          </ul>
-
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "1.5rem", paddingTop: "1rem" }}>
-            <span style={{ color: "var(--brand-text)", fontSize: "1.1rem", fontWeight: 600 }}>TOPLAM DEĞER:</span>
-            <span style={{ color: "var(--brand-accent)", fontSize: "1.3rem", fontWeight: 700, textDecoration: "line-through" }}>65.000 TL</span>
-          </div>
+          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+            <thead>
+              <tr>
+                <th style={{ color: "var(--brand-muted)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", textAlign: "left", paddingBottom: "0.75rem", borderBottom: "1px solid var(--brand-border)" }}>Bonus</th>
+                <th style={{ color: "var(--brand-muted)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", textAlign: "right", paddingBottom: "0.75rem", borderBottom: "1px solid var(--brand-border)" }}>Değeri</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style={{ color: "var(--brand-text)", fontSize: "0.95rem", padding: "0.85rem 0", borderBottom: "1px dashed var(--brand-border)" }}>10 Haftalık Ana Eğitim & Müfredat</td>
+                <td style={{ color: "var(--brand-muted)", fontSize: "0.9rem", textAlign: "right", padding: "0.85rem 0", borderBottom: "1px dashed var(--brand-border)" }}>40.000 TL</td>
+              </tr>
+              <tr>
+                <td style={{ color: "var(--brand-text)", fontSize: "0.95rem", padding: "0.85rem 0", borderBottom: "1px dashed var(--brand-border)" }}>Dijital Arşiv (3 Ay)</td>
+                <td style={{ color: "var(--brand-muted)", fontSize: "0.9rem", textAlign: "right", padding: "0.85rem 0", borderBottom: "1px dashed var(--brand-border)" }}>10.000 TL</td>
+              </tr>
+              <tr>
+                <td style={{ color: "var(--brand-text)", fontSize: "0.95rem", padding: "0.85rem 0", borderBottom: "1px dashed var(--brand-border)" }}>Gelecek Eğitimlerde Öncelik</td>
+                <td style={{ color: "var(--brand-muted)", fontSize: "0.9rem", textAlign: "right", padding: "0.85rem 0", borderBottom: "1px dashed var(--brand-border)" }}>15.000 TL</td>
+              </tr>
+              <tr>
+                <td style={{ color: "var(--brand-text)", fontSize: "0.95rem", padding: "0.85rem 0", borderBottom: "1px dashed var(--brand-border)" }}>Topluluk Desteği</td>
+                <td style={{ color: "var(--brand-muted)", fontSize: "0.9rem", textAlign: "right", padding: "0.85rem 0", borderBottom: "1px dashed var(--brand-border)" }}>Paha Biçilemez</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td style={{ color: "var(--brand-text)", fontSize: "1.1rem", fontWeight: 600, paddingTop: "1.25rem" }}>TOPLAM DEĞER</td>
+                <td style={{ color: "var(--brand-accent)", fontSize: "1.3rem", fontWeight: 700, textDecoration: "line-through", textAlign: "right", paddingTop: "1.25rem" }}>65.000 TL</td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
 
         {/* Pricing */}

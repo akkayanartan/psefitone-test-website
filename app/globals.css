@@ -139,6 +139,8 @@
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  overflow-x: clip;
+  width: 100%;
 }
 
 body {
@@ -147,7 +149,9 @@ body {
   font-family: var(--font-body);
   font-weight: 400;
   line-height: 1.75;
-  overflow-x: hidden;
+  overflow-x: clip;
+  width: 100%;
+  max-width: 100vw;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -198,6 +202,8 @@ ul {
 
 .section {
   padding: var(--section-pad-v) 0;
+  position: relative;
+  overflow: clip;
 }
 
 .section-header {
@@ -3338,6 +3344,28 @@ nav[aria-label] button:focus-visible {
   }
 }
 
+/* ── Apply: pricing value-stack table on small screens ── */
+@media (max-width: 480px) {
+  .value-stack-block {
+    padding: 1.25rem !important;
+    margin: 2rem auto !important;
+  }
+  .value-stack-block table th,
+  .value-stack-block table td {
+    font-size: 0.78rem !important;
+    padding-top: 0.6rem !important;
+    padding-bottom: 0.6rem !important;
+  }
+  .value-stack-block table tfoot td {
+    font-size: 0.95rem !important;
+    padding-top: 1rem !important;
+  }
+  .value-stack-block h3 {
+    font-size: 1.05rem !important;
+    margin-bottom: 1.1rem !important;
+  }
+}
+
 /* ── Curriculum: horizontal tab sidebar + full-width panel on mobile ── */
 @media (max-width: 640px) {
 
@@ -3459,8 +3487,8 @@ nav[aria-label] button:focus-visible {
   }
 
   .marquee-card {
-    min-width: 240px;
-    max-width: 280px;
+    min-width: min(240px, 75vw);
+    max-width: min(280px, 82vw);
     padding: 1rem 1.25rem;
   }
 
@@ -3471,6 +3499,11 @@ nav[aria-label] button:focus-visible {
 
   .marquee-author {
     font-size: 0.68rem;
+  }
+
+  .marquee-fade-left,
+  .marquee-fade-right {
+    width: 48px;
   }
 }
 

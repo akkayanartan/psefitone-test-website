@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 const TARGET = new Date("2026-05-05T00:00:00");
 
@@ -16,11 +17,14 @@ function getCountdown() {
 
 export default function CountdownBanner() {
   const [time, setTime] = useState(getCountdown());
+  const reduced = useReducedMotion();
 
   useEffect(() => {
+    setTime(getCountdown());
+    if (reduced) return;
     const id = setInterval(() => setTime(getCountdown()), 1000);
     return () => clearInterval(id);
-  }, []);
+  }, [reduced]);
 
   const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -31,22 +35,22 @@ export default function CountdownBanner() {
 
         <div className="countdown-units">
           <div className="countdown-unit">
-            <span className="countdown-num">{pad(time.days)}</span>
+            <span className="countdown-num" suppressHydrationWarning>{pad(time.days)}</span>
             <span className="countdown-unit-label">gün</span>
           </div>
           <span className="countdown-sep" aria-hidden="true">:</span>
           <div className="countdown-unit">
-            <span className="countdown-num">{pad(time.hours)}</span>
+            <span className="countdown-num" suppressHydrationWarning>{pad(time.hours)}</span>
             <span className="countdown-unit-label">saat</span>
           </div>
           <span className="countdown-sep" aria-hidden="true">:</span>
           <div className="countdown-unit">
-            <span className="countdown-num">{pad(time.minutes)}</span>
+            <span className="countdown-num" suppressHydrationWarning>{pad(time.minutes)}</span>
             <span className="countdown-unit-label">dak</span>
           </div>
           <span className="countdown-sep" aria-hidden="true">:</span>
           <div className="countdown-unit">
-            <span className="countdown-num">{pad(time.seconds)}</span>
+            <span className="countdown-num" suppressHydrationWarning>{pad(time.seconds)}</span>
             <span className="countdown-unit-label">sn</span>
           </div>
         </div>

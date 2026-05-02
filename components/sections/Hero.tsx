@@ -10,24 +10,35 @@ export default function Hero() {
 
   useGSAP(
     () => {
-      const items = gsap.utils.toArray<HTMLElement>([
-        "#h-tag",
-        "#h-headline",
-        "#h-sub",
-        "#h-urgency",
-      ]);
+      const mm = gsap.matchMedia();
+      mm.add(
+        { reduced: "(prefers-reduced-motion: reduce)", normal: "(prefers-reduced-motion: no-preference)" },
+        (ctx) => {
+          const items = gsap.utils.toArray<HTMLElement>([
+            "#h-tag",
+            "#h-headline",
+            "#h-sub",
+            "#h-urgency",
+          ]);
 
-      gsap.fromTo(
-        items,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power3.out",
-          stagger: 0.12,
-          delay: 0.2,
-        }
+          if ((ctx.conditions as { reduced: boolean }).reduced) {
+            gsap.set(items, { opacity: 1, y: 0 });
+            return;
+          }
+
+          gsap.fromTo(
+            items,
+            { opacity: 0, y: 30 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power3.out",
+              stagger: 0.12,
+              delay: 0.2,
+            },
+          );
+        },
       );
     },
     { scope: containerRef }

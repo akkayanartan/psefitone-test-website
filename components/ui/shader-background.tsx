@@ -169,6 +169,8 @@ const ShaderBackground = () => {
       return;
     }
 
+    const reducedMotionMq = window.matchMedia("(prefers-reduced-motion: reduce)");
+
     const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
     if (!shaderProgram) return;
 
@@ -188,28 +190,30 @@ const ShaderBackground = () => {
       },
     };
 
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gl.viewport(0, 0, canvas.width, canvas.height);
+    const sizeToParent = () => {
+      const parent = canvas.parentElement;
+      const w = parent?.clientWidth ?? window.innerWidth;
+      const h = parent?.clientHeight ?? window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
+      gl.viewport(0, 0, w, h);
     };
 
-    window.addEventListener("resize", resizeCanvas);
-    resizeCanvas();
+    sizeToParent();
+    const resizeObs = new ResizeObserver(sizeToParent);
+    if (canvas.parentElement) resizeObs.observe(canvas.parentElement);
 
-    let animId: number;
+    let animId: number | null = null;
+    let onScreen = true;
     const startTime = Date.now();
 
-    const render = () => {
+    const drawOnce = () => {
       const currentTime = (Date.now() - startTime) / 1000;
-
       gl.clearColor(0.055, 0.039, 0.102, 1.0);
       gl.clear(gl.COLOR_BUFFER_BIT);
-
       gl.useProgram(programInfo.program);
       gl.uniform2f(programInfo.uniformLocations.resolution, canvas.width, canvas.height);
       gl.uniform1f(programInfo.uniformLocations.time, currentTime);
-
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
       gl.vertexAttribPointer(
         programInfo.attribLocations.vertexPosition,
@@ -217,19 +221,66 @@ const ShaderBackground = () => {
         gl.FLOAT,
         false,
         0,
-        0
+        0,
       );
       gl.enableVertexAttribArray(programInfo.attribLocations.vertexPosition);
-
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    };
+
+    const render = () => {
+      drawOnce();
       animId = requestAnimationFrame(render);
     };
 
-    animId = requestAnimationFrame(render);
+    const startLoop = () => {
+      if (animId !== null) return;
+      if (reducedMotionMq.matches) {
+        drawOnce();
+        return;
+      }
+      if (document.hidden) return;
+      if (!onScreen) return;
+      animId = requestAnimationFrame(render);
+    };
+
+    const stopLoop = () => {
+      if (animId !== null) {
+        cancelAnimationFrame(animId);
+        animId = null;
+      }
+    };
+
+    const onVisibility = () => {
+      if (document.hidden) stopLoop();
+      else startLoop();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    const onReducedChange = () => {
+      stopLoop();
+      startLoop();
+    };
+    reducedMotionMq.addEventListener("change", onReducedChange);
+
+    const intersectionObs = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        onScreen = !!entry?.isIntersecting;
+        if (onScreen) startLoop();
+        else stopLoop();
+      },
+      { threshold: 0.01 },
+    );
+    intersectionObs.observe(canvas);
+
+    startLoop();
 
     return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resizeCanvas);
+      stopLoop();
+      document.removeEventListener("visibilitychange", onVisibility);
+      reducedMotionMq.removeEventListener("change", onReducedChange);
+      intersectionObs.disconnect();
+      resizeObs.disconnect();
       gl.deleteBuffer(positionBuffer);
       gl.deleteProgram(shaderProgram);
     };

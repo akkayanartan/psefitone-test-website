@@ -11,107 +11,128 @@ export default function Comparison() {
 
   useGSAP(
     () => {
-      gsap.fromTo(
-        ".comparison-header",
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".comparison-header",
-            start: "top 88%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      const mm = gsap.matchMedia();
+      mm.add(
+        { reduced: "(prefers-reduced-motion: reduce)", normal: "(prefers-reduced-motion: no-preference)" },
+        (ctx) => {
+          if ((ctx.conditions as { reduced: boolean }).reduced) {
+            gsap.set(
+              [
+                ".comparison-header",
+                ".solution-card",
+                ".compare-card__arrow",
+                ".weekly-flow",
+                ".weekly-flow-step",
+                ".soundslice-try",
+              ],
+              { opacity: 1, y: 0, scale: 1 },
+            );
+            return;
+          }
 
-      gsap.fromTo(
-        ".solution-card",
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out",
-          stagger: 0.15,
-          scrollTrigger: {
-            trigger: ".solution-grid",
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+          gsap.fromTo(
+            ".comparison-header",
+            { opacity: 0, y: 24 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: ".comparison-header",
+                start: "top 88%",
+                toggleActions: "play none none none",
+              },
+            },
+          );
 
-      gsap.fromTo(
-        ".compare-card__arrow",
-        { scale: 0.85, opacity: 0.4 },
-        {
-          scale: 1.12,
-          opacity: 1,
-          duration: 0.6,
-          ease: "back.out(2)",
-          stagger: 0.15,
-          delay: 0.3,
-          yoyo: true,
-          repeat: 1,
-          scrollTrigger: {
-            trigger: ".solution-grid",
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+          gsap.fromTo(
+            ".solution-card",
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              ease: "power2.out",
+              stagger: 0.15,
+              scrollTrigger: {
+                trigger: ".solution-grid",
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            },
+          );
 
-      gsap.fromTo(
-        ".weekly-flow",
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".weekly-flow",
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+          gsap.fromTo(
+            ".compare-card__arrow",
+            { scale: 0.85, opacity: 0.4 },
+            {
+              scale: 1.12,
+              opacity: 1,
+              duration: 0.6,
+              ease: "back.out(2)",
+              stagger: 0.15,
+              delay: 0.3,
+              yoyo: true,
+              repeat: 1,
+              scrollTrigger: {
+                trigger: ".solution-grid",
+                start: "top 85%",
+                toggleActions: "play none none none",
+              },
+            },
+          );
 
-      gsap.fromTo(
-        ".weekly-flow-step",
-        { opacity: 0, y: 16 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: "power2.out",
-          stagger: 0.1,
-          delay: 0.15,
-          scrollTrigger: {
-            trigger: ".weekly-flow",
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+          gsap.fromTo(
+            ".weekly-flow",
+            { opacity: 0, y: 24 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: ".weekly-flow",
+                start: "top 90%",
+                toggleActions: "play none none none",
+              },
+            },
+          );
 
-      gsap.fromTo(
-        ".soundslice-try",
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".soundslice-try",
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        }
+          gsap.fromTo(
+            ".weekly-flow-step",
+            { opacity: 0, y: 16 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.5,
+              ease: "power2.out",
+              stagger: 0.1,
+              delay: 0.15,
+              scrollTrigger: {
+                trigger: ".weekly-flow",
+                start: "top 90%",
+                toggleActions: "play none none none",
+              },
+            },
+          );
+
+          gsap.fromTo(
+            ".soundslice-try",
+            { opacity: 0, y: 24 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.7,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: ".soundslice-try",
+                start: "top 90%",
+                toggleActions: "play none none none",
+              },
+            },
+          );
+        },
       );
     },
     { scope: sectionRef }
@@ -167,27 +188,27 @@ export default function Comparison() {
 
         <div className="weekly-flow gsap-reveal" aria-label="Haftalık akış">
           <p className="weekly-flow-caption">10 HAFTA · HER HAFTA AYNI RİTİM</p>
-          <ol className="weekly-flow-steps">
-            <li className="weekly-flow-step">
+          <div className="weekly-flow-steps" role="list">
+            <div className="weekly-flow-step" role="listitem">
               <h3 className="weekly-flow-label">Yeni Ders Açılır</h3>
               <p className="weekly-flow-desc">Her hafta bir önceki üzerine inşa edilen yeni dersler.</p>
-            </li>
-            <li className="weekly-flow-arrow" aria-hidden="true">→</li>
-            <li className="weekly-flow-step">
+            </div>
+            <span className="weekly-flow-arrow" aria-hidden="true">→</span>
+            <div className="weekly-flow-step" role="listitem">
               <h3 className="weekly-flow-label">Egzersizleri Yükle</h3>
               <p className="weekly-flow-desc">Çalışmanı kaydet, yükle, neredeyse anında geri bildirim al.</p>
-            </li>
-            <li className="weekly-flow-arrow" aria-hidden="true">→</li>
-            <li className="weekly-flow-step">
+            </div>
+            <span className="weekly-flow-arrow" aria-hidden="true">→</span>
+            <div className="weekly-flow-step" role="listitem">
               <h3 className="weekly-flow-label">Grup Seansı</h3>
               <p className="weekly-flow-desc">Ortak sorunları birlikte çözüyoruz.</p>
-            </li>
-            <li className="weekly-flow-arrow" aria-hidden="true">→</li>
-            <li className="weekly-flow-step">
+            </div>
+            <span className="weekly-flow-arrow" aria-hidden="true">→</span>
+            <div className="weekly-flow-step" role="listitem">
               <h3 className="weekly-flow-label">Birebir Seans</h3>
               <p className="weekly-flow-desc">Sana özel bir uygulama planıyla bir sonraki haftaya geç.</p>
-            </li>
-          </ol>
+            </div>
+          </div>
           <p className="weekly-flow-loop">Her hafta yeniden, 10 hafta boyunca.</p>
         </div>
 

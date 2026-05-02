@@ -12,23 +12,34 @@ export default function Apply() {
 
   useGSAP(
     () => {
-      gsap.utils.toArray<HTMLElement>(".gsap-reveal", sectionRef.current!).forEach((el) => {
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.7,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 88%",
-              toggleActions: "play none none none",
-            },
+      const mm = gsap.matchMedia();
+      mm.add(
+        { reduced: "(prefers-reduced-motion: reduce)", normal: "(prefers-reduced-motion: no-preference)" },
+        (ctx) => {
+          const items = gsap.utils.toArray<HTMLElement>(".gsap-reveal", sectionRef.current!);
+          if ((ctx.conditions as { reduced: boolean }).reduced) {
+            gsap.set(items, { opacity: 1, y: 0 });
+            return;
           }
-        );
-      });
+          items.forEach((el) => {
+            gsap.fromTo(
+              el,
+              { opacity: 0, y: 24 },
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.7,
+                ease: "power2.out",
+                scrollTrigger: {
+                  trigger: el,
+                  start: "top 88%",
+                  toggleActions: "play none none none",
+                },
+              },
+            );
+          });
+        },
+      );
     },
     { scope: sectionRef }
   );
@@ -109,11 +120,11 @@ export default function Apply() {
           padding: "2rem",
           boxShadow: "0 10px 40px rgba(0,0,0,0.5)"
         }}>
-          <h3 style={{ color: "var(--brand-text)", fontSize: "1.2rem", fontWeight: 600, textAlign: "center", marginBottom: "1.5rem" }}>
+          <h3 id="value-stack-heading" style={{ color: "var(--brand-text)", fontSize: "1.2rem", fontWeight: 600, textAlign: "center", marginBottom: "1.5rem" }}>
             Neler Alıyorsunuz?
           </h3>
 
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
+          <table aria-labelledby="value-stack-heading" style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr>
                 <th style={{ color: "var(--brand-muted)", fontSize: "0.75rem", fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", textAlign: "left", paddingBottom: "0.75rem", borderBottom: "1px solid var(--brand-border)" }}>Bonus</th>
@@ -299,7 +310,7 @@ export default function Apply() {
             <polyline points="12 6 12 12 16 14" />
           </svg>
           {/* Heading */}
-          <h4 style={{
+          <h3 style={{
             fontFamily: "var(--font-display)",
             fontSize: "1.3rem",
             fontWeight: 600,
@@ -309,7 +320,7 @@ export default function Apply() {
             letterSpacing: "-0.01em",
           }}>
             Kontenjan Neden Sınırlı?
-          </h4>
+          </h3>
           {/* Body */}
           <p style={{ color: "#e3e0aa", fontSize: "0.95rem", lineHeight: 1.7, margin: "0 0 1rem" }}>
             Bu bir video kurs değil. Sizinle birebir ilgilenmem, gelişiminizi takip etmem ve sorularınıza şahsen yanıt vermem gerekiyor. Kaliteyi koruyabilmek için alabileceğim kişi sayısı belli.
@@ -339,7 +350,7 @@ export default function Apply() {
             background: "radial-gradient(ellipse 80% 100% at 50% 0%, rgba(255,30,30,0.18), transparent)",
             pointerEvents: "none",
           }} />
-          <h4 style={{
+          <h3 style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -352,7 +363,7 @@ export default function Apply() {
             textAlign: "center",
           }}>
             Harekete Geçmezsen Ne Olacak?
-          </h4>
+          </h3>
           <p style={{ color: "var(--brand-text)", fontSize: "1.05rem", lineHeight: 1.75, marginBottom: "1rem", textAlign: "center" }}>
             Bu fırsatı değerlendirmezsen, önümüzdeki 6 ay boyunca yine aynı YouTube videolarını başa saracak, çaldığın şeyin mantığını anlamadan ezber yapmaya çalışacak ve düğünlerde sahneye çıkma özgüvenini <strong>asla</strong> bulamayacaksın.
           </p>
@@ -393,7 +404,8 @@ export default function Apply() {
         </div>
 
         {/* Process steps */}
-        <div className="apply-process gsap-reveal" aria-label="Başvuru süreci">
+        <div className="apply-process gsap-reveal" aria-labelledby="apply-process-heading">
+          <h3 id="apply-process-heading" className="sr-only">Başvuru Süreci</h3>
           <div className="apply-process-line" aria-hidden="true" />
           <ol className="apply-process-steps">
             <li className="apply-process-step" style={{

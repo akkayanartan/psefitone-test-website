@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
 const playfair = Playfair_Display({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-display",
   display: "swap",
   weight: ["400", "500", "600", "700"],
@@ -14,7 +14,7 @@ const playfair = Playfair_Display({
 });
 
 const montserrat = Montserrat({
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   variable: "--font-body",
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],

@@ -11,20 +11,30 @@ export default function ReminderPS() {
 
   useGSAP(
     () => {
-      gsap.fromTo(
-        ".ps-content",
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".ps-content",
-            start: "top 90%",
-            toggleActions: "play none none none",
-          },
-        }
+      const mm = gsap.matchMedia();
+      mm.add(
+        { reduced: "(prefers-reduced-motion: reduce)", normal: "(prefers-reduced-motion: no-preference)" },
+        (ctx) => {
+          if ((ctx.conditions as { reduced: boolean }).reduced) {
+            gsap.set(".ps-content", { opacity: 1, y: 0 });
+            return;
+          }
+          gsap.fromTo(
+            ".ps-content",
+            { opacity: 0, y: 20 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: "power2.out",
+              scrollTrigger: {
+                trigger: ".ps-content",
+                start: "top 90%",
+                toggleActions: "play none none none",
+              },
+            },
+          );
+        },
       );
     },
     { scope: sectionRef }

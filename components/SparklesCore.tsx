@@ -5,7 +5,7 @@ import Particles, { initParticlesEngine } from "@tsparticles/react";
 import type { Container } from "@tsparticles/engine";
 import { loadSlim } from "@tsparticles/slim";
 import { cn } from "@/lib/utils";
-import { motion, useAnimation } from "framer-motion";
+import { useReducedMotion } from "@/lib/useReducedMotion";
 
 type ParticlesProps = {
   id?: string;
@@ -22,18 +22,31 @@ type ParticlesProps = {
 export const SparklesCore = (props: ParticlesProps) => {
   const { id, className, background, minSize, maxSize, speed, particleColor, particleDensity } = props;
   const [init, setInit] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const reduced = useReducedMotion();
+
   useEffect(() => {
+    if (reduced) return;
     initParticlesEngine(async (engine) => {
       await loadSlim(engine);
     }).then(() => setInit(true));
-  }, []);
-  const controls = useAnimation();
+  }, [reduced]);
+
   const particlesLoaded = async (container?: Container) => {
-    if (container) controls.start({ opacity: 1, transition: { duration: 1 } });
+    if (container) setLoaded(true);
   };
   const generatedId = useId();
+
+  if (reduced) return null;
+
   return (
-    <motion.div animate={controls} className={cn("opacity-0", className)}>
+    <div
+      className={cn(
+        "transition-opacity duration-1000 ease-out",
+        loaded ? "opacity-100" : "opacity-0",
+        className
+      )}
+    >
       {init && (
         <Particles
           id={id || generatedId}
@@ -43,6 +56,8 @@ export const SparklesCore = (props: ParticlesProps) => {
             background: { color: { value: background || "transparent" } },
             fullScreen: { enable: false, zIndex: 1 },
             fpsLimit: 60,
+            pauseOnBlur: true,
+            pauseOnOutsideViewport: true,
             particles: {
               color: { value: particleColor || "#cbc3d6" },
               move: { enable: true, speed: { min: 0.1, max: 0.6 }, direction: "none", outModes: { default: "out" } },
@@ -55,6 +70,6 @@ export const SparklesCore = (props: ParticlesProps) => {
           }}
         />
       )}
-    </motion.div>
+    </div>
   );
 };

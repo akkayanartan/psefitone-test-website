@@ -107,7 +107,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    console.log("[paytr.token] token issued", { merchantOid });
+    if (process.env.NODE_ENV !== "production") {
+      console.log("[paytr.token] token issued", { merchantOid });
+    }
 
     return Response.json({
       status: "success",

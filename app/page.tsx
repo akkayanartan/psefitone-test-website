@@ -18,7 +18,7 @@ export default function Home() {
     <>
       <ProgressBar />
       <CountdownBanner />
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <Hero />
         <VSL />
         <Intrigue />

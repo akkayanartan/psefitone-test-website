@@ -62,15 +62,17 @@ export async function POST(req: NextRequest) {
   const currency = getField(form, "currency");
 
   if (status === "success") {
-    console.log("[paytr.callback] PAYMENT SUCCESS", {
-      merchantOid,
-      totalAmount,
-      paymentAmount,
-      currency,
-      paymentType,
-    });
-    // TODO(later): persist to order store / notify via n8n+WhatsApp.
-    // Idempotency: if merchantOid already processed, no-op.
+    if (process.env.NODE_ENV !== "production") {
+      console.log("[paytr.callback] PAYMENT SUCCESS", {
+        merchantOid,
+        totalAmount,
+        paymentAmount,
+        currency,
+        paymentType,
+      });
+    }
+    // No app-side persistence: transaction records (success and failure)
+    // live in the PayTR merchant dashboard, which is the source of truth.
   } else {
     console.warn("[paytr.callback] PAYMENT FAILED", {
       merchantOid,
@@ -78,7 +80,7 @@ export async function POST(req: NextRequest) {
       failedReasonCode,
       failedReasonMsg,
     });
-    // TODO(later): persist failure for analytics.
+    // No app-side persistence: failure records live in the PayTR dashboard.
   }
 
   // PayTR requires plain-text "OK" response. Anything else triggers retries.

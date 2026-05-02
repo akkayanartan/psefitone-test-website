@@ -23,7 +23,18 @@ function b64hmac(payload: string, key: string): string {
 }
 
 function testModeFlag(): "0" | "1" {
-  return process.env.PAYTR_TEST_MODE === "0" ? "0" : "1";
+  // Fail-loud: env var must be set explicitly to "0" (production) or "1" (test).
+  // A missing/misspelled value would otherwise silently route real customers
+  // through PayTR's test gateway (or vice versa).
+  const v = process.env.PAYTR_TEST_MODE;
+  if (v === "0" || v === "1") return v;
+  throw new Error(
+    "PAYTR_TEST_MODE must be set explicitly to \"0\" (production) or \"1\" (test).",
+  );
+}
+
+function debugOnFlag(): "0" | "1" {
+  return process.env.NODE_ENV === "production" ? "0" : "1";
 }
 
 // ---------------- Basket ----------------
@@ -106,7 +117,7 @@ export function buildTokenRequestBody(p: TokenParams): URLSearchParams {
     payment_amount: paymentAmount,
     paytr_token: paytrToken,
     user_basket: userBasket,
-    debug_on: String(p.debugOn ?? 1),
+    debug_on: p.debugOn !== undefined ? String(p.debugOn) : debugOnFlag(),
     no_installment: noInstallment,
     max_installment: maxInstallment,
     user_name: p.userName,

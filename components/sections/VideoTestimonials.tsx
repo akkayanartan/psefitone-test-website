@@ -1,7 +1,12 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 import Marquee from "@/components/sections/Marquee";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const VIDEO_IDS: string[] = [
   "o3lTTOIGX_g",
@@ -17,17 +22,78 @@ function baseSrc(id: string) {
 
 
 export default function VideoTestimonials() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add({ reduced: "(prefers-reduced-motion: reduce)" }, (ctx) => {
+        const { reduced } = ctx.conditions as { reduced: boolean };
+        if (reduced) {
+          gsap.set(
+            [".vt-section .vt-header", ".vt-section .vt-grid", ".vt-section .cta-center"],
+            { opacity: 1, y: 0 }
+          );
+          return;
+        }
+
+        gsap.fromTo(
+          ".vt-section .vt-header",
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.65,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: ".vt-section .vt-header",
+              start: "top 70%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        gsap.fromTo(
+          ".vt-section .vt-grid",
+          { opacity: 0, y: 28 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            ease: "power3.out",
+            delay: 0.15,
+            scrollTrigger: {
+              trigger: ".vt-section .vt-grid",
+              start: "top 85%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+
+        gsap.fromTo(
+          ".vt-section .cta-center",
+          { opacity: 0, y: 16 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: ".vt-section .cta-center",
+              start: "top 50%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
-    <section id="video-testimonials" className="vt-section">
+    <section ref={sectionRef} id="video-testimonials" className="vt-section">
       <div className="vt-inner">
-        <motion.div
-          className="vt-header"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <div className="vt-header">
           <span className="vt-tag">Başlangıç Noktaları Sizinle Aynıydı</span>
           <h2 className="vt-title">
             Psefitone&apos;nun ilk gerçek deneyimleri.
@@ -60,46 +126,32 @@ export default function VideoTestimonials() {
               Bu sistem çalışıyor, onlar da kanıtı.
             </span>
           </p>
-        </motion.div>
+        </div>
 
         <Marquee />
 
-        <motion.div
-          className="vt-grid"
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-        >
+        <div className="vt-grid">
           {VIDEO_IDS.map((id, index) => (
             <div key={id} className="vt-video-cell">
               <iframe
                 src={baseSrc(id)}
                 title={`Öğrenci yorumu ${index + 1}`}
                 sandbox="allow-scripts allow-same-origin allow-presentation allow-popups"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allow="accelerometer; autoplay; clipboard-write; compute-pressure; encrypted-media; fullscreen; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 loading="lazy"
-                allowFullScreen
               />
             </div>
           ))}
-        </motion.div>
+        </div>
 
         <p className="vt-scroll-hint" aria-hidden="true">← Sürükle veya kaydır →</p>
 
-        <motion.div
-          className="cta-center"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          style={{ marginTop: "2rem" }}
-        >
+        <div className="cta-center" style={{ marginTop: "2rem" }}>
           <a href="#basvur" className="btn btn-primary btn-lg">
             Başvuru Formunu Doldur
           </a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -5,6 +5,8 @@ import gsap from "gsap";
 import { SparklesCore } from "@/components/SparklesCore";
 import ShaderBackground from "@/components/ui/shader-background";
 
+const HERO_FILL_PERCENT = 80;
+
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);
 
@@ -93,14 +95,15 @@ export default function Hero() {
           <div
             className="hero-urgency-track"
             role="progressbar"
-            aria-valuenow={70}
+            aria-valuenow={HERO_FILL_PERCENT}
             aria-valuemin={0}
             aria-valuemax={100}
-            aria-label="Kontenjanın yüzde 70'i doldu"
+            aria-label={`Kontenjanın yüzde ${HERO_FILL_PERCENT}'i doldu`}
+            style={{ ["--hero-fill" as string]: `${HERO_FILL_PERCENT}%` }}
           >
             <div className="hero-urgency-fill">
               <div className="hero-urgency-shimmer" aria-hidden="true" />
-              <span className="hero-urgency-fill-label">%70 DOLU</span>
+              <span className="hero-urgency-fill-label">%{HERO_FILL_PERCENT} DOLU</span>
             </div>
             <div className="hero-urgency-edge" aria-hidden="true" />
           </div>

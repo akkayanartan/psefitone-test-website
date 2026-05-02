@@ -992,7 +992,7 @@ strong {
   left: 0;
   top: 0;
   bottom: 0;
-  width: 60%;
+  width: 70%;
   background: linear-gradient(90deg, #5318cc 0%, var(--brand-secondary) 100%);
   border-radius: 4px;
   overflow: hidden;
@@ -1038,7 +1038,7 @@ strong {
 
 .hero-urgency-edge {
   position: absolute;
-  left: calc(60% - 1px);
+  left: calc(70% - 1.5px);
   top: -5px;
   bottom: -5px;
   width: 3px;

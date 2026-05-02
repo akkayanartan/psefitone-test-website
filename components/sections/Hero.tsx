@@ -82,14 +82,14 @@ export default function Hero() {
           <div
             className="hero-urgency-track"
             role="progressbar"
-            aria-valuenow={60}
+            aria-valuenow={70}
             aria-valuemin={0}
             aria-valuemax={100}
-            aria-label="Kontenjanın yüzde 60'ı doldu"
+            aria-label="Kontenjanın yüzde 70'i doldu"
           >
             <div className="hero-urgency-fill">
               <div className="hero-urgency-shimmer" aria-hidden="true" />
-              <span className="hero-urgency-fill-label">%60 DOLU</span>
+              <span className="hero-urgency-fill-label">%70 DOLU</span>
             </div>
             <div className="hero-urgency-edge" aria-hidden="true" />
           </div>

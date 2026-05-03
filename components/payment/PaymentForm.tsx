@@ -115,28 +115,32 @@ export default function PaymentForm({ onTokenIssued }: Props) {
           if (hydrated) void form.handleSubmit(onSubmit)(e);
         }}
         noValidate
-        className="space-y-5"
+        className="payment-form"
       >
-        <FieldGroup title="İletişim">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FieldLabel>Ad Soyad</FieldLabel>
-                  <FormControl>
-                    <StyledInput
-                      {...field}
-                      type="text"
-                      autoComplete="name"
-                      placeholder="Örn. Nart Akkaya"
-                    />
-                  </FormControl>
-                  <FormMessage className="text-xs" />
-                </FormItem>
-              )}
-            />
+        <FieldGroup
+          label="İletişim"
+          helper="Onay ve fatura bu bilgilere gönderilir."
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FieldLabel>Ad Soyad</FieldLabel>
+                <FormControl>
+                  <StyledInput
+                    {...field}
+                    type="text"
+                    autoComplete="name"
+                    placeholder="Örn. Nart Akkaya"
+                  />
+                </FormControl>
+                <FormMessage className="payment-form__error" />
+              </FormItem>
+            )}
+          />
+
+          <div className="payment-form__row">
             <FormField
               control={form.control}
               name="email"
@@ -152,13 +156,11 @@ export default function PaymentForm({ onTokenIssued }: Props) {
                       placeholder="ornek@eposta.com"
                     />
                   </FormControl>
-                  <FormMessage className="text-xs" />
+                  <FormMessage className="payment-form__error" />
                 </FormItem>
               )}
             />
-          </div>
 
-          <div>
             <FormField
               control={form.control}
               name="phone"
@@ -174,14 +176,14 @@ export default function PaymentForm({ onTokenIssued }: Props) {
                       placeholder="+90 5XX XXX XX XX"
                     />
                   </FormControl>
-                  <FormMessage className="text-xs" />
+                  <FormMessage className="payment-form__error" />
                 </FormItem>
               )}
             />
           </div>
         </FieldGroup>
 
-        <FieldGroup title="Fatura Adresi">
+        <FieldGroup label="Fatura Adresi" helper="Opsiyonel">
           <FormField
             control={form.control}
             name="address"
@@ -191,14 +193,13 @@ export default function PaymentForm({ onTokenIssued }: Props) {
                 <FormControl>
                   <textarea
                     {...field}
-                    rows={3}
+                    rows={2}
                     autoComplete="street-address"
                     placeholder="Mahalle, cadde, numara, ilçe, il"
-                    className="block w-full rounded-md border border-[var(--brand-border)] bg-[rgba(14,10,26,0.6)] px-3.5 py-3 text-[0.95rem] text-[var(--brand-text)] placeholder:text-[var(--brand-muted)] outline-none transition-colors focus-visible:border-[var(--brand-secondary)] focus-visible:ring-2 focus-visible:ring-[rgba(134,41,255,0.25)] aria-invalid:border-destructive"
-                    style={{ fontFamily: "var(--font-body)" }}
+                    className="payment-form__textarea"
                   />
                 </FormControl>
-                <FormMessage className="text-xs" />
+                <FormMessage className="payment-form__error" />
               </FormItem>
             )}
           />
@@ -208,21 +209,24 @@ export default function PaymentForm({ onTokenIssued }: Props) {
           control={form.control}
           name="kvkk"
           render={({ field, fieldState }) => (
-            <FormItem className="pt-2">
-              <label className="flex cursor-pointer items-start gap-3 text-[0.86rem] leading-relaxed text-[var(--brand-muted)]">
+            <FormItem>
+              <label
+                className={`payment-form__consent${
+                  fieldState.error ? " payment-form__consent--error" : ""
+                }`}
+              >
                 <input
                   type="checkbox"
                   checked={!!field.value}
                   onChange={(e) => field.onChange(e.target.checked)}
                   onBlur={field.onBlur}
-                  className="mt-1 h-4 w-4 flex-none cursor-pointer accent-[var(--brand-secondary)]"
+                  className="payment-form__checkbox"
                 />
-                <span>
+                <span className="payment-form__consent-text">
                   <a
                     href="/mesafeli-satis-sozlesmesi"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[var(--brand-primary)] underline decoration-[rgba(203,195,214,0.3)] underline-offset-2 hover:decoration-[var(--brand-primary)]"
                   >
                     Mesafeli satış sözleşmesini
                   </a>{" "}
@@ -231,7 +235,6 @@ export default function PaymentForm({ onTokenIssued }: Props) {
                     href="/gizlilik-politikasi"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[var(--brand-primary)] underline decoration-[rgba(203,195,214,0.3)] underline-offset-2 hover:decoration-[var(--brand-primary)]"
                   >
                     gizlilik politikasını
                   </a>{" "}
@@ -239,7 +242,7 @@ export default function PaymentForm({ onTokenIssued }: Props) {
                 </span>
               </label>
               {fieldState.error ? (
-                <p className="text-xs text-destructive">
+                <p className="payment-form__error">
                   {fieldState.error.message}
                 </p>
               ) : null}
@@ -248,23 +251,20 @@ export default function PaymentForm({ onTokenIssued }: Props) {
         />
 
         {serverError ? (
-          <div
-            role="alert"
-            className="rounded-md border border-[rgba(239,68,68,0.35)] bg-[rgba(239,68,68,0.06)] px-4 py-3 text-sm text-[#fca5a5]"
-          >
+          <div role="alert" className="payment-form__alert">
             {serverError}
           </div>
         ) : null}
 
-        <div className="pt-1">
+        <div className="payment-form__cta">
           <button
             type="button"
             onClick={() => {
               void form.handleSubmit(onSubmit)();
             }}
             disabled={!hydrated || submitting}
-            className="btn btn-primary btn-lg w-full justify-center disabled:cursor-not-allowed disabled:opacity-60"
-            style={{ width: "100%" }}
+            className="payment-form__submit"
+            aria-busy={submitting}
           >
             {submitting ? (
               <>
@@ -272,10 +272,22 @@ export default function PaymentForm({ onTokenIssued }: Props) {
                 <span>Yönlendiriliyor…</span>
               </>
             ) : (
-              <span>Güvenli ödemeye geç</span>
+              <>
+                <LockIcon />
+                <span>Güvenli ödemeye geç</span>
+              </>
             )}
           </button>
-          <p className="mt-3 text-center text-xs text-[var(--brand-muted)]">
+
+          <div className="payment-form__trust">
+            <TrustItem label="256-bit SSL" />
+            <span aria-hidden="true">·</span>
+            <TrustItem label="PayTR Sanal POS" />
+            <span aria-hidden="true">·</span>
+            <TrustItem label="3D Secure" />
+          </div>
+
+          <p className="payment-form__note">
             Kart bilgileri PayTR&apos;nin güvenli formunda alınır. Sunucularımıza
             kart verisi iletilmez.
           </p>
@@ -286,50 +298,86 @@ export default function PaymentForm({ onTokenIssued }: Props) {
 }
 
 function FieldGroup({
-  title,
+  label,
+  helper,
   children,
 }: {
-  title: string;
+  label: string;
+  helper?: string;
   children: React.ReactNode;
 }) {
   return (
-    <fieldset className="space-y-4">
-      <legend
-        className="mb-2 block text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[var(--brand-accent)]"
-        style={{ fontFamily: "var(--font-body)" }}
-      >
-        {title}
-      </legend>
-      {children}
+    <fieldset className="payment-form__group">
+      <div className="payment-form__group-head">
+        <legend className="payment-form__group-label">{label}</legend>
+        {helper ? (
+          <span className="payment-form__group-helper">{helper}</span>
+        ) : null}
+      </div>
+      <div className="payment-form__group-body">{children}</div>
     </fieldset>
   );
 }
 
 function FieldLabel({ children }: { children: React.ReactNode }) {
-  return (
-    <FormLabel
-      className="text-[0.78rem] font-medium uppercase tracking-[0.12em] text-[var(--brand-muted)]"
-      style={{ fontFamily: "var(--font-body)" }}
-    >
-      {children}
-    </FormLabel>
-  );
+  return <FormLabel className="payment-form__label">{children}</FormLabel>;
 }
 
 function StyledInput(props: React.ComponentProps<typeof Input>) {
+  return <Input {...props} className="payment-form__input" />;
+}
+
+function TrustItem({ label }: { label: string }) {
   return (
-    <Input
-      {...props}
-      className="h-11 rounded-md border border-[var(--brand-border)] bg-[rgba(14,10,26,0.6)] px-3.5 py-2 text-[0.95rem] text-[var(--brand-text)] placeholder:text-[var(--brand-muted)] transition-colors focus-visible:border-[var(--brand-secondary)] focus-visible:ring-2 focus-visible:ring-[rgba(134,41,255,0.25)]"
-      style={{ fontFamily: "var(--font-body)" }}
-    />
+    <span className="payment-form__trust-item">
+      <LockIconSm />
+      {label}
+    </span>
+  );
+}
+
+function LockIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
+  );
+}
+
+function LockIconSm() {
+  return (
+    <svg
+      width="10"
+      height="10"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+      <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+    </svg>
   );
 }
 
 function Spinner() {
   return (
     <svg
-      className="h-4 w-4 animate-spin"
+      className="payment-form__spinner"
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"

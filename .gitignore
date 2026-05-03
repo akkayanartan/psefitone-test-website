@@ -20,6 +20,9 @@
 # production
 /build
 
+# alphatab static assets (auto-copied by scripts/copy-alphatab-assets.mjs postinstall)
+/public/alphatab/
+
 # misc
 .DS_Store
 *.pem
@@ -37,6 +40,12 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# admin module — local SQLite
+/data/*.db
+/data/*.db-journal
+/data/*.db-wal
+/data/*.db-shm
 
 # typescript
 *.tsbuildinfo

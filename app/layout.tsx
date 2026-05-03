@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
-import GlobalSparkles from "@/components/GlobalSparkles";
+import AmbientLayers from "@/components/AmbientLayers.client";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 
@@ -55,7 +55,7 @@ export default function RootLayout({
         <a href="#main-content" className="skip-nav">
           Ana içeriğe geç
         </a>
-        <GlobalSparkles />
+        <AmbientLayers />
         <NoiseOverlay />
         {children}
         <SpeedInsights />

@@ -13,7 +13,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 
 // Kept in sync with the server-side schema in app/api/paytr/token/route.ts.
 // The server is the source of truth; this exists for inline UX feedback only.
@@ -323,8 +322,8 @@ function FieldLabel({ children }: { children: React.ReactNode }) {
   return <FormLabel className="payment-form__label">{children}</FormLabel>;
 }
 
-function StyledInput(props: React.ComponentProps<typeof Input>) {
-  return <Input {...props} className="payment-form__input" />;
+function StyledInput(props: React.InputHTMLAttributes<HTMLInputElement>) {
+  return <input {...props} className="payment-form__input" />;
 }
 
 function TrustItem({ label }: { label: string }) {

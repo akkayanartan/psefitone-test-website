@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -50,6 +50,13 @@ interface Props {
 export default function PaymentForm({ onTokenIssued }: Props) {
   const [submitting, setSubmitting] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
+  // Defensive: prevents the pre-hydration window where a fast click on the
+  // submit button would trigger a native form GET to /odeme?name=... and
+  // re-render the page with empty defaults — the bug a customer hit on mobile.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
 
   const form = useForm<PaymentFormValues>({
     resolver: zodResolver(schema),
@@ -103,7 +110,10 @@ export default function PaymentForm({ onTokenIssued }: Props) {
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (hydrated) void form.handleSubmit(onSubmit)(e);
+        }}
         noValidate
         className="space-y-5"
       >
@@ -248,8 +258,11 @@ export default function PaymentForm({ onTokenIssued }: Props) {
 
         <div className="pt-1">
           <button
-            type="submit"
-            disabled={submitting}
+            type="button"
+            onClick={() => {
+              void form.handleSubmit(onSubmit)();
+            }}
+            disabled={!hydrated || submitting}
             className="btn btn-primary btn-lg w-full justify-center disabled:cursor-not-allowed disabled:opacity-60"
             style={{ width: "100%" }}
           >

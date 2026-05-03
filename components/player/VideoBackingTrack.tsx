@@ -83,6 +83,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
+import { Play } from 'lucide-react';
 import type AccordionPlayer from './AccordionPlayer';
 import type { BackingTrackHandler } from '@/lib/player/types';
 
@@ -107,6 +108,17 @@ export type VideoBackingTrackProps = {
     videoTrimEnd?: number;
     videoOffset?: number;
     originalBpm?: number;
+    /** Whether playback is currently playing — drives the play-overlay
+     *  fade. Visible while paused, fades out while playing. */
+    playing: boolean;
+    /** Click on the video surface toggles playback. PlayerCockpit owns
+     *  the click → playPause() flow. */
+    onSurfaceClick: () => void;
+    /** Mirrored from VideoPane so PlayerCockpit can hand the live
+     *  HTMLVideoElement to TransportProgressBar / SyncEditor without
+     *  threading refs back through the cockpit body. */
+    frameRef: React.RefObject<HTMLDivElement | null>;
+    videoElRef?: React.RefObject<HTMLVideoElement | null>;
 };
 
 const DEFAULT_SRC = '/sample-lesson.mp4';
@@ -121,6 +133,10 @@ export default function VideoBackingTrack({
     videoTrimEnd,
     videoOffset = 0,
     originalBpm = 0,
+    playing,
+    onSurfaceClick,
+    frameRef,
+    videoElRef,
 }: VideoBackingTrackProps) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     /** True the moment the video element fires `error` with a code that
@@ -131,6 +147,11 @@ export default function VideoBackingTrack({
      *  network blip on a real file shows the card briefly and then
      *  disappears — acceptable, and matches the natural browser semantics. */
     const [missing, setMissing] = useState(false);
+    /** Variant-swap currentTime preservation. When the `<video>` is
+     *  replaced (variant change), cleanup runs FIRST and stashes the
+     *  previous currentTime here; the new video's `loadedmetadata`
+     *  consumes and clears it so the user keeps their place. */
+    const pendingSeekRef = useRef<number | null>(null);
 
     // Keep the future-hook props in refs so the RVFC loop reads them without
     // re-binding the effect on every prop change. (For the v1 preview these
@@ -267,6 +288,25 @@ export default function VideoBackingTrack({
             if (api) api.playbackSpeed = video.playbackRate;
         };
         const onLoadedMetadata = () => {
+            // Stamp the natural aspect ratio onto the frame so the wrapper
+            // collapses to the video's intrinsic shape (no letterbox bands).
+            if (frameRef.current && video.videoWidth && video.videoHeight) {
+                frameRef.current.style.setProperty(
+                    '--video-ratio',
+                    `${video.videoWidth} / ${video.videoHeight}`,
+                );
+            }
+            // Restore any currentTime stashed during a prior cleanup
+            // (variant swap). Clamped to the new video's duration.
+            if (pendingSeekRef.current != null) {
+                const dur = Number.isFinite(video.duration) ? video.duration : 0;
+                const target = Math.max(
+                    0,
+                    Math.min(pendingSeekRef.current, dur),
+                );
+                video.currentTime = target;
+                pendingSeekRef.current = null;
+            }
             attach();
         };
         const onError = () => {
@@ -275,6 +315,9 @@ export default function VideoBackingTrack({
             // error as "not playable" → empty state. Less surface area than
             // trying to interpret each code, and the empty card's copy is
             // accurate either way ("drop a video at...").
+            // Slice 3 review fix: drop any stashed pending seek — it must
+            // not carry into a future remount on a different (working) src.
+            pendingSeekRef.current = null;
             setMissing(true);
         };
 
@@ -284,6 +327,11 @@ export default function VideoBackingTrack({
         video.addEventListener('ratechange', onRateChange);
         video.addEventListener('loadedmetadata', onLoadedMetadata);
         video.addEventListener('error', onError);
+
+        // Mirror the live <video> into the cockpit-owned ref so
+        // TransportProgressBar / SyncEditor can read currentTime / duration
+        // without threading a ref back through every level.
+        if (videoElRef) videoElRef.current = video;
 
         // If metadata is already loaded by the time this effect runs (cached
         // file, HMR remount), `loadedmetadata` won't re-fire. Detect that
@@ -323,45 +371,61 @@ export default function VideoBackingTrack({
             video.removeEventListener('ratechange', onRateChange);
             video.removeEventListener('loadedmetadata', onLoadedMetadata);
             video.removeEventListener('error', onError);
+
+            // Capture currentTime from the same `video` node the listeners
+            // were bound to — not from `videoRef.current`, which a future
+            // refactor could swap mid-effect. A variant swap fires this
+            // cleanup, then a fresh effect with the new src restores the
+            // user's place once new metadata loads.
+            pendingSeekRef.current = video.currentTime;
+            // Only clear if it still points at OUR video — guards against
+            // racing with a later effect that already mirrored a new element.
+            if (videoElRef && videoElRef.current === video) {
+                videoElRef.current = null;
+            }
         };
-    }, [player, missing, src]);
+    }, [player, missing, src, frameRef, videoElRef]);
 
     if (missing) {
         return <EmptyState src={src} />;
     }
 
     return (
-        <div
-            style={{
-                position: 'relative',
-                width: '100%',
-                background: 'var(--brand-dark2)',
-                border: '1px solid var(--brand-border)',
-                borderRadius: '4px',
-                overflow: 'hidden',
-            }}
+        <button
+            type="button"
+            className="player-pane__video-surface"
+            onClick={onSurfaceClick}
+            aria-label={playing ? 'Duraklat' : 'Oynat'}
+            aria-pressed={playing}
         >
             <video
                 ref={videoRef}
                 src={src}
                 preload="metadata"
                 playsInline
-                controls
                 // `decoding="async"` is a hint to the browser to pick the
                 // lowest-overhead decode pipeline — keeps the main thread
                 // free for the cursor + UI re-renders. AlphaTab's notation
                 // worker is off-thread, but anything we can shave from the
                 // video pipeline helps the 60-fps gate (Step 10).
                 style={{
-                    display: 'block',
                     width: '100%',
                     height: 'auto',
-                    background: '#000',
+                    maxHeight: '100%',
+                    objectFit: 'contain',
+                    pointerEvents: 'none',
                 }}
             >
                 <track kind="captions" />
             </video>
-        </div>
+            <span
+                className="player-pane__play-overlay"
+                aria-hidden="true"
+                data-playing={playing ? 'true' : 'false'}
+            >
+                <Play size={48} />
+            </span>
+        </button>
     );
 }
 

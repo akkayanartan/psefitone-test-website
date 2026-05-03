@@ -73,6 +73,12 @@ class AccordionPlayer implements AccordionPlayerEventHandlers {
     // simply assign `player.ready = undefined` to detach.
     public ready: (() => void) | undefined = undefined;
     public readyForPlayback: (() => void) | undefined = undefined;
+    //
+    // Single-subscriber slots; `PlayerCockpit` OWNS them and re-broadcasts to
+    // `window` via custom events `psf:position`, `psf:state`, `psf:range`.
+    // Other components MUST NOT write to these slots — they listen to the
+    // broadcast events instead.
+    //
     public positionChanged:
         | ((p: PlayerPositionEvent) => void)
         | undefined = undefined;
@@ -206,6 +212,20 @@ class AccordionPlayer implements AccordionPlayerEventHandlers {
     }
     get playbackRange(): PlaybackRange | null {
         return this._playbackRange;
+    }
+
+    /**
+     * Seek the synth-only path to a specific tick. Floors the tick value
+     * because AlphaTab's cursor lookup is integer-keyed; fractional ticks
+     * cause off-by-one cursor flicker on the boundary beat.
+     *
+     * No-op when the AlphaTab instance hasn't attached yet.
+     */
+    public seekToTick(tick: number): void {
+        if (!this._instance) return;
+        // Floor to integer ticks; AlphaTab cursor lookup is integer-keyed.
+        const t = Math.max(0, Math.floor(tick));
+        this._instance.tickPosition = t;
     }
 
     set masterVolume(v: number) {

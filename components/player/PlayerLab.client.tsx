@@ -1,42 +1,76 @@
-"use client";
+'use client';
 
 /**
  * PlayerLab — client island for /lab/player.
  *
- * As of Step 4, this file dynamic-imports `AlphaTabPlayer` with `ssr: false`
- * (the only way to keep AlphaTab — a browser-only library that touches
- * `window`/`Worker` at module init — out of the server bundle). The Next 16
- * docs confirm `ssr: false` on `next/dynamic` ONLY works inside a `'use client'`
- * component (`node_modules/next/dist/docs/01-app/02-guides/lazy-loading.md`):
+ * # Step 7 (final lab page chrome)
  *
- *   > `ssr: false` option is not supported in Server Components.
+ * This file is now the lab demo's chrome host. The section header (gold
+ * "PSEFITONE LAB" tag + Playfair "Oynatıcı Cockpit" display title), the
+ * atmospheric radial-glow layer, and the centered max-width frame all live
+ * here — they migrated out of the now-deleted `AlphaTabPlayer.tsx`.
  *
- * `loading: () => <LoadingCard />` reuses the Step-2 fallback verbatim while
- * the chunk downloads + AlphaTab initializes. The visual transition is
- * deliberately seamless: `AlphaTabPlayer` mounts on a matching dark-violet
- * background with a glow in the same position, so the user sees the title
- * resolve in place rather than a hard cut.
+ * The cockpit itself owns its internal chrome (toolbar, splitter, panes), so
+ * this layer is purely presentational page scaffolding. CockpitGate keeps the
+ * lazy-loading IntersectionObserver behavior from Step 6 — the AlphaTab chunk
+ * still doesn't fetch until the cockpit is ~200 px from the viewport.
  *
- * This file still does NOT import `@coderline/alphatab` directly — only via
- * the dynamic import — so the landing page bundle remains AlphaTab-free.
- * Verification gate: `curl /` HTML shows zero AlphaTab references.
+ * # Why CSS classes (not inline styles)
+ *
+ * Step 5/6 used inline `style={{}}` props as temporary scaffolding. With proper
+ * page chrome landed, all styling now flows through `.lab-player-page__*` rules
+ * in `globals.css`. Zero inline styles in this file by design — it makes the
+ * markup auditable and keeps the design tokens centralized.
+ *
+ * # Layout layer ownership
+ *
+ * `app/lab/player/layout.tsx` is the route-level viewport-owning surface
+ * (`minHeight: 100vh` lives there). This component sits inside that layout
+ * and owns the page-internal chrome only — `.lab-player-page` provides its
+ * own `min-height: 100vh` so the gradient + glow fill the route surface.
+ *
+ * FpsMeter renders here so it pins to the viewport corner regardless of where
+ * the cockpit sits in the page (it's `position: fixed` internally).
  */
 
-import dynamic from "next/dynamic";
-import LoadingCard from "./LoadingCard";
+import { Suspense } from 'react';
+import CockpitGate from './CockpitGate';
+import FpsMeter from './FpsMeter';
+import { sampleLessonRecord } from '@/lib/player/lesson';
 
-/**
- * AlphaTab is browser-only — `dynamic(..., { ssr: false })` from inside a
- * `'use client'` boundary is the documented Next 16 path. The `loading`
- * fallback shows `<LoadingCard fillMode="viewport" />` while the AlphaTab chunk
- * downloads + the player initializes. No `<Suspense>` wrapper needed: `next/dynamic`
- * handles the boundary internally when `loading` is provided.
- */
-const AlphaTabPlayer = dynamic(() => import("./AlphaTabPlayer"), {
-  ssr: false,
-  loading: () => <LoadingCard fillMode="viewport" />,
-});
+interface PlayerLabProps {
+  /** Slice 4: forwarded from the server page. When true, `PlayerCockpit`
+   *  mounts the admin-only `<SyncEditor />` below its body. */
+  isAdmin: boolean;
+}
 
-export default function PlayerLab() {
-  return <AlphaTabPlayer />;
+export default function PlayerLab({ isAdmin }: PlayerLabProps) {
+  return (
+    <div className="lab-player-page">
+      <div className="lab-player-page__glow" aria-hidden="true" />
+      <header className="lab-player-page__header">
+        <span className="lab-player-page__tag">PSEFITONE LAB</span>
+        <h1 className="lab-player-page__title">
+          <em>Oynatıcı</em> Cockpit
+        </h1>
+      </header>
+      <div className="lab-player-page__frame">
+        <CockpitGate
+          storageKey="lab"
+          lesson={sampleLessonRecord}
+          isAdmin={isAdmin}
+        />
+      </div>
+      {/*
+        FpsMeter calls `useSearchParams()` which forces a CSR bailout under Next
+        16's prerender pass. Wrapping it in a Suspense boundary lets the page
+        prerender statically while the meter resolves on the client.
+        Fallback is `null` because the meter itself renders null when `?fps`
+        isn't set — there's no visible UI to fall back to.
+      */}
+      <Suspense fallback={null}>
+        <FpsMeter />
+      </Suspense>
+    </div>
+  );
 }

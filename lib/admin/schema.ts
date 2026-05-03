@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { integer, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 export const payments = sqliteTable('payments', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -21,10 +21,21 @@ export const expenses = sqliteTable('expenses', {
   createdAt: text('created_at').notNull().default(sql`CURRENT_TIMESTAMP`),
 });
 
+export const lessonSync = sqliteTable('lesson_sync', {
+  lessonId: text('lesson_id').primaryKey(),
+  videoTrimStart: real('video_trim_start').notNull().default(0),
+  videoTrimEnd: real('video_trim_end'),
+  videoOffset: real('video_offset').notNull().default(0),
+  originalBpm: real('original_bpm'),
+  updatedAt: integer('updated_at').notNull(),
+});
+
 export type PaymentRecord = typeof payments.$inferSelect;
 export type ExpenseRecord = typeof expenses.$inferSelect;
 export type NewPayment = typeof payments.$inferInsert;
 export type NewExpense = typeof expenses.$inferInsert;
+export type LessonSyncRecord = typeof lessonSync.$inferSelect;
+export type NewLessonSync = typeof lessonSync.$inferInsert;
 
 export const INIT_SQL = `
   CREATE TABLE IF NOT EXISTS payments (
@@ -48,4 +59,13 @@ export const INIT_SQL = `
     created_at    TEXT    NOT NULL DEFAULT CURRENT_TIMESTAMP
   );
   CREATE INDEX IF NOT EXISTS idx_expenses_occurred_at ON expenses(occurred_at);
+
+  CREATE TABLE IF NOT EXISTS lesson_sync (
+    lesson_id          TEXT    PRIMARY KEY,
+    video_trim_start   REAL    NOT NULL DEFAULT 0,
+    video_trim_end     REAL,
+    video_offset       REAL    NOT NULL DEFAULT 0,
+    original_bpm       REAL,
+    updated_at         INTEGER NOT NULL
+  );
 `;

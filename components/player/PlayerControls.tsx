@@ -3,42 +3,51 @@
 /**
  * PlayerControls — transport bar for the AlphaTab player.
  *
- * # What this file does (Step 6 + Step 7 scope)
+ * # What this file does (Slice 1+2 scope)
  *
- * Four controls in a single horizontal toolbar that sits below the notation
- * panel:
+ * Five controls in a single horizontal toolbar group inside the cockpit's
+ * bottom bar:
  *
  *  1. Play/pause toggle button.
  *  2. Speed slider (0.25× → 2.0×, step 0.05).
  *  3. Current-time / total-time label ("MM:SS / MM:SS").
  *  4. Clear Loop button — appears only while a loop range is set.
+ *  5. Loop toggle button — appears alongside Clear Loop while a range is set,
+ *     toggles `player.isLooping` without clearing the range.
  *
  * The button toggles `wrapper.playPause()`. The slider writes
- * `wrapper.playbackSpeed = v` directly. The time label is updated imperatively
- * via `currentTimeRef.current.textContent = ...` on each `positionChanged`
+ * `wrapper.setPlaybackSpeed(v)` (which branches between video-master and
+ * synth modes internally). The time label is updated imperatively via
+ * `currentTimeRef.current.textContent = ...` on each `psf:position` window
  * event, throttled to ~10 Hz.
  *
- * Loop UI (Step 7): `AlphaTabPlayer` wires `beatMouseDown`/`beatMouseUp` to
- * set `wrapper.playbackRange + isLooping`. We subscribe to
- * `wrapper.playbackRangeChanged` here — the only consumer of that single-
- * subscriber slot — and flip `hasLoop` state which gates the Clear Loop
- * button. The state-change re-render is fine: it fires at most twice per
- * loop cycle (once when set, once when cleared). On click, we reverse the
- * pair: `isLooping = false; playbackRange = null;` — the second write
- * forwards through to AlphaTab and re-fires `playbackRangeChanged(null)`,
- * which closes the loop on `hasLoop` going to false.
+ * # Event consumption (consumer, not slot writer — Slice 1)
+ *
+ * `PlayerCockpit` OWNS the wrapper's three single-subscriber event slots
+ * (`positionChanged`, `stateChanged`, `playbackRangeChanged`) and
+ * re-broadcasts each as a window CustomEvent: `psf:position`, `psf:state`,
+ * `psf:range`. PlayerControls is now a CONSUMER of those window events —
+ * it does NOT write into the wrapper slots. Multiple components can read
+ * the same stream without fighting over the single subscriber slots.
+ *
+ * Loop UI (Slice 2C): on `psf:range` we mirror the range-set state into both
+ * `hasLoop` (gates Clear Loop) AND `looping` (drives the Loop toggle). On
+ * Clear Loop click we set `player.isLooping = false; player.playbackRange =
+ * null` — the second write fires `playbackRangeChanged(null)` which the
+ * cockpit re-broadcasts, our listener flips both flags off and the buttons
+ * unmount. The Loop toggle just writes `player.isLooping = next` without
+ * touching the range.
  *
  * # The 60-fps gate (the whole point of this component)
  *
  * The plan demands "zero re-renders of PlayerControls during steady play"
  * (plan §60-fps-strategy). Three design choices enforce it:
  *
- *  - **Position events are ref-driven, not state-driven.** The
- *    `positionChanged` callback fires roughly per playback frame. Calling
- *    `setState` from it would re-render the whole component every frame and
- *    blow the budget. Instead, the time-display `<span>` carries a `ref` and
- *    we mutate `textContent` imperatively. React never knows the label moved
- *    — and React's reconciler stays out of the per-frame hot path.
+ *  - **Position events are ref-driven, not state-driven.** The `psf:position`
+ *    listener fires roughly per playback frame. Calling `setState` from it
+ *    would re-render the whole component every frame and blow the budget.
+ *    Instead, the time-display `<span>` carries a `ref` and we mutate
+ *    `textContent` imperatively. React never knows the label moved.
  *
  *  - **Time-label updates are throttled to 10 Hz.** A `lastUpdateTsRef` guard
  *    short-circuits any update fired within 100 ms of the last one. Eyes
@@ -55,36 +64,21 @@
  *    During steady play, no drag, no re-render.
  *
  * State that *is* allowed:
- *  - `playing: boolean` — flipped by `stateChanged` (fires on play/pause/stop,
+ *  - `playing: boolean` — flipped by `psf:state` (fires on play/pause/stop,
  *    rare). Drives the icon swap.
  *  - `speedDisplay: string` — written only from the slider's onChange, only
  *    during user interaction.
- *  - `hasLoop: boolean` — flipped by `playbackRangeChanged`. Fires at most
- *    twice per loop cycle (set, clear). Drives the Clear Loop button mount.
- *
- * # Event slot ownership
- *
- * The wrapper exposes single-function event slots (only one subscriber per
- * event). PlayerControls owns:
- *  - `wrapper.positionChanged`
- *  - `wrapper.stateChanged`
- *  - `wrapper.playbackRangeChanged`
- *
- * AlphaTabPlayer owns `wrapper.ready` / `wrapper.readyForPlayback` (Step 5).
- * We clear our slots in the effect cleanup so we don't leak callbacks into a
- * stale wrapper instance across HMR / remount.
+ *  - `hasLoop: boolean` — flipped by `psf:range`. Fires at most twice per
+ *    loop cycle (set, clear). Drives the Clear Loop / Loop toggle mount.
+ *  - `looping: boolean` — mirrored from `psf:range` and flipped locally on
+ *    Loop toggle click. Drives `aria-pressed` on the Loop toggle.
  *
  * # Disabled gating
  *
- * `isReadyForPlayback` is wired through from AlphaTabPlayer's
- * `wrapper.readyForPlayback` callback. Until that fires, `wrapper.play()`
- * silently no-ops (the wrapper buffers transport calls — `play()` calls
- * `_instance?.play()` and `_instance` is null pre-ready). The button is
- * disabled to give the user clear feedback.
- *
- * In practice AlphaTabPlayer only renders this component once
- * `readyForPlayback` is true, so the disabled state is mostly a defense-
- * in-depth guard for the React 19 StrictMode double-invoke window.
+ * `isReadyForPlayback` is wired through from `PlayerCockpit`'s readiness
+ * gate. In practice the cockpit only mounts this component once readiness is
+ * true, so the disabled state is mostly a defense-in-depth guard for the
+ * React 19 StrictMode double-invoke window.
  *
  * # Reduced motion
  *
@@ -96,11 +90,17 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
+import { Repeat } from 'lucide-react';
 import type AccordionPlayer from './AccordionPlayer';
+import type {
+    PlaybackRange,
+    PlayerPositionEvent,
+    PlayerStateEvent,
+} from '@/lib/player/types';
 
 type PlayerControlsProps = {
     /** The buffered facade. Always non-null when this component renders — the
-     *  parent only mounts it after `readyForPlayback` fires (see AlphaTabPlayer). */
+     *  parent only mounts it after `readyForPlayback` fires (see PlayerCockpit). */
     player: AccordionPlayer;
     /** Whether the underlying AlphaTabApi is ready for playback. Until true,
      *  the play button is disabled. */
@@ -138,10 +138,14 @@ export default function PlayerControls({
     const [playing, setPlaying] = useState(false);
     /** Display string for the speed label. Only mutates from slider onChange. */
     const [speedDisplay, setSpeedDisplay] = useState(toPercent(SPEED_DEFAULT));
-    /** True while a loop range is set. Driven by `playbackRangeChanged`.
+    /** True while a loop range is set. Driven by `psf:range`.
      *  Gates the Clear Loop button — completely unmounts when false rather
      *  than disabling, so the toolbar layout collapses cleanly. */
     const [hasLoop, setHasLoop] = useState(false);
+    /** Slice 2C: drives the Loop toggle's `aria-pressed`. Mirrored from
+     *  `psf:range` (range present → looping; range cleared → not looping)
+     *  and toggled locally when the user clicks the toggle. */
+    const [looping, setLooping] = useState(false);
 
     /** Imperatively-updated time label — bypasses React reconciler. */
     const currentTimeRef = useRef<HTMLSpanElement | null>(null);
@@ -152,12 +156,13 @@ export default function PlayerControls({
     const speedValueRef = useRef<number>(SPEED_DEFAULT);
 
     useEffect(() => {
-        if (!player) return;
-
-        // positionChanged — high-frequency, ref-driven, throttled to 10 Hz.
-        // Note: the wrapper's slot is single-subscriber; assigning here
-        // overwrites any previous handler for the lifetime of this effect.
-        player.positionChanged = (p) => {
+        // psf:position — high-frequency, ref-driven, throttled to 10 Hz. The
+        // CustomEvent is dispatched by `PlayerCockpit` from inside the
+        // wrapper's `positionChanged` slot. Multiple listeners can read this
+        // stream without contending for the single-subscriber slot.
+        const onPosition = (e: Event) => {
+            const detail = (e as CustomEvent<PlayerPositionEvent>).detail;
+            if (!detail) return;
             const now =
                 typeof performance !== 'undefined'
                     ? performance.now()
@@ -166,34 +171,43 @@ export default function PlayerControls({
             lastUpdateTsRef.current = now;
             const node = currentTimeRef.current;
             if (node) {
-                node.textContent = `${formatTime(p.currentTime)} / ${formatTime(p.endTime)}`;
+                node.textContent = `${formatTime(detail.currentTime)} / ${formatTime(detail.endTime)}`;
             }
         };
 
-        // stateChanged — low-frequency. State change is fine; it drives the
-        // play/pause icon swap which IS a render. AlphaTab fires this at most
-        // a few times per session.
-        player.stateChanged = (s) => {
+        // psf:state — low-frequency. State change is fine; it drives the
+        // play/pause icon swap which IS a render. AlphaTab fires this at
+        // most a few times per session.
+        const onState = (e: Event) => {
+            const detail = (e as CustomEvent<PlayerStateEvent>).detail;
+            if (!detail) return;
             // PlayerState: 0 = Paused, 1 = Playing. Stopped is a side-flag.
-            setPlaying(s.state === 1 && !s.stopped);
+            setPlaying(detail.state === 1 && !detail.stopped);
         };
 
-        // playbackRangeChanged — low-frequency, fires once per loop set/clear.
-        // The state re-render here is intentional and acceptable: at most two
+        // psf:range — low-frequency, fires once per loop set/clear. The
+        // state re-render here is intentional and acceptable: at most two
         // per loop cycle, never during steady play. Drives the Clear Loop
-        // button's mount/unmount.
-        player.playbackRangeChanged = (range) => {
-            setHasLoop(range !== null);
+        // button + Loop toggle mount/unmount and mirrors the looping state.
+        const onRange = (e: Event) => {
+            const detail = (e as CustomEvent<PlaybackRange | null>).detail;
+            setHasLoop(detail !== null);
+            // Slice 2C mirror: range present implies looping; range cleared
+            // implies not looping. Local Loop toggle click also writes here
+            // via setLooping(next), so the two paths converge.
+            setLooping(detail !== null);
         };
 
+        window.addEventListener('psf:position', onPosition);
+        window.addEventListener('psf:state', onState);
+        window.addEventListener('psf:range', onRange);
         return () => {
-            // Clear our slots so a stale wrapper reference can't fire into
-            // an unmounted component (HMR / StrictMode / route navigation).
-            player.positionChanged = undefined;
-            player.stateChanged = undefined;
-            player.playbackRangeChanged = undefined;
+            window.removeEventListener('psf:position', onPosition);
+            window.removeEventListener('psf:state', onState);
+            window.removeEventListener('psf:range', onRange);
         };
-    }, [player]);
+        // Listeners reference refs only; the deps array is empty by design.
+    }, []);
 
     return (
         <div className="psef-controls" role="toolbar" aria-label="Oynatıcı kontrolleri">
@@ -260,31 +274,54 @@ export default function PlayerControls({
                 0:00 / 0:00
             </span>
 
-            {/* Clear Loop — appears only when a loop range is set. Place it
-                at the trailing edge of the toolbar so the baseline (no loop)
-                layout is unchanged: when a loop appears, the button slides in
-                without reshuffling the existing controls. The button is
-                completely unmounted when there's no loop (not just disabled),
-                so it doesn't read as a "broken" empty affordance. */}
+            {/* Loop group — Clear Loop + Loop toggle. Mounts as a unit only
+                when a loop range is set, so the baseline (no loop) layout is
+                unchanged: when a loop appears, both buttons slide in
+                together. Slice 2C added the Loop toggle alongside the
+                existing Clear Loop, grouped here for the a11y tree. */}
             {hasLoop && (
-                <button
-                    type="button"
-                    className="psef-controls__clear-loop"
-                    aria-label="Döngüyü temizle"
-                    onClick={() => {
-                        // Reverse the order used at set-time: turn off
-                        // looping first, then clear the range. The wrapper
-                        // forwards the playbackRange = null write to AlphaTab,
-                        // which fires `playbackRangeChanged(null)` — that
-                        // closes our hasLoop state on the way back, which
-                        // unmounts this button.
-                        player.isLooping = false;
-                        player.playbackRange = null;
-                    }}
+                <div
+                    className="psef-controls__loop-group"
+                    role="group"
+                    aria-label="Tekrar kontrolleri"
                 >
-                    <ClearLoopIcon />
-                    <span>Döngüyü temizle</span>
-                </button>
+                    <button
+                        type="button"
+                        className="psef-controls__clear-loop"
+                        aria-label="Döngüyü temizle"
+                        onClick={() => {
+                            // Reverse the order used at set-time: turn off
+                            // looping first, then clear the range. The
+                            // wrapper forwards the playbackRange = null
+                            // write to AlphaTab, which fires
+                            // `playbackRangeChanged(null)` — the cockpit
+                            // re-broadcasts as `psf:range`, our listener
+                            // flips hasLoop + looping to false, and the
+                            // group unmounts.
+                            player.isLooping = false;
+                            player.playbackRange = null;
+                        }}
+                    >
+                        <ClearLoopIcon />
+                        <span>Döngüyü temizle</span>
+                    </button>
+                    <button
+                        type="button"
+                        className="psef-controls__loop-toggle"
+                        onClick={() => {
+                            const next = !looping;
+                            setLooping(next);
+                            player.isLooping = next;
+                        }}
+                        aria-pressed={looping}
+                        aria-label={
+                            looping ? 'Tekrarı duraklat' : 'Tekrarı sürdür'
+                        }
+                        title="Tekrarla"
+                    >
+                        <Repeat size={18} aria-hidden="true" />
+                    </button>
+                </div>
             )}
 
             {/*

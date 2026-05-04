@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { SparklesCore } from "@/components/SparklesCore";
 import ShaderBackground from "@/components/ui/shader-background";
 
-const HERO_FILL_PERCENT = 90;
+const HERO_FILL_PERCENT = 100;
 
 export default function Hero() {
   const containerRef = useRef<HTMLElement>(null);

@@ -459,45 +459,97 @@ export default function Apply() {
           </p>
         </div>
 
-        {/* Form lead-in */}
-        <div className="gsap-reveal" style={{ textAlign: "center", margin: "2rem 0 1rem" }}>
-          <span style={{
-            display: "inline-block",
-            fontFamily: "var(--font-body)",
-            fontSize: "0.7rem",
-            fontWeight: 700,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--brand-accent)",
-          }}>
-            ↓ Başvuru Formu
-          </span>
-        </div>
+        {/* Quota full notice */}
+        <div className="gsap-reveal" style={{
+          position: "relative",
+          maxWidth: "660px",
+          margin: "3rem auto",
+          padding: "3rem 2.2rem",
+          background: "rgba(134,41,255,0.08)",
+          border: "2px solid rgba(134,41,255,0.35)",
+          borderRadius: "12px",
+          textAlign: "center",
+          overflow: "hidden",
+        }}>
+          {/* Atmospheric glow */}
+          <div aria-hidden="true" style={{
+            position: "absolute", top: 0, left: "50%", transform: "translateX(-50%)",
+            width: "90%", height: "140px",
+            background: "radial-gradient(ellipse 80% 100% at 50% 0%, rgba(134,41,255,0.25), transparent)",
+            pointerEvents: "none",
+          }} />
 
-        {/* JotForm embed */}
-        <div className="form-wrapper gsap-reveal">
-          <iframe
-            id="JotFormIFrame-260575845473972"
-            title="Psefitone Ön Kayıt ve Değerlendirme Formu"
-            allow="geolocation; microphone; camera; fullscreen; payment"
-            src="https://form.jotform.com/260575845473972"
-            style={{ minWidth: "100%", maxWidth: "100%", height: "539px", border: "none", display: "block" }}
-            scrolling="no"
-            loading="lazy"
-          />
-          <Script
-            src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"
-            strategy="afterInteractive"
-            onLoad={() => {
-              if (typeof window !== "undefined") {
-                const w = window as Window & { jotformEmbedHandler?: (sel: string, base: string) => void };
-                w.jotformEmbedHandler?.(
-                  "iframe[id='JotFormIFrame-260575845473972']",
-                  "https://form.jotform.com/"
-                );
-              }
-            }}
-          />
+          {/* Icon */}
+          <svg
+            width="40"
+            height="40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="var(--brand-secondary)"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            style={{ display: "block", margin: "0 auto 1.5rem", opacity: 0.9 }}
+          >
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 8 12 12 15 14" />
+          </svg>
+
+          {/* Heading */}
+          <h3 style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(1.4rem, 4vw, 2rem)",
+            fontWeight: 600,
+            color: "var(--brand-primary)",
+            marginBottom: "1.5rem",
+            lineHeight: 1.3,
+            letterSpacing: "-0.01em",
+          }}>
+            Kontenjan Tamamen Doldu
+          </h3>
+
+          {/* Thank you message */}
+          <p style={{
+            fontFamily: "var(--font-body)",
+            color: "var(--brand-text)",
+            fontSize: "1.05rem",
+            lineHeight: 1.75,
+            marginBottom: "1.5rem",
+          }}>
+            Psefitone Kickstarter'a gösterdiğiniz ilgiye çok teşekkür ederim. Bu kohort için kontenjan tamamen doldurulmuştur.
+          </p>
+
+          {/* Information about other courses and contact */}
+          <p style={{
+            fontFamily: "var(--font-body)",
+            color: "var(--brand-muted)",
+            fontSize: "0.95rem",
+            lineHeight: 1.7,
+            marginBottom: "2rem",
+          }}>
+            Diğer kurslarımız hakkında bilgi almak veya gelecek kohortlar için kayıt yaptırmak istiyorsanız, lütfen WhatsApp üzerinden benimle iletişime geçin.
+          </p>
+
+          {/* Visual separator */}
+          <div style={{
+            height: "1px",
+            background: "rgba(134,41,255,0.2)",
+            margin: "2rem 0",
+          }} />
+
+          {/* Callout */}
+          <p style={{
+            fontFamily: "var(--font-body)",
+            color: "var(--brand-accent)",
+            fontSize: "0.85rem",
+            fontWeight: 600,
+            letterSpacing: "0.05em",
+            textTransform: "uppercase",
+            marginTop: "1rem",
+          }}>
+            WhatsApp'tan benimle bağlantıya geçin
+          </p>
         </div>
 
         {/* WhatsApp */}
